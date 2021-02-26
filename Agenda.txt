@@ -1,0 +1,61 @@
+MOA : Maitrise de d'OuvrAge (formalise le besoin => cahier de charges)
+
+
+
+MOE : Maitrise d'OEuvre (Réalise le besoin)
+
+
+
+
+Fil rouge :
+- redaction de cahier de charge	
+	- Enjeux et Objectifs
+	- Lister les utilisateurs du Projet (Cibles)
+		- 3 types : 	simple_user : des Roubaisiens et alentours qui veulent être au courant des activités culturelles locales.
+				accounted_user : les associations de Roubaix, les acteurs culturels, théatres, café-concerts, groupe de musiques, troupe de théatres... 
+				admin_user : une association socio-culturelle de Roubaix
+	- Les fonctionnalités proposées par le SI (Système d'Informations)
+		- Description avec les regles d'accès
+				simple_user : 	pas d'inscription,
+						peut consulter l'agenda
+						peut consulter un événement
+						peut consulter la page d'un accounted_user
+						peut cliquer sur un bouton intéressé d'un événement, ??? 
+						peut filtrer l'agenda selon des catégories thématiques, 
+						peut faire une recherche d'accounted_user et d'évenements,
+						peut créer un compte accounted_user
+				accounted_user:	peut modifier/supprimer son compte
+						même règles d'accès que simple_user
+						dispose d'une page avec description, photo et agenda
+						peut créer/modifier/supprimer un événement qu'il a publié dans l'agenda	
+						(peut s'affilier à un autre accounted_user
+						peut demander à un autre accounted_user de s'affilier)					
+				admin_user:	idem accounted_user
+						peut inviter des accounted_user à devenir admin_user
+						valider/modifier/supprimer les comptes accounted_user et événements				
+	
+		- Maquettes (images descriptives des érans)
+			- Maquettes machine
+			- Maquette Tablette
+			- Maquette Smartphone
+		- Règles de gestion
+			- Exemple :
+				RG_001_001 : Au click sur le bouton inscription, 
+				l'utilisateur et redirigé vers la formulaire
+				d'inscription
+				RG_001_002 : à l'ouverture de l'écran du formulaire
+				le curseur de la souris est positionné sur le premier
+				champs du formulaire
+				RG_001_003 : Le mot passe doit avoir une logueur minimum
+				de 8 caractères dont une majuscule, une miniscule et une
+				chiffre
+				
+Ce qu'il faut au moins :
+		CRUD : Create Retrieve Update Delete
+		Recherche avec filtre (JS / ajax)
+		Pagination 
+				
+				
+				
+				
+				
