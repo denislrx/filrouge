@@ -1,7 +1,6 @@
 MOA : Maitrise de d'OuvrAge (formalise le besoin => cahier de charges)
 
 
-
 MOE : Maitrise d'OEuvre (Réalise le besoin)
 
 
@@ -35,6 +34,14 @@ Fil rouge :
 						valider/modifier/supprimer les comptes accounted_user et événements				
 	
 		- Maquettes (images descriptives des érans)
+			écran d'accueil : agenda, 
+			connexion
+			formulaire d'inscrpition
+			formulaire d'évenements
+			page accounted_user
+			page événement
+
+  
 			- Maquettes machine
 			- Maquette Tablette
 			- Maquette Smartphone
