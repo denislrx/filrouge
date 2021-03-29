@@ -36,7 +36,7 @@
 }
 
 .card:hover {
-  transform: scale(1.5);
+  transform: scale(1.4);
   transition: 1.2s;
   z-index: 1;
 }
@@ -55,4 +55,17 @@ h2 {
 }
 .card {
   margin-bottom: 20px;
+}
+.ligneCard {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+.card-img-top {
+  height: 200px;
+}
+.numeroPage {
+  margin: 50px;
+}
+.navbar-expand-lg {
+  display: none;
 }
