@@ -1,0 +1,121 @@
+body {
+  color: black;
+  background-color: white;
+  background-image: url(img/home-rs.jpg);
+  background-position: right top;
+}
+
+.page {
+  display: flex;
+  flex-wrap: wrap;
+}
+.header {
+  width: 100%;
+  /* background: rgb(255, 255, 255); */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: xx-large;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.logo {
+  height: 80px;
+}
+.aside {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 50%;
+  float: right;
+  /* background: rgb(255, 255, 255); */
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.ligne {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.label {
+  font-size: x-large;
+}
+
+.labeltitre {
+  padding-top: 20px;
+  font-size: xx-large;
+}
+
+.labeldate {
+  font-size: xx-large;
+}
+
+.tag {
+  background-color: black;
+  color: white;
+  font-size: x-large;
+  border-radius: 30px;
+  width: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+.section {
+  width: 50%;
+  float: left;
+  /* background-color: white; */
+}
+
+.illustration {
+  width: 100%;
+}
+.footer {
+  height: 60px;
+  width: 100%;
+  /* background: rgb(255, 255, 255); */
+  font-size: x-large;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 1000px) {
+  .aside {
+    width: 100%;
+    order: 2;
+  }
+  .section {
+    width: 100%;
+    order: 1;
+  }
+  .footer {
+    order: 3;
+  }
+}
+
+@media (max-width: 500px) {
+  .header {
+    font-size: x-large;
+  }
+  .labeltitre {
+    padding-top: 20px;
+    font-size: x-large;
+  }
+  .labeldate {
+    font-size: x-large;
+  }
+  .label {
+    font-size: large;
+  }
+  .footer {
+    font-size: medium;
+  }
+  .tag {
+    font-size: large;
+  }
+}
