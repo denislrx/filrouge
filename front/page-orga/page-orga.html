@@ -6,146 +6,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" media="screen and (min-width: 300px) and (max-width: 576px)" href="css/styleMax576px.css" />
+    <!-- <link rel="stylesheet" media="screen and (min-width: 300px) and (max-width: 576px)" href="css/styleMax576px.css" />
     <link rel="stylesheet" media="screen and (min-width: 577px) and (max-width: 885px)" href="css/styleMax885px.css" />
-    <link rel="stylesheet" media="screen and (min-width: 886px) and (max-width: 1280px)" href="css/styleMax1280px.css" />
-    <link rel="stylesheet" media="screen and (min-width: 1281px)" href="css/style.css">
+    <link rel="stylesheet" media="screen and (min-width: 886px) and (max-width: 1280px)" href="css/styleMax1280px.css" /> -->
+    <link rel="stylesheet"  href="style.css">
     <title>Page Organisateur</title>
 </head>
 <body>
-    <div class = "container-fluid">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <div class="container-fluid BarreNav">
-                <h1>titre et logo</h1>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav">
-                        <div class="row justify-content-center">
-                            <div class="col deletePaddingConnexion">
-                                <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">Se connecter</a>
-                                </li>
-                            </div>
-                            <div class="col deletePaddingConnexion1">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Se deconnecter</a>
-                                </li>
-                            </div>
-                            <div class="col deletePaddingConnexion2">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Mon compte</a>
-                                </li>
-                            </div>
-                        </div>
-                        <li>
-                            <nav class="navbar navbar-primary bg-primary">
-                                <div class="container-fluid barreDeRecherche">
-                                    <form class="d-flex">
-                                        <input class="form-control me-2 tailleBarre" type="search" placeholder="rechercher un organisateur" aria-label="Search">
-                                        <button class="btn btn-outline-success" type="submit"><span class="motRechercher">rechercher</span></button>
-                                    </form>
-                                </div>
-                            </nav>
-                        </li>
-                        <hr>
-                        <li>
-                            <nav class="navbar navbar-light bg-primary">
-                                <div class="container-fluid barreDeRecherche">
-                                    <form class="d-flex">
-                                        <input class="form-control me-2 tailleBarre" type="search" placeholder="rechercher un jour" aria-label="Search">
-                                        <button class="btn btn-outline-success" type="submit"><span class="motRechercher">rechercher</span></button>
-                                    </form>
-                                </div>
-                            </nav>
-                        </li>
-                        <hr>
-                        <li>
-                            <nav class="navbar navbar-light bg-primary">
-                                <div class="container-fluid barreDeRecherche">
-                                    <form class="d-flex">
-                                        <input class="form-control me-2 tailleBarre" type="search" placeholder="rechercher un tag" aria-label="Search">
-                                        <button class="btn btn-outline-success" type="submit"><span class="motRechercher">rechercher</span></button>
-                                    </form>
-                                </div>
-                            </nav>
-                        </li>
-                    </ul>
-                    <p>recherche populaire</p>
-                    <a href="#" class="badge badge-dark">Dark</a>
-                    <a href="#" class="badge badge-dark">Dark</a>
-                    <a href="#" class="badge badge-dark">Dark</a>
-                    <a href="#" class="badge badge-dark">Dark</a>
-                    <a href="#" class="badge badge-dark">Dark</a>
-                    <a href="#" class="badge badge-dark">Dark</a>
-                </div>
-            </div>
-        </nav>
-        <div class ="row" style="height:200px">
-            <div class="col-md-8 coteGauche">
-                <h1 class="nomPage display-1">LE COLISEE</h1>
+    <div class = "page">
+        
+        <div class="header">
+            Toute l'actualité culturelle de Roubaix       
+            <img class="logo" src="img/Logo.png">
+        </div>
+        <div class="labeltitre switch">LE COLISEE</div>
+        <hr/>
+        <div class ="aside">       
+            <div class="labeltitre switch2">LE COLISEE</div>
                 <hr/>
-                <div class ="row">
-                    <div class="col-md-12 commentaire">
-                        <p>Colisée - Théâtre de Roubaix est un théâtre à Roubaix qui propose de nombreux spectacles dans le cadre de sa programmation culturelle. </br>
-                            Colisée - Théâtre de Roubaix est situé au 31, Rue De L’epeule à Roubaix.
-                            Retrouvez ci-dessous le programme de Colisée - Théâtre de Roubaix avec les tarifs pour la réservation de vos places, ainsi que l'adresse et les horaires de Colisée - Théâtre de Roubaix à Roubaix.</p>
-                    </div>
-                </div>
-                <div class ="row">
-                    <div class="col-md-8 coordonnees">
-                        <p>Adresse : 31 rue de l'Épeule BP4 59051 Roubaix Cedex 1 </br></p>
-                        <p>Tel : 03 20 24 46 56</p>
-                    </div>
-                    <div class="col-md-3">
-                        <button type="button" class="btn btn-outline-secondary">Ajouter un événement</button>
-                        <button type="button" class="btn btn-outline-secondary">Modifier la page</button>
-                    </div>
-                    <div id="wrapper">
-                        <div id="carousel">
-                          <div id="content">
-                                <a href="https://www.ugc.fr/cinema.html?id=51"><img class="item" src="img/cinema.jpg"/></a>
-                                <a href="https://www.coliseeroubaix.com/"><img src="img/concert.jpg" class="item"/></a>
-                                <a href="https://www.lecomedyclub.com/fr"><img src="img/gradur.jpeg" class="item"/></a>
-                                <a href="https://www.lecomedyclub.com/fr"><img src="img/jcc.jpg" class="item"/></a>
-                                <a href="https://www.coliseeroubaix.com/"><img src="img/concert.jpg" class="item"/></a>
-                                <a href="https://www.lecomedyclub.com/fr"><img src="img/gradur.jpeg" class="item"/></a>
-                                <a href="https://www.ugc.fr/cinema.html?id=51"><img class="item" src="img/cinema.jpg"/></a>
-                                <a href="https://www.lecomedyclub.com/fr"><img src="img/jcc.jpg" class="item"/></a>
-                                <a href="https://www.lecomedyclub.com/fr"><img src="img/gradur.jpeg" class="item"/></a>
-                                <a href="https://www.coliseeroubaix.com/"><img src="img/concert.jpg" class="item"/></a>
-                                <a href="https://www.ugc.fr/cinema.html?id=51"><img class="item" src="img/cinema.jpg"/></a>
-                                <a href="https://www.lecomedyclub.com/fr"><img src="img/jcc.jpg" class="item"/></a>
-                                <a href="https://www.coliseeroubaix.com/"><img src="img/concert.jpg" class="item"/></a>
-                                <a href="https://www.ugc.fr/cinema.html?id=51"><img class="item" src="img/cinema.jpg"/></a>
-                                <a href="https://www.lecomedyclub.com/fr"><img src="img/gradur.jpeg" class="item"/></a>
-                                <a href="https://www.lecomedyclub.com/fr"><img src="img/jcc.jpg" class="item"/></a>
-                                <a href="https://www.ugc.fr/cinema.html?id=51"><img class="item" src="img/cinema.jpg"/></a>
-                                <a href="https://www.coliseeroubaix.com/"><img src="img/concert.jpg" class="item"/></a>
-                                <a href="https://www.lecomedyclub.com/fr"><img src="img/jcc.jpg" class="item"/></a>
-                                <a href="https://www.ugc.fr/cinema.html?id=51"><img class="item" src="img/cinema.jpg"/></a>
-                            </div>
-                        </div>
-                        <button id="prev">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                <path fill="none" d="M0 0h24v24H0V0z" />
-                                <path d="M15.61 7.41L14.2 6l-6 6 6 6 1.41-1.41L11.03 12l4.58-4.59z" />
-                            </svg>
-                        </button>
-                        <button id="next">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                <path fill="none" d="M0 0h24v24H0V0z" />
-                                <path d="M10.02 6L8.61 7.41 13.19 12l-4.58 4.59L10.02 18l6-6-6-6z" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
+            <div class ="row">
+                <div class="col-md-12 label">
+                    Le Colisée est parfois appelé Olympia du nord et autrefois de nombreux artistes s’y sont produits avant de se confronter au public parisien, notamment Piaf, Bécaud, Brel, Aznavour etc. C'était un haut lieu de rencontres et on disait que la moitié des couples de Roubaix s’y étaient formés.
+                    <br/>
+                    Son architecture exceptionnelle, son histoire riche et variée, lui confèrent un visage unique et lui permettent de proposer un projet qui attire un très large public, il est à mi-chemin entre une « scène de découvertes » et un Zénith.
+                    <br/>                      
+                    Des plus prestigieuses pièces de théâtre de la scène parisienne ou nationale aux grands ballets classiques ou contemporains, en passant par le cirque d’aujourd’hui ou traditionnel, les concerts, l’opéra, les comédies musicales et l’humour, tous les genres y sont représentés aujourd'hui.    </div>
             </div>
-            <div class="col-md-4 image">
-                <img id="imageColisee" src="img/image-colisee.jpg"class="imageColisee" alt="Photo du colisée">
+            <hr/>
+            <div class ="row">
+                <div class="col-md-8 label">
+                    <p>31 rue de l'Épeule BP4 59051 Roubaix Cedex 1 </br></p>
+                    <p>Tel : 03 20 24 46 56</p>
+                    <p>Mail : coliseerbx@gmail.com</p>
+                </div>
+                <div class="col-md-3 edition">
+                    <button type="button" class="btn btn-outline-secondary">Ajouter un événement</button>
+                    <button type="button" class="btn btn-outline-secondary">Modifier la page</button>        
+               </div>
+               <hr/>
+               <div class ="ligne">
+                   <a href=#><img class="logoRS" src="img/fb.png"/></a>
+                   <a href=#><img class="logoRS" src="img/twit.png"/></a>
+                   <a href=#><img class="logoRS" src="img/insta.png"/></a>
+               </div>                  
+            </div>
+            <hr/>
+        </div>
+            
+            
+        <div class="section">
+            <img class="illustration" src="img/image-colisee.jpg" alt="Photo du colisée">
+        </div>
+
+        <div class ="footer">
+            <div id="wrapper">
+                    <div id="carousel">
+                      <div id="content">
+                            <a href="https://www.ugc.fr/cinema.html?id=51"><img class="item" src="img/cinema.jpg"/></a>
+                            <a href="https://www.coliseeroubaix.com/"><img src="img/concert.jpg" class="item"/></a>
+                            <a href="https://www.lecomedyclub.com/fr"><img src="img/gradur.jpeg" class="item"/></a>
+                            <a href="https://www.lecomedyclub.com/fr"><img src="img/jcc.jpg" class="item"/></a>
+                            <a href="https://www.coliseeroubaix.com/"><img src="img/concert.jpg" class="item"/></a>
+                            <a href="https://www.lecomedyclub.com/fr"><img src="img/gradur.jpeg" class="item"/></a>
+                            <a href="https://www.ugc.fr/cinema.html?id=51"><img class="item" src="img/cinema.jpg"/></a>
+                            <a href="https://www.lecomedyclub.com/fr"><img src="img/jcc.jpg" class="item"/></a>
+                            <a href="https://www.lecomedyclub.com/fr"><img src="img/gradur.jpeg" class="item"/></a>
+                            <a href="https://www.coliseeroubaix.com/"><img src="img/concert.jpg" class="item"/></a>
+                            <a href="https://www.ugc.fr/cinema.html?id=51"><img class="item" src="img/cinema.jpg"/></a>
+                            <a href="https://www.lecomedyclub.com/fr"><img src="img/jcc.jpg" class="item"/></a>
+                            <a href="https://www.coliseeroubaix.com/"><img src="img/concert.jpg" class="item"/></a>
+                            <a href="https://www.ugc.fr/cinema.html?id=51"><img class="item" src="img/cinema.jpg"/></a>
+                            <a href="https://www.lecomedyclub.com/fr"><img src="img/gradur.jpeg" class="item"/></a>
+                            <a href="https://www.lecomedyclub.com/fr"><img src="img/jcc.jpg" class="item"/></a>
+                            <a href="https://www.ugc.fr/cinema.html?id=51"><img class="item" src="img/cinema.jpg"/></a>
+                            <a href="https://www.coliseeroubaix.com/"><img src="img/concert.jpg" class="item"/></a>
+                            <a href="https://www.lecomedyclub.com/fr"><img src="img/jcc.jpg" class="item"/></a>
+                            <a href="https://www.ugc.fr/cinema.html?id=51"><img class="item" src="img/cinema.jpg"/></a>
+                        </div>
+                    </div>
+                    <button id="prev">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="none" d="M0 0h24v24H0V0z" />
+                            <path d="M15.61 7.41L14.2 6l-6 6 6 6 1.41-1.41L11.03 12l4.58-4.59z" />
+                        </svg>
+                    </button>
+                    <button id="next">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="none" d="M0 0h24v24H0V0z" />
+                            <path d="M10.02 6L8.61 7.41 13.19 12l-4.58 4.59L10.02 18l6-6-6-6z" />
+                        </svg>
+                    </button>
             </div>
         </div>
+        
+        
     </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
