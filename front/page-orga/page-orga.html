@@ -5,23 +5,87 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" media="screen and (min-width: 300px) and (max-width: 576px)" href="css/styleMax576px.css" />
+    <link rel="stylesheet" media="screen and (min-width: 577px) and (max-width: 885px)" href="css/styleMax885px.css" />
+    <link rel="stylesheet" media="screen and (min-width: 886px) and (max-width: 1280px)" href="css/styleMax1280px.css" />
+    <link rel="stylesheet" media="screen and (min-width: 1281px)" href="css/style.css">
     <title>Page Organisateur</title>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
 </head>
 <body>
     <div class = "container-fluid">
-        <div class = "row">
-            <div class="col-md-12 banniere"></div>
-        </div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container-fluid BarreNav">
+                <h1>titre et logo</h1>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <div class="row justify-content-center">
+                            <div class="col deletePaddingConnexion">
+                                <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">Se connecter</a>
+                                </li>
+                            </div>
+                            <div class="col deletePaddingConnexion1">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Se deconnecter</a>
+                                </li>
+                            </div>
+                            <div class="col deletePaddingConnexion2">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Mon compte</a>
+                                </li>
+                            </div>
+                        </div>
+                        <li>
+                            <nav class="navbar navbar-primary bg-primary">
+                                <div class="container-fluid barreDeRecherche">
+                                    <form class="d-flex">
+                                        <input class="form-control me-2 tailleBarre" type="search" placeholder="rechercher un organisateur" aria-label="Search">
+                                        <button class="btn btn-outline-success" type="submit"><span class="motRechercher">rechercher</span></button>
+                                    </form>
+                                </div>
+                            </nav>
+                        </li>
+                        <hr>
+                        <li>
+                            <nav class="navbar navbar-light bg-primary">
+                                <div class="container-fluid barreDeRecherche">
+                                    <form class="d-flex">
+                                        <input class="form-control me-2 tailleBarre" type="search" placeholder="rechercher un jour" aria-label="Search">
+                                        <button class="btn btn-outline-success" type="submit"><span class="motRechercher">rechercher</span></button>
+                                    </form>
+                                </div>
+                            </nav>
+                        </li>
+                        <hr>
+                        <li>
+                            <nav class="navbar navbar-light bg-primary">
+                                <div class="container-fluid barreDeRecherche">
+                                    <form class="d-flex">
+                                        <input class="form-control me-2 tailleBarre" type="search" placeholder="rechercher un tag" aria-label="Search">
+                                        <button class="btn btn-outline-success" type="submit"><span class="motRechercher">rechercher</span></button>
+                                    </form>
+                                </div>
+                            </nav>
+                        </li>
+                    </ul>
+                    <p>recherche populaire</p>
+                    <a href="#" class="badge badge-dark">Dark</a>
+                    <a href="#" class="badge badge-dark">Dark</a>
+                    <a href="#" class="badge badge-dark">Dark</a>
+                    <a href="#" class="badge badge-dark">Dark</a>
+                    <a href="#" class="badge badge-dark">Dark</a>
+                    <a href="#" class="badge badge-dark">Dark</a>
+                </div>
+            </div>
+        </nav>
         <div class ="row" style="height:200px">
             <div class="col-md-8 coteGauche">
                 <h1 class="nomPage display-1">LE COLISEE</h1>
+                <hr/>
                 <div class ="row">
                     <div class="col-md-12 commentaire">
                         <p>Colisée - Théâtre de Roubaix est un théâtre à Roubaix qui propose de nombreux spectacles dans le cadre de sa programmation culturelle. </br>
@@ -38,246 +102,44 @@
                         <button type="button" class="btn btn-outline-secondary">Ajouter un événement</button>
                         <button type="button" class="btn btn-outline-secondary">Modifier la page</button>
                     </div>
-                    <div id="carouselMultiItemExample" class="carousel slide carousel-dark text-center" data-mdb-ride="carousel">
-                        <!-- Controls -->
-                        <div class="d-flex justify-content-center mb-4">
-                            <button
-                            class="carousel-control-prev position-relative"
-                            type="button"
-                            data-mdb-target="#carouselMultiItemExample"
-                            data-mdb-slide="prev"
-                            >
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button
-                            class="carousel-control-next position-relative"
-                            type="button"
-                            data-mdb-target="#carouselMultiItemExample"
-                            data-mdb-slide="next"
-                            >
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
-                        <!-- Inner -->
-                        <div class="carousel-inner py-4">
-                            <!-- Single item -->
-                            <div class="carousel-item active">
-                            <div class="container">
-                                <div class="row">
-                                <div class="col-lg-4">
-                                    <div class="card">
-                                    <img
-                                        src="https://mdbootstrap.com/img/new/standard/nature/181.jpg"
-                                        class="card-img-top"
-                                        alt="..."
-                                    />
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">
-                                        Some quick example text to build on the card title and make up the bulk
-                                        of the card's content.
-                                        </p>
-                                        <a href="#!" class="btn btn-primary">Button</a>
-                                    </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-4 d-none d-lg-block">
-                                    <div class="card">
-                                    <img
-                                        src="https://mdbootstrap.com/img/new/standard/nature/182.jpg"
-                                        class="card-img-top"
-                                        alt="..."
-                                    />
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">
-                                        Some quick example text to build on the card title and make up the bulk
-                                        of the card's content.
-                                        </p>
-                                        <a href="#!" class="btn btn-primary">Button</a>
-                                    </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-4 d-none d-lg-block">
-                                    <div class="card">
-                                    <img
-                                        src="https://mdbootstrap.com/img/new/standard/nature/183.jpg"
-                                        class="card-img-top"
-                                        alt="..."
-                                    />
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">
-                                        Some quick example text to build on the card title and make up the bulk
-                                        of the card's content.
-                                        </p>
-                                        <a href="#!" class="btn btn-primary">Button</a>
-                                    </div>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                            </div>
-
-                            <!-- Single item -->
-                            <div class="carousel-item">
-                            <div class="container">
-                                <div class="row">
-                                <div class="col-lg-4 col-md-12">
-                                    <div class="card">
-                                    <img
-                                        src="https://mdbootstrap.com/img/new/standard/nature/184.jpg"
-                                        class="card-img-top"
-                                        alt="..."
-                                    />
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">
-                                        Some quick example text to build on the card title and make up the bulk
-                                        of the card's content.
-                                        </p>
-                                        <a href="#!" class="btn btn-primary">Button</a>
-                                    </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-4 d-none d-lg-block">
-                                    <div class="card">
-                                    <img
-                                        src="https://mdbootstrap.com/img/new/standard/nature/185.jpg"
-                                        class="card-img-top"
-                                        alt="..."
-                                    />
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">
-                                        Some quick example text to build on the card title and make up the bulk
-                                        of the card's content.
-                                        </p>
-                                        <a href="#!" class="btn btn-primary">Button</a>
-                                    </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-4 d-none d-lg-block">
-                                    <div class="card">
-                                    <img
-                                        src="https://mdbootstrap.com/img/new/standard/nature/186.jpg"
-                                        class="card-img-top"
-                                        alt="..."
-                                    />
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">
-                                        Some quick example text to build on the card title and make up the bulk
-                                        of the card's content.
-                                        </p>
-                                        <a href="#!" class="btn btn-primary">Button</a>
-                                    </div>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                            </div>
-
-                            <!-- Single item -->
-                            <div class="carousel-item">
-                            <div class="container">
-                                <div class="row">
-                                <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-                                    <div class="card">
-                                    <img
-                                        src="https://mdbootstrap.com/img/new/standard/nature/187.jpg"
-                                        class="card-img-top"
-                                        alt="..."
-                                    />
-                                    <div class="card-body">
-                                        <h5 class="card-title">Concert de GRADUR</h5>
-                                        <p class="card-text">
-                                        bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-                                        </p>
-                                        <a href="#!" class="btn btn-primary">Button</a>
-                                    </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-4 mb-4 mb-lg-0 d-none d-lg-block">
-                                    <div class="card">
-                                    <img
-                                        src="https://mdbootstrap.com/img/new/standard/nature/188.jpg"
-                                        class="card-img-top"
-                                        alt="..."
-                                    />
-                                    <div class="card-body">
-                                        <h5 class="card-title">Concert de GRADUR</h5>
-                                        <p class="card-text">
-                                            bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-                                        </p>
-                                        <a href="#!" class="btn btn-primary">Button</a>
-                                    </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-4 mb-4 mb-lg-0 d-none d-lg-block">
-                                    <div class="card">
-                                    <img
-                                        src="https://mdbootstrap.com/img/new/standard/nature/189.jpg"
-                                        class="card-img-top"
-                                        alt="..."
-                                    />
-                                    <div class="card-body">
-                                        <h5 class="card-title">Concert de GRADUR</h5>
-                                        <p class="card-text">
-                                            bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-                                        </p>
-                                        <a href="#!" class="btn btn-primary">Button</a>
-                                    </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-4 mb-4 mb-lg-0 d-none d-lg-block">
-                                    <div class="card">
-                                    <img
-                                        src="https://mdbootstrap.com/img/new/standard/nature/189.jpg"
-                                        class="card-img-top"
-                                        alt="..."
-                                    />
-                                    <div class="card-body">
-                                        <h5 class="card-title">Concert de GRADUR</h5>
-                                        <p class="card-text">
-                                            bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-                                        </p>
-                                        <a href="#!" class="btn btn-primary">Button</a>
-                                    </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-4 mb-4 mb-lg-0 d-none d-lg-block">
-                                    <div class="card">
-                                    <img
-                                        src="https://mdbootstrap.com/img/new/standard/nature/189.jpg"
-                                        class="card-img-top"
-                                        alt="..."
-                                    />
-                                    <div class="card-body">
-                                        <h5 class="card-title">Concert de GRADUR</h5>
-                                        <p class="card-text">
-                                            bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla
-                                        </p>
-                                        <a href="#!" class="btn btn-primary">PARTICIPER</a>
-                                    </div>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
+                    <div id="wrapper">
+                        <div id="carousel">
+                          <div id="content">
+                                <a href="https://www.ugc.fr/cinema.html?id=51"><img class="item" src="img/cinema.jpg"/></a>
+                                <a href="https://www.coliseeroubaix.com/"><img src="img/concert.jpg" class="item"/></a>
+                                <a href="https://www.lecomedyclub.com/fr"><img src="img/gradur.jpeg" class="item"/></a>
+                                <a href="https://www.lecomedyclub.com/fr"><img src="img/jcc.jpg" class="item"/></a>
+                                <a href="https://www.coliseeroubaix.com/"><img src="img/concert.jpg" class="item"/></a>
+                                <a href="https://www.lecomedyclub.com/fr"><img src="img/gradur.jpeg" class="item"/></a>
+                                <a href="https://www.ugc.fr/cinema.html?id=51"><img class="item" src="img/cinema.jpg"/></a>
+                                <a href="https://www.lecomedyclub.com/fr"><img src="img/jcc.jpg" class="item"/></a>
+                                <a href="https://www.lecomedyclub.com/fr"><img src="img/gradur.jpeg" class="item"/></a>
+                                <a href="https://www.coliseeroubaix.com/"><img src="img/concert.jpg" class="item"/></a>
+                                <a href="https://www.ugc.fr/cinema.html?id=51"><img class="item" src="img/cinema.jpg"/></a>
+                                <a href="https://www.lecomedyclub.com/fr"><img src="img/jcc.jpg" class="item"/></a>
+                                <a href="https://www.coliseeroubaix.com/"><img src="img/concert.jpg" class="item"/></a>
+                                <a href="https://www.ugc.fr/cinema.html?id=51"><img class="item" src="img/cinema.jpg"/></a>
+                                <a href="https://www.lecomedyclub.com/fr"><img src="img/gradur.jpeg" class="item"/></a>
+                                <a href="https://www.lecomedyclub.com/fr"><img src="img/jcc.jpg" class="item"/></a>
+                                <a href="https://www.ugc.fr/cinema.html?id=51"><img class="item" src="img/cinema.jpg"/></a>
+                                <a href="https://www.coliseeroubaix.com/"><img src="img/concert.jpg" class="item"/></a>
+                                <a href="https://www.lecomedyclub.com/fr"><img src="img/jcc.jpg" class="item"/></a>
+                                <a href="https://www.ugc.fr/cinema.html?id=51"><img class="item" src="img/cinema.jpg"/></a>
                             </div>
                         </div>
-                        <!-- Inner -->
-                        </div>
+                        <button id="prev">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path fill="none" d="M0 0h24v24H0V0z" />
+                                <path d="M15.61 7.41L14.2 6l-6 6 6 6 1.41-1.41L11.03 12l4.58-4.59z" />
+                            </svg>
+                        </button>
+                        <button id="next">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path fill="none" d="M0 0h24v24H0V0z" />
+                                <path d="M10.02 6L8.61 7.41 13.19 12l-4.58 4.59L10.02 18l6-6-6-6z" />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             </div>
             <div class="col-md-4 image">
@@ -286,5 +148,8 @@
         </div>
     </div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+<script src="js/script.js"></script>
 </html>
 
