@@ -5,12 +5,15 @@ body {
 .box_search {
   border: 1px solid black;
   height: 250px;
+  width: 400px;
   display: flex;
   align-items: center;
   align-self: center;
   flex-wrap: wrap;
   margin-top: 20px;
   margin-bottom: 30px;
+  padding-left: 5px;
+  padding-right: 5px;
   justify-content: space-around;
   border-radius: 5px;
 }
@@ -22,12 +25,10 @@ body {
   margin-top: 40px;
 }
 .connexion {
-  border: 1px solid black;
-  height: 120px;
+  border: 2px solid black;
+  width: 110px;
   margin-top: 15px;
   border-radius: 5px;
-  padding: 10px;
-  padding-top: 5px;
   margin-bottom: 40px;
 }
 .co {
@@ -79,18 +80,148 @@ h2 {
 .card-img-top {
   height: 200px;
 }
-.numeroPage {
-  margin: 50px;
-}
+
 .navbar-expand-lg {
   display: none;
 }
 .boxOrga {
   margin-bottom: 100px;
 }
-@media screen and (max-width: 1490px) {
+
+@media screen and (min-width: 1025px) and (max-width: 1280px) {
+  .ligneCard {
+    padding-left: 40px;
+    padding-right: 10px;
+  }
+}
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .coteGauche {
+    display: none;
+  }
+  .navbar-expand-lg {
+    display: flex;
+    flex: initial;
+  }
+  .header1 {
+    display: none;
+  }
+  .tailleBarre {
+    width: 400px;
+  }
+}
+
+@media screen and (min-width: 577px) and (max-width: 768px) {
+  .coteGauche {
+    display: none;
+  }
+  .navbar-expand-lg {
+    display: flex;
+    flex: initial;
+  }
+  .header1 {
+    display: none;
+  }
+  .tailleBarre {
+    width: 400px;
+  }
+}
+@media screen and (min-width: 479px) and (max-width: 576px) {
+  .navbar-expand-lg {
+    display: flex;
+    flex: initial;
+  }
+  .header1 {
+    display: none;
+  }
+  .banniere {
+    display: flex;
+  }
+  .card {
+    margin-bottom: 15px;
+  }
+  .coteDroit {
+    display: none;
+  }
+  .coteGauche {
+    display: none;
+  }
+  h1 {
+    color: white;
+  }
+
+  .barreDeRecherche {
+    padding-right: 0px;
+    padding-left: 0px;
+  }
+  .motRechercher {
+    position: relative;
+    bottom: 7px;
+  }
+  .deletePaddingConnexion {
+    padding-right: 0px;
+  }
+  .deletePaddingConnexion1 {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  .deletePaddingConnexion2 {
+    padding-left: 0px;
+  }
   .badge {
-    background-color: black;
-    font-size: 14px;
+    border: solid black 1px;
+    border-radius: 10px;
+  }
+}
+@media screen and (min-width: 419px) and (max-width: 478px) {
+  .header1 {
+    display: none;
+  }
+  .navbar-expand-lg {
+    display: flex;
+    flex: initial;
+  }
+  .coteGauche {
+    display: none;
+  }
+  .coteDroit {
+    display: none;
+  }
+}
+@media screen and (min-width: 357px) and (max-width: 418px) {
+  .header1 {
+    display: none;
+  }
+  .navbar-expand-lg {
+    display: flex;
+    flex: initial;
+  }
+  .BarreNav {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .coteGauche {
+    display: none;
+  }
+  .coteDroit {
+    display: none;
+  }
+}
+@media screen and (max-width: 356px) {
+  .navbar-expand-lg {
+    display: flex;
+    flex: initial;
+  }
+  .BarreNav {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  .coteGauche {
+    display: none;
+  }
+  .coteDroit {
+    display: none;
+  }
+  .header1 {
+    display: none;
   }
 }
