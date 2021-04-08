@@ -24,12 +24,15 @@ body {
 .espaceTop {
   margin-top: 40px;
 }
-.connexion {
+/* .connexion {
   border: 2px solid black;
-  width: 110px;
+  width: 130px;
   margin-top: 15px;
   border-radius: 5px;
   margin-bottom: 40px;
+} */
+.bouton {
+  margin-bottom: 10px;
 }
 .co {
   padding: 5px;
@@ -94,7 +97,7 @@ h2 {
     padding-right: 10px;
   }
 }
-@media screen and (min-width: 769px) and (max-width: 1024px) {
+@media screen and (min-width: 769px) and (max-width: 991px) {
   .coteGauche {
     display: none;
   }
