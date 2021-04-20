@@ -68,6 +68,10 @@ h2 {
   position: sticky;
   top: 0;
 }
+.fluid {
+  padding-left: 2px;
+  padding-right: 0px;
+}
 .coteDroit {
   height: 650px;
   position: sticky;
@@ -89,6 +93,8 @@ h2 {
 }
 .boxOrga {
   margin-bottom: 100px;
+  width: 130px;
+  height: 130px;
 }
 
 @media screen and (min-width: 1025px) and (max-width: 1280px) {
@@ -101,6 +107,17 @@ h2 {
   .coteGauche {
     display: none;
   }
+  .menuCoterDroite {
+    display: flex;
+    flex-direction: column;
+    padding-right: 5%;
+    padding-left: 5%;
+  }
+  .boxOrga {
+    margin-bottom: 100px;
+    margin-left: 10%;
+    width: 80%;
+  }
   .navbar-expand-lg {
     display: flex;
     flex: initial;
@@ -110,6 +127,12 @@ h2 {
   }
   .tailleBarre {
     width: 400px;
+  }
+  .navbar-toggler {
+    border: 2px solid black;
+  }
+  .connexionDansMenu {
+    display: none;
   }
 }
 
@@ -117,6 +140,23 @@ h2 {
   .coteGauche {
     display: none;
   }
+  .connexionDansMenu {
+    display: none;
+  }
+  .menuCoterDroite {
+    display: flex;
+    flex-direction: column;
+    padding-right: 5%;
+    padding-left: 5%;
+  }
+  .boxOrga {
+    margin-bottom: 100px;
+    margin-left: 8px;
+  }
+  .ligneCard {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
   .navbar-expand-lg {
     display: flex;
     flex: initial;
@@ -127,11 +167,19 @@ h2 {
   .tailleBarre {
     width: 400px;
   }
+  .navbar-toggler {
+    border: 2px solid black;
+  }
 }
 @media screen and (min-width: 479px) and (max-width: 576px) {
   .navbar-expand-lg {
     display: flex;
     flex: initial;
+  }
+  .boxEvenemt {
+  }
+  .card-img-top {
+    height: 250px;
   }
   .header1 {
     display: none;
@@ -174,6 +222,9 @@ h2 {
     border: solid black 1px;
     border-radius: 10px;
   }
+  .navbar-toggler {
+    border: 2px solid black;
+  }
 }
 @media screen and (min-width: 419px) and (max-width: 478px) {
   .header1 {
@@ -188,6 +239,9 @@ h2 {
   }
   .coteDroit {
     display: none;
+  }
+  .navbar-toggler {
+    border: 2px solid black;
   }
 }
 @media screen and (min-width: 357px) and (max-width: 418px) {
@@ -208,6 +262,9 @@ h2 {
   .coteDroit {
     display: none;
   }
+  .navbar-toggler {
+    border: 2px solid black;
+  }
 }
 @media screen and (max-width: 356px) {
   .navbar-expand-lg {
@@ -226,5 +283,8 @@ h2 {
   }
   .header1 {
     display: none;
+  }
+  .navbar-toggler {
+    border: 2px solid black;
   }
 }
