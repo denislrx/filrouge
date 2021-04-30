@@ -13,8 +13,8 @@
 
     <div class="container-fluid">
       <div class="row header1">
-          <div class="col-md-11"><h1>Toute l'actualité culturelle de Roubaix</h1></div>
-          <div class="col-md-1"><img src="img/logo.png" alt="" height="80px"></div>
+          <div class="col-md-10"><h1>Toute l'actualité culturelle de Roubaix</h1></div>
+          <div class="col-md-2 logoDroite"><img src="img/logo.png" alt="" height="80px"></div>
           <hr>
       </div>
       
@@ -45,7 +45,7 @@
               <nav class="navbar">
                 <div class="container fluid">
                   <form class="d-flex"  style="width:100%;">
-                    <input class="form-control me-2" type="search" placeholder="rechercher une date" aria-label="Search">
+                    <input class="form-control me-2" type="date" placeholder="rechercher une date" aria-label="Search">
                   </form>
                 </div>
                 <div class="container box_search">
@@ -58,7 +58,7 @@
               </nav>
             </div>
 
-            <nav class="navbar navbar-expand-lg bg-light">
+            <nav class="navbar navbar-expand-lg bg-light menu">
               <div class="container-fluid BarreNav">
                 <div class="banniere">
                   <div class="col-md-4"><img src="img/logo.png" alt="" height="60px"></div>
@@ -135,7 +135,7 @@
               </div>
             </nav>
 
-            <div class="col-md-9 col-sm-9 centre">
+            <div class="col-lg-8 col-md-9 col-sm-9 centre">
                 <div class="row">
                     <div class="col-md-12">
                         <h2>samedi 4 janvier 2021</h2>
@@ -375,27 +375,56 @@
 
         </div>
             </div>
-            <div class="col-lg-1 col-md-3 col-sm-3 coteDroit">
+            <div class="col-lg-2 col-md-3 col-sm-3 coteDroit">
                 <div class="menuCoterDroite">
-                  <a href="../form_event/form_event.html" class="btn btn-secondary bouton">Connexion</a>
+                  
+                  <button class="open-button" onclick="openForm()" class="btn btn-primary"><strong>connexion</strong></button>
+    </div>
+    <div class="login-popup">
+      <div class="form-popup" id="popupForm">
+        <form action="/action_page.php" class="form-container">
+          <h2>Veuillez vous connecter</h2>
+          <label for="email">
+          <strong>E-mail</strong>
+          </label>
+          <input type="text" id="email" placeholder="Votre Email" name="email" required>
+          <label for="psw">
+          <strong>Mot de passe</strong>
+          </label>
+          <input type="password" id="psw" placeholder="Votre Mot de passe" name="psw" required>
+          <button type="submit" class="btn">Connecter</button>
+          <button type="button" class="btn cancel" onclick="closeForm()">Fermer</button>
+        </form>
+      </div>
+    </div>
+    <script>
+      function openForm() {
+        document.getElementById("popupForm").style.display="block";
+      }
+      
+      function closeForm() {
+        document.getElementById("popupForm").style.display="none";
+      }
+    </script>
+                  
                   <a href="../form_event/form_event.html" class="btn btn-secondary bouton">S'inscrire</a>
                   <a href="../page-orga/page-orga.html" class="btn btn-secondary bouton">Mon compte</a>  
                 </div>
                 <div class="card boxOrga">
                   
-                  <img src="img/orga.jpg" class="card-img-top" alt="...">
+                  <img src="img/orga.jpg" class="card-img-top imgDroite" alt="...">
                 
                     <p class="card-titre">nom organisation</p>
                 </div>             
                 <div class="card boxOrga">
                   
-                  <img src="img/orga.jpg" class="card-img-top" alt="...">
+                  <img src="img/orga.jpg" class="card-img-top imgDroite" alt="...">
                 
                     <p class="card-titre">nom organisation</p>
                 </div>   
                 <div class="card boxOrga">
                   
-                  <img src="img/orga.jpg" class="card-img-top" alt="...">
+                  <img src="img/orga.jpg" class="card-img-top imgDroite" alt="...">
                 
                     <p class="card-titre">nom organisation</p>
                 </div>  

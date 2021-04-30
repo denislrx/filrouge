@@ -1,0 +1,15 @@
+body {
+  background-image: url(img/home-rs.jpg);
+  background-attachment: fixed;
+  background-position: right top;
+}
+.article {
+  border: 1px solid black;
+  width: 100%;
+  height: 250px;
+  display: flex;
+}
+.table {
+  position: sticky;
+  top: 0px;
+}
