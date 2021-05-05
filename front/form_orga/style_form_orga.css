@@ -38,16 +38,18 @@ body {
   justify-content: space-around;
   flex-wrap: wrap;
 }
-/* 
+.titre {
+  font-size: large;
+}
 .saisie {
-  font-size: x-large;
+  margin-top: 10px;
 }
 
 .saisiedescr {
   font-size: x-large;
   height: 35%;
-} */
-
+  margin-top: 10px;
+}
 .section {
   width: 50%;
   float: left;
