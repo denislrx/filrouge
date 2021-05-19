@@ -2,6 +2,12 @@ body {
   background-image: url(img/home-rs.jpg);
   background-attachment: fixed;
   background-position: right top;
+  margin-right: 10%;
+  margin-left: 10%;
+}
+.logoDroite {
+  display: flex;
+  flex-direction: row-reverse;
 }
 .article {
   border: 1px solid black;
@@ -12,4 +18,12 @@ body {
 .table {
   position: sticky;
   top: 0px;
+  font-size: 18px;
+}
+.voir {
+  float: right;
+  margin-right: 50px;
+}
+.table-dark {
+  opacity: 70%;
 }
