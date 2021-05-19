@@ -1,10 +1,10 @@
 <?php
 
-include_once("DAO/UtilisateurDAO.php");
+include_once(__DIR__ . "/../DAO/UtilisateurDAO.php");
 
 class UtilisateurService
 {
-    public function insererUser(Utilisateur $obj): void
+    function insererUser(Utilisateur $obj): void
     {
         $objDAO = new UtilisateurDAO;
         $objDAO->insererUser($obj);
@@ -20,5 +20,11 @@ class UtilisateurService
         $UtilisateurDAO = new UtilisateurDAO;
         $Utilisateur = $UtilisateurDAO->selectAllById($id);
         return $Utilisateur;
+    }
+
+    function supprimeUser(int $id): void
+    {
+        $objDAO = new UtilisateurDAO;
+        $objDAO->supprimeUser($id);
     }
 }

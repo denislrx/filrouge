@@ -22,7 +22,6 @@ class UtilisateurDAO extends ConnexionDAO
 
     function selectAllById($id): Utilisateur
     {
-
         $db = $this->connexion();
         $stmt = $db->prepare("SELECT * FROM utilisateur WHERE idUser = ?");
         $stmt->bind_param("i", $id);
@@ -62,8 +61,7 @@ class UtilisateurDAO extends ConnexionDAO
         $mdpHash = $obj->getMdpHash();
         $stmt = $db->prepare("UPDATE utilisateur SET 
                 mailUser = ?,
-                mdpHash = ?,
-                noserv = ?
+                mdpHash = ?
                 WHERE idUser = ?;");
         $stmt->bind_param(
             "ssi",
