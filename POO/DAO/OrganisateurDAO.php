@@ -28,6 +28,7 @@ class OrganisateurDAO extends ConnexionDAO
         $objOrgaById->setAdresseInsta($data["adresseInsta"]);
         $objOrgaById->setAdresseFB($data["adresseFB"]);
         $objOrgaById->setAdresseSite($data["adresseSite"]);
+        $objOrgaById->setImage($data["image"]);
 
         return $objOrgaById;
     }
