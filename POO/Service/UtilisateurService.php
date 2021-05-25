@@ -4,15 +4,17 @@ include_once(__DIR__ . "/../DAO/UtilisateurDAO.php");
 
 class UtilisateurService
 {
-    function insererUser(Utilisateur $obj): void
+    function insererUtilisateur(Utilisateur $obj): void
     {
+        $MDPHash = password_hash($obj->getMdpHash(), PASSWORD_DEFAULT);
+        $obj->setMdpHash($MDPHash);
         $objDAO = new UtilisateurDAO;
-        $objDAO->insererUser($obj);
+        $objDAO->insererUtilisateur($obj);
     }
-    function updateUser(Utilisateur $obj, int $id): void
+    function updateUtilisateur(Utilisateur $obj, int $id): void
     {
         $objDAO = new UtilisateurDAO;
-        $objDAO->updateUser($obj, $id);
+        $objDAO->updateUtilisateur($obj, $id);
     }
 
     function selectAllById($id): Utilisateur
@@ -22,9 +24,23 @@ class UtilisateurService
         return $Utilisateur;
     }
 
-    function supprimeUser(int $id): void
+    function selectAllByMail($mail): Utilisateur
+    {
+        $UtilisateurDAO = new UtilisateurDAO;
+        $Utilisateur = $UtilisateurDAO->selectAllById($mail);
+        return $Utilisateur;
+    }
+
+    function supprimeUtilisateur(int $id): void
     {
         $objDAO = new UtilisateurDAO;
-        $objDAO->supprimeUser($id);
+        $objDAO->supprimeUtilisateur($id);
+    }
+
+    public function listeMail(): array
+    {
+        $UserDAO = new UtilisateurDAO;
+        $Utilisateur = $UserDAO->listeMail();
+        return $Utilisateur;
     }
 }

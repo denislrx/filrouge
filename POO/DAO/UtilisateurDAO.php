@@ -1,11 +1,11 @@
 <?php
 
-include_once("Model/Utilisateur.php");
+include_once(__DIR__ . "/..Model/Utilisateur.php");
 include_once("ConnexionDAO.php");
 
 class UtilisateurDAO extends ConnexionDAO
 {
-    function insererUser(Utilisateur $obj): void
+    function insererUtilisateur(Utilisateur $obj): void
     {
         $db = $this->connexion();;
         $id = $obj->getIdUSer();
@@ -37,7 +37,24 @@ class UtilisateurDAO extends ConnexionDAO
         return $obj;
     }
 
-    function supprimeUser(int $id): void
+    function selectAllByMail($mail): Utilisateur
+    {
+        $db = $this->connexion();
+        $stmt = $db->prepare("SELECT * FROM utilisateur WHERE mailUser = ?");
+        $stmt->bind_param("i", $mail);
+        $stmt->execute();
+        $rs = $stmt->get_result();
+        $dataUtilisateur = $rs->fetch_array(MYSQLI_ASSOC);
+        $obj = new Utilisateur;
+        $obj->setIdUser($dataUtilisateur["idUser"]);
+        $obj->setMailUser($dataUtilisateur["mailUser"]);
+        $obj->setMdpHash($dataUtilisateur["mdpHash"]);
+        $obj->setProfil($dataUtilisateur["Profil"]);
+        $db->close();
+        return $obj;
+    }
+
+    function supprimeUtilisateur(int $id): void
     {
         $db = $this->connexion();
         $stmt = $db->prepare("DELETE FROM utilisateur WHERE idUser = ?");
@@ -54,7 +71,7 @@ class UtilisateurDAO extends ConnexionDAO
         header("location: index.php");
     }
 
-    function updateUser(Utilisateur $obj, int $id): void
+    function updateUtilisateur(Utilisateur $obj, int $id): void
     {
         $db = $this->connexion();
         $mail = $obj->getMailUser();
@@ -71,5 +88,17 @@ class UtilisateurDAO extends ConnexionDAO
         );
         $stmt->execute();
         mysqli_close($db);
+    }
+
+    function listeMail()
+    {
+        $bdd = $this->connexion();
+        $stmt = $bdd->prepare("SELECT DISTINCT mailUser from utilisateur;");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $tabMail = $result->fetch_array(MYSQLI_ASSOC);
+        $result->free();
+        $bdd->close();
+        return  $tabMail;
     }
 }

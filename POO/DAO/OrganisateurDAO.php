@@ -17,6 +17,7 @@ class OrganisateurDAO extends ConnexionDAO
         $result->free();
         $bdd->close();
         $objOrgaById = new Organisateur;
+        $objOrgaById->setIdOrga($data["idOrga"]);
         $objOrgaById->setNom($data["nom"]);
         $objOrgaById->setAdresse($data["adresse"]);
         $objOrgaById->setCodePostal($data["codePostal"]);
