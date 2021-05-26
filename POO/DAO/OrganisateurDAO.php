@@ -51,7 +51,7 @@ class OrganisateurDAO extends ConnexionDAO
         $image = $objInsert->getImage();
         $bdd = $this->connexion();
         $stmt = $bdd->prepare("UPDATE organisateur SET
-        nom =?, adresse=?, codePostal=?, ville=?, description=?, email, telephone=?, adresseTwitter=?, adresseInsta=?, adresseFB=?, adresseSite=?,idUser=?, image=? WHERE idOrga = ?;");
+        nom =?, adresse=?, codePostal=?, ville=?, description=?, email=?, telephone=?, adresseTwitter=?, adresseInsta=?, adresseFB=?, adresseSite=?,idUser=?, image=? WHERE idOrga = ?;");
         $stmt->bind_param(
             "ssissssssssisi",
             $nom,
@@ -73,6 +73,7 @@ class OrganisateurDAO extends ConnexionDAO
 
     function insertOrga(Organisateur $objInsert)
     {
+        $bdd = $this->connexion();
         $nom = $objInsert->getNom();
         $adresse = $objInsert->getAdresse();
         $codePostal = $objInsert->getCodePostal();
@@ -87,10 +88,10 @@ class OrganisateurDAO extends ConnexionDAO
         $idUser = $objInsert->getIdUser();
         $image = $objInsert->getImage();
 
-        $bdd = $this->connexion();
+
         $stmt = $bdd->prepare(" INSERT INTO organisateur(
             nom, adresse, codePostal, ville, description, email, telephone, adresseTwitter, adresseInsta, adresseFB, adresseSite, idUser, image) 
-    VALUES(?,?,?,?,?,?,?,?,?,?,?,?,9);");
+    VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);");
         $stmt->bind_param(
             "ssissssssssis",
             $nom,
