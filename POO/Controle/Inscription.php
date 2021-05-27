@@ -6,24 +6,26 @@ include_once(__DIR__ . "/../Presentation/InscriptionView.php");
 $erreur = false;
 $messageErreur = [];
 $objUser = new UtilisateurService;
+$tabMail = $objUser->listeMail();
+
 if (!empty($_POST)) {
 
-    $mailRegex = "#^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$#";
-    if (!isset($_POST["mailUSer"]) || empty($_POST["mailUser"]) || !preg_match($mailRegex, $_POST["email"])) {
+
+    if (!isset($_POST["mailUser"]) || empty($_POST["mailUser"])) {
         $erreur = true;
         $messageErreur[] = "Erreur de saisie : mail non-valide ";
-    } else {
+    }
 
 
-        $tabNom = $objUser->listeMail();
-
+    if (isset($tabMail)) {
         foreach ($tabMail as $mail) {
-            if ($_POST["mailUser"] == $mail) {
+            if ($_POST["mailUser"] == $mail["mailUser"]) {
                 $erreur = true;
                 $messageErreur[] = "Mail déjà utilisé";
             }
         }
     }
+
 
     if (!isset($_POST["MDP1"]) || empty($_POST["MDP1"])) {
         $erreur = true;
@@ -43,13 +45,19 @@ if (!empty($_POST)) {
     }
 
 
+
+
     if (!$erreur) {
         $objProfil = new Utilisateur;
         $objProfil->setMailUser($_POST["mailUser"]);
         $objProfil->setMdpHash($_POST["MDP1"]);
-        $objUser->insertUser($objProfil);
-
-        header("location:Connexion.php");
+        $objUser->insererUtilisateur($objProfil);
+        $dataUser = $objUser->selectAllByMail($_POST["mailUser"]);
+        session_start();
+        $_SESSION["idUser"] = $dataUser->getIdUSer();
+        $_SESSION["Nom"] = $dataUser->getMailUser();
+        $_SESSION["Profil"] = $dataUser->getProfil();
+        header("location:FormOrgaInsert.php");
     }
 }
 

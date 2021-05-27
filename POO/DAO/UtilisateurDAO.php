@@ -1,6 +1,6 @@
 <?php
 
-include_once(__DIR__ . "/..Model/Utilisateur.php");
+include_once(__DIR__ . "\..\Model\Utilisateur.php");
 include_once("ConnexionDAO.php");
 
 class UtilisateurDAO extends ConnexionDAO
@@ -8,13 +8,11 @@ class UtilisateurDAO extends ConnexionDAO
     function insererUtilisateur(Utilisateur $obj): void
     {
         $db = $this->connexion();;
-        $id = $obj->getIdUSer();
         $mail = $obj->getMailUser();
         $mdpHash = $obj->getMdpHash();
-        $profil = $obj->getMdpHash();
-        $stmt = $db->prepare("INSERT INTO utilisateur (idUser, mailUser, mdpHash, Profil) 
-    VALUES (?, ?, ?, ?);");
-        $stmt->bind_param("isss", $id, $mail, $mdpHash, $profil);
+        $stmt = $db->prepare("INSERT INTO utilisateur (mailUser, mdpHash) 
+    VALUES (?, ?);");
+        $stmt->bind_param("ss", $mail, $mdpHash);
         $stmt->execute();
         $db->close();
     }
@@ -41,7 +39,7 @@ class UtilisateurDAO extends ConnexionDAO
     {
         $db = $this->connexion();
         $stmt = $db->prepare("SELECT * FROM utilisateur WHERE mailUser = ?");
-        $stmt->bind_param("i", $mail);
+        $stmt->bind_param("s", $mail);
         $stmt->execute();
         $rs = $stmt->get_result();
         $dataUtilisateur = $rs->fetch_array(MYSQLI_ASSOC);
@@ -93,10 +91,10 @@ class UtilisateurDAO extends ConnexionDAO
     function listeMail()
     {
         $bdd = $this->connexion();
-        $stmt = $bdd->prepare("SELECT DISTINCT mailUser from utilisateur;");
+        $stmt = $bdd->prepare("SELECT mailUser from utilisateur;");
         $stmt->execute();
         $result = $stmt->get_result();
-        $tabMail = $result->fetch_array(MYSQLI_ASSOC);
+        $tabMail = $result->fetch_all(MYSQLI_ASSOC);
         $result->free();
         $bdd->close();
         return  $tabMail;

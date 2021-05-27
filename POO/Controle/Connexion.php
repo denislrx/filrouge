@@ -14,9 +14,10 @@ if (!empty($_POST)) {
 
     if (password_verify($_POST["MDP"], $dataUser->getMdpHash())) {
         session_start();
+        $_SESSION["idUser"] = $dataUser->getIdUSer();
         $_SESSION["Nom"] = $dataUser->getMailUser();
         $_SESSION["Profil"] = $dataUser->getProfil();
-        header("location:#####");
+        header("location:FormOrgaInsert.php");
     } else {
         $erreur = true;
         $message = "Identification invalide";

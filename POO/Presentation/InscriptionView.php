@@ -32,8 +32,8 @@ function formConnex()
                 <h2 class="text-center">Connexion</h2>
             </div>
             <div class="row">
-                <div> Nom :</div>
-                <input name="Nom" type="text" placeholder="Saisir votre pseudo" />
+                <div> Email :</div>
+                <input name="mailUser" type="text" placeholder="Saisir votre email" />
             </div>
             <div class="row">
                 <div> Mot de passe :</div>
@@ -97,10 +97,10 @@ function formInscrView($er, $post)
                     <h2 class="text-center">Inscription</h2>
                 </div>
                 <div class="row">
-                    <div> Nom :</div>
-                    <input name="Nom" type="text" placeholder="Saisir votre pseudo" value="<?php if ($er) {
-                                                                                                echo $post["Nom"];
-                                                                                            }; ?>" />
+                    <div> Email :</div>
+                    <input name="mailUser" type="text" placeholder="Saisir votre email" value="<?php if ($er) {
+                                                                                                    echo $_POST["mailUser"];
+                                                                                                }; ?>" />
                 </div>
                 <div class="row">
                     <div> Mot de passe :</div>

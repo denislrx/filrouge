@@ -93,7 +93,7 @@ class OrganisateurDAO extends ConnexionDAO
             nom, adresse, codePostal, ville, description, email, telephone, adresseTwitter, adresseInsta, adresseFB, adresseSite, idUser, image) 
     VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);");
         $stmt->bind_param(
-            "ssissssssssis",
+            "sssssssssssis",
             $nom,
             $adresse,
             $codePostal,

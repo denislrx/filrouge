@@ -63,7 +63,7 @@ class Organisateur
     /**
      * Get the value of adresse
      */
-    public function getAdresse(): string
+    public function getAdresse(): ?string
     {
         return $this->adresse;
     }
@@ -73,7 +73,7 @@ class Organisateur
      *
      * @return  self
      */
-    public function setAdresse(string $adresse)
+    public function setAdresse(?string $adresse)
     {
         $this->adresse = $adresse;
 
@@ -83,7 +83,7 @@ class Organisateur
     /**
      * Get the value of codePostal
      */
-    public function getCodePostal(): int
+    public function getCodePostal(): ?string
     {
         return $this->codePostal;
     }
@@ -93,7 +93,7 @@ class Organisateur
      *
      * @return  self
      */
-    public function setCodePostal(int $codePostal)
+    public function setCodePostal(?string $codePostal)
     {
         $this->codePostal = $codePostal;
 
@@ -163,7 +163,7 @@ class Organisateur
     /**
      * Get the value of telephone
      */
-    public function getTelephone(): string
+    public function getTelephone(): ?string
     {
         return $this->telephone;
     }
@@ -173,7 +173,7 @@ class Organisateur
      *
      * @return  self
      */
-    public function setTelephone(string $telephone)
+    public function setTelephone(?string $telephone)
     {
         $this->telephone = $telephone;
 
@@ -183,7 +183,7 @@ class Organisateur
     /**
      * Get the value of adresseTwitter
      */
-    public function getAdresseTwitter(): string
+    public function getAdresseTwitter(): ?string
     {
         return $this->adresseTwitter;
     }
@@ -193,7 +193,7 @@ class Organisateur
      *
      * @return  self
      */
-    public function setAdresseTwitter(string $adresseTwitter)
+    public function setAdresseTwitter(?string $adresseTwitter)
     {
         $this->adresseTwitter = $adresseTwitter;
 
@@ -201,7 +201,7 @@ class Organisateur
     }
 
     /**
-     * Get the value of adresseInsta
+     * Get the value of ?adresseInsta
      */
     public function getAdresseInsta(): string
     {
@@ -213,7 +213,7 @@ class Organisateur
      *
      * @return  self
      */
-    public function setAdresseInsta(string $adresseInsta)
+    public function setAdresseInsta(?string $adresseInsta)
     {
         $this->adresseInsta = $adresseInsta;
 
@@ -223,7 +223,7 @@ class Organisateur
     /**
      * Get the value of adresseFB
      */
-    public function getAdresseFB(): string
+    public function getAdresseFB(): ?string
     {
         return $this->adresseFB;
     }
@@ -233,7 +233,7 @@ class Organisateur
      *
      * @return  self
      */
-    public function setAdresseFB(string $adresseFB)
+    public function setAdresseFB(?string $adresseFB)
     {
         $this->adresseFB = $adresseFB;
 
@@ -243,7 +243,7 @@ class Organisateur
     /**
      * Get the value of adresseSite
      */
-    public function getAdresseSite(): string
+    public function getAdresseSite(): ?string
     {
         return $this->adresseSite;
     }
@@ -253,7 +253,7 @@ class Organisateur
      *
      * @return  self
      */
-    public function setAdresseSite(string $adresseSite)
+    public function setAdresseSite(?string $adresseSite)
     {
         $this->adresseSite = $adresseSite;
 

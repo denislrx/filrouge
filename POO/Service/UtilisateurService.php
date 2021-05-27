@@ -27,7 +27,7 @@ class UtilisateurService
     function selectAllByMail($mail): Utilisateur
     {
         $UtilisateurDAO = new UtilisateurDAO;
-        $Utilisateur = $UtilisateurDAO->selectAllById($mail);
+        $Utilisateur = $UtilisateurDAO->selectAllByMail($mail);
         return $Utilisateur;
     }
 
@@ -37,7 +37,7 @@ class UtilisateurService
         $objDAO->supprimeUtilisateur($id);
     }
 
-    public function listeMail(): array
+    public function listeMail(): ?array
     {
         $UserDAO = new UtilisateurDAO;
         $Utilisateur = $UserDAO->listeMail();

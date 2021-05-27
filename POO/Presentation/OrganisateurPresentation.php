@@ -6,7 +6,7 @@ function AfficherOrga($objOrga, $profil)
     <!DOCTYPE html>
     <html lang="en">
     <?php
-    AfficherHead("Organisateur", "filrouge\POO\CSS\style_form_orga.css");
+    AfficherHead("Organisateur", "CSS\style_form_orga.css");
     ?>
 
     <body>
@@ -30,7 +30,7 @@ function ViewBodyOrga($objOrga, $profil)
 
         <div class="header">
             Toute l'actualité culturelle de Roubaix
-            <a href="../page-acceuil/acceuil.html"><img class="logo" src="img/Logo.png"></a>
+            <a href="../page-acceuil/acceuil.html"><img class="logo" src="C:\Users\roten\formation\filrouge\POO\Presentation\Images\logo.png"></a>
         </div>
         <div class="labeltitre switch"><?php echo $objOrga->getNom() ?></div>
         <hr />
@@ -122,7 +122,8 @@ function AfficherFormOrgaInsert($isThereError, $messages)
     <!DOCTYPE html>
     <html lang="en">
     <?php
-    AfficherHead("Créer un compte organisateur", "filrouge\POO\CSS\style_form_orga.css");
+
+    AfficherHead("Créer un compte organisateur", "../Presentation/CSS/style_form_orga.css");
     ?>
 
     <body>
@@ -145,8 +146,8 @@ function AfficherHead($nomPage, $fichierCSS)
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous" />
-        <link rel="stylesheet" href="<?php $fichierCSS ?>" />
-        <title><?php $nomPage ?></title>
+        <link rel="stylesheet" href="<?php echo ($fichierCSS) ?>" />
+        <title><?php echo ($nomPage) ?></title>
     </head>
 
 <?php
@@ -164,125 +165,125 @@ function erreurView($er, $messageErr)
                 echo $message;
                 ?> </li> <?php
                         }
-                            ?> </ul>
+                    } ?>
+    </ul>
 
 <?php
-        }
-    };
+};
 
 
-    function ViewBodyFormOrgaInsert($isThereError)
-    {
+function ViewBodyFormOrgaInsert($isThereError)
+{
 ?>
 
 
-<div class="page">
-    <form action="" method="post" name="formule" enctype="multipart/form-data">
-        <div class="header">
-            Toute l'actualité culturelle de Roubaix
-            <img class="logo" src="img/Logo.png" />
-        </div>
+    <div class="page">
+        <form action="" method="post" enctype="multipart/form-data">
+            <div class="header">
+                Toute l'actualité culturelle de Roubaix
+                <img class="logo" src="..\Presentation\Images\logo.png" />
+            </div>
 
-        <div class="aside">
-            <div class="titre">Détails de l'organisateur :</div>
-            <div class="saisie">
-                <input type="text" class="form-control" placeholder="Nom de l'organisateur" aria-label="Nom de l'organisateur" aria-describedby="basic-addon2" name="nom" value="<?php if ($isThereError) {
-                                                                                                                                                                                        echo $_POST["nom"];
-                                                                                                                                                                                    }; ?>" />
-            </div>
-            <hr />
-            <div class="saisie">
-                <input type="text" class="form-control" placeholder="Adresse" aria-label="Adresse" aria-describedby="basic-addon2" name="adresse" value="<?php if ($isThereError) {
-                                                                                                                                                                echo $_POST["adresse"];
-                                                                                                                                                            }; ?>" />
-            </div>
-            <div class="saisie">
-                <input type="text" class="form-control" placeholder="Code Postal" aria-label="Code Postal" aria-describedby="basic-addon2" name="codePostal" value="<?php if ($isThereError) {
-                                                                                                                                                                        echo $_POST["codePostal"];
-                                                                                                                                                                    }; ?>" />
-            </div>
-            <div class="saisie">
-                <input type="text" class="form-control" placeholder="Ville" aria-label="Ville" aria-describedby="basic-addon2" name="ville" value="<?php if ($isThereError) {
-                                                                                                                                                        echo $_POST["ville"];
-                                                                                                                                                    }; ?>" />
-            </div>
-            <div class="saisiedescr">
-                <div class="input-group">
-                    <textarea class="form-control" placeholder="Description" aria-label="With textarea" name="description" value="<?php if ($isThereError) {
-                                                                                                                                        echo $_POST["description"];
-                                                                                                                                    }; ?>"></textarea>
+            <div class="aside">
+                <div class="titre">Détails de l'organisateur :</div>
+                <div class="saisie">
+                    <input type="text" class="form-control" placeholder="Nom de l'organisateur" aria-label="Nom de l'organisateur" aria-describedby="basic-addon2" name="nom" value="<?php if ($isThereError) {
+                                                                                                                                                                                            echo $_POST["nom"];
+                                                                                                                                                                                        }; ?>" />
                 </div>
-            </div>
-            <div class="titre">Contacts :</div>
-            <div class="saisie">
-                <input type="text" class="form-control" placeholder="Numéro de téléphone" aria-label="Numéro de téléphone" aria-describedby="basic-addon2" name="telephone" value="<?php if ($isThereError) {
-                                                                                                                                                                                        echo $_POST["telephone"];
-                                                                                                                                                                                    }; ?>" />
-            </div>
-            <div class="saisie">
-                <input type="text" class="form-control" placeholder="E-mail" aria-label="E-mail" aria-describedby="basic-addon2" name="email" value="<?php if ($isThereError) {
-                                                                                                                                                            echo $_POST["email"];
-                                                                                                                                                        }; ?>" />
-            </div>
-            <div class="saisie">
-                <input type="text" class="form-control" placeholder="Adresse Facebook" aria-label="Adresse Facebook" aria-describedby="basic-addon2" name="adresseFB" value="<?php if ($isThereError) {
-                                                                                                                                                                                    echo $_POST["adresseFB"];
-                                                                                                                                                                                }; ?>" />
-            </div>
-            <div class="saisie">
-                <input type="text" class="form-control" placeholder="Adresse Twitter" aria-label="Adresse Twitter" aria-describedby="basic-addon2" name="adresseTwitter" value="<?php if ($isThereError) {
-                                                                                                                                                                                    echo $_POST["adresseTwitter"];
-                                                                                                                                                                                }; ?>" />
-            </div>
-            <div class="saisie">
-                <input type="text" class="form-control" placeholder="Adresse Instagram" aria-label="Adresse Instagram" aria-describedby="basic-addon2" name="adresseInsta" value="<?php if ($isThereError) {
-                                                                                                                                                                                        echo $_POST["adresseInsta"];
-                                                                                                                                                                                    }; ?>" />
-            </div>
-            <div class="saisie">
-                <input type="text" class="form-control" placeholder="Adresse Site" aria-label="Adresse Site" aria-describedby="basic-addon2" name="adresseSite" value="<?php if ($isThereError) {
-                                                                                                                                                                            echo $_POST["adresseSite"];
+                <hr />
+                <div class="saisie">
+                    <input type="text" class="form-control" placeholder="Adresse" aria-label="Adresse" aria-describedby="basic-addon2" name="adresse" value="<?php if ($isThereError) {
+                                                                                                                                                                    echo $_POST["adresse"];
+                                                                                                                                                                }; ?>" />
+                </div>
+                <div class="saisie">
+                    <input type="text" class="form-control" placeholder="Code Postal" aria-label="Code Postal" aria-describedby="basic-addon2" name="codePostal" value="<?php if ($isThereError) {
+                                                                                                                                                                            echo $_POST["codePostal"];
                                                                                                                                                                         }; ?>" />
+                </div>
+                <div class="saisie">
+                    <input type="text" class="form-control" placeholder="Ville" aria-label="Ville" aria-describedby="basic-addon2" name="ville" value="<?php if ($isThereError) {
+                                                                                                                                                            echo $_POST["ville"];
+                                                                                                                                                        }; ?>" />
+                </div>
+                <div class="saisiedescr">
+                    <div class="input-group">
+                        <textarea class="form-control" placeholder="Description" aria-label="With textarea" name="description" value="<?php if ($isThereError) {
+                                                                                                                                            echo $_POST["description"];
+                                                                                                                                        }; ?>"></textarea>
+                    </div>
+                </div>
+                <div class="titre">Contacts :</div>
+                <div class="saisie">
+                    <input type="text" class="form-control" placeholder="Numéro de téléphone" aria-label="Numéro de téléphone" aria-describedby="basic-addon2" name="telephone" value="<?php if ($isThereError) {
+                                                                                                                                                                                            echo $_POST["telephone"];
+                                                                                                                                                                                        }; ?>" />
+                </div>
+                <div class="saisie">
+                    <input type="email" class="form-control" placeholder="exemple@exemple.com" aria-label="E-mail" aria-describedby="basic-addon2" name="email" value="<?php if ($isThereError) {
+                                                                                                                                                                            echo $_POST["email"];
+                                                                                                                                                                        }; ?>" />
+                </div>
+                <div class="saisie">
+                    <input type="text" class="form-control" placeholder="Adresse Facebook" aria-label="Adresse Facebook" aria-describedby="basic-addon2" name="adresseFB" value="<?php if ($isThereError) {
+                                                                                                                                                                                        echo $_POST["adresseFB"];
+                                                                                                                                                                                    }; ?>" />
+                </div>
+                <div class="saisie">
+                    <input type="text" class="form-control" placeholder="Adresse Twitter" aria-label="Adresse Twitter" aria-describedby="basic-addon2" name="adresseTwitter" value="<?php if ($isThereError) {
+                                                                                                                                                                                        echo $_POST["adresseTwitter"];
+                                                                                                                                                                                    }; ?>" />
+                </div>
+                <div class="saisie">
+                    <input type="text" class="form-control" placeholder="Adresse Instagram" aria-label="Adresse Instagram" aria-describedby="basic-addon2" name="adresseInsta" value="<?php if ($isThereError) {
+                                                                                                                                                                                            echo $_POST["adresseInsta"];
+                                                                                                                                                                                        }; ?>" />
+                </div>
+                <div class="saisie">
+                    <input type="url" class="form-control" placeholder="Adresse Site" aria-label="Adresse Site" aria-describedby="basic-addon2" name="adresseSite" value="<?php if ($isThereError) {
+                                                                                                                                                                                echo $_POST["adresseSite"];
+                                                                                                                                                                            }; ?>" />
 
+                </div>
+                <hr />
             </div>
-            <hr />
-        </div>
 
-        <div class="section">
-            <label class="center" for="avatar">Choisissez une image d'illustration:
-            </label>
+            <div class="section">
+                <label class="center" for="avatar">Choisissez une image d'illustration:
+                </label>
 
-            <input class="center" type="file" id="image" name="image" accept="image/png, image/jpeg" />
-        </div>
-        <div class="footer">
-            <hr />
-            <div class="demi col-md-6">
-                <button class="btn btn-primary" type="reset">Annuler</button>
-                <!-- <button class="btn btn-primary" >Supprimer</button> -->
-                <button class="btn btn-primary" type="submit">Valider</button>
+                <input class="center" type="file" id="image" name="image" accept="image/png, image/jpeg" />
             </div>
-            <hr />
+            <div class="footer">
+                <hr />
+                <div class="demi col-md-6">
+                    <button class="btn btn-primary" type="reset">Annuler</button>
+                    <!-- <button class="btn btn-primary" >Supprimer</button> -->
+                    <button class="btn btn-primary" type="submit">Valider</button>
+                </div>
+                <hr />
 
-            <div class="demi col-md-6">
+                <div class="demi col-md-6">
 
-            </div>
-    </form>
-</div>
-</div>
+                </div>
+        </form>
+    </div>
+
 
 <?php
-    }
+}
 
 
 
 
-    function AfficherModifFormOrga($isThereError, $messages, $data)
-    {
+function AfficherModifFormOrga($isThereError, $messages, $data)
+{
 ?>
     <!DOCTYPE html>
     <html lang="en">
     <?php
-        AfficherHead("Modifier Organisateur", "filrouge\POO\CSS\style_form_orga.css");
+    AfficherHead("Modifier Organisateur", "filrouge\POO\CSS\style_form_orga.css");
     ?>
 
     <body>
@@ -294,10 +295,10 @@ function erreurView($er, $messageErr)
 
     </html>
 <?php
-    }
+}
 
-    function ViewBodyFormOrgaModif($isThereError, $data)
-    {
+function ViewBodyFormOrgaModif($isThereError, $data)
+{
 ?>
 
 
@@ -305,7 +306,7 @@ function erreurView($er, $messageErr)
         <form action="" method="post" name="formule" enctype="multipart/form-data">
             <div class="header">
                 Toute l'actualité culturelle de Roubaix
-                <img class="logo" src="img/Logo.png" />
+                <img class="logo" src="C:\Users\roten\formation\filrouge\POO\Presentation\Images\logo.png" />
             </div>
 
             <div class="aside">
@@ -374,4 +375,4 @@ function erreurView($er, $messageErr)
     </div>
 
 <?php
-    }
+}
