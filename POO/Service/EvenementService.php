@@ -1,6 +1,6 @@
 <?php
 
-include_once("DAO/EvenementDAO.php");
+include_once("/../DAO/EvenementDAO.php");
 
 class EvenementService
 {
@@ -11,21 +11,21 @@ class EvenementService
         $evenementDAO->insertEvent($objInsert);
     }
 
-    public function deleteOrga(int $id)
+    public function deleteEvent(int $id)
     {
         $evenementDAO = new EvenementDAO;
 
         $evenementDAO->deleteEvent($id);
     }
 
-    public function updateOrga(Evenement $objInsert, int $id)
+    public function updateEvent(Evenement $objInsert, int $id)
     {
         $evenementDAO = new EvenementDAO;
 
         $evenementDAO->updateEvent($objInsert, $id);
     }
 
-    public function selectAllOrgaById(int $id): Evenement
+    public function selectAllEventById(int $id): Evenement
     {
         $evenementDAO = new EvenementDAO;
 

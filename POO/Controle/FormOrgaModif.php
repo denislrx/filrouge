@@ -3,10 +3,10 @@
 include_once(__DIR__ . "/../Presentation/OrganisateurPresentation.php");
 include_once(__DIR__ . "/../Service/OrganisateurService.php");
 
-session_start();
-if (!isset($_SESSION) || empty($_SESSION) || $_SESSION["Profil"] == "user" || $_SESSION["Profil"] == "admin") {
-    header("location: connexion.php");
-}
+// session_start();
+// if (!isset($_SESSION) || empty($_SESSION) || $_SESSION["Profil"] == "user" || $_SESSION["Profil"] == "admin") {
+//     header("location: connexion.php");
+// }
 
 $isThereError = false;
 if (!isset($_POST)) {
