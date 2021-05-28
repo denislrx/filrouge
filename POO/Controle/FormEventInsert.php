@@ -66,9 +66,10 @@ if (!empty($_POST)) {
         $objPost->setUrlLien($_POST["description"]);
 
         $objService->insertEvent($objPost);
+        $objId = $objService->selectAllEventByIdOrga($_SESSION["idOrga"]);
 
         // header vers page Organisateur créé (avec Get IdUser ?)
-        header("location: AffichageEvent.php");
+        header("location: AffichageEvent.php?id=" . $id);
     }
     afficherFormInsertEvent($isThereError, $messages);
 }

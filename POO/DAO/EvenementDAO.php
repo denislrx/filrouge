@@ -1,6 +1,6 @@
 <?php
 
-include_once(__DIR__ . "Model/Evenement.php");
+include_once(__DIR__ . "/../Model/Evenement.php");
 include_once(__DIR__ . "/ConnexionDAO.php");
 
 class EvenementDAO extends ConnexionDAO
