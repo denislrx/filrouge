@@ -8,6 +8,7 @@ class OrganisateurDAO extends ConnexionDAO
 
     function selectAllOrgaById(int $id): Organisateur
     {
+
         $bdd = $this->connexion();
         $stmt = $bdd->prepare("SELECT * FROM organisateur WHERE idOrga = ?");
         $stmt->bind_param("i", $id);
@@ -33,6 +34,35 @@ class OrganisateurDAO extends ConnexionDAO
 
         return $objOrgaById;
     }
+
+    function selectAllOrgaByIdUser(int $id): Organisateur
+    {
+        $bdd = $this->connexion();
+        $stmt = $bdd->prepare("SELECT * FROM organisateur WHERE idUser = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $data = $result->fetch_array(MYSQLI_ASSOC);
+        $result->free();
+        $bdd->close();
+        $objOrgaById = new Organisateur;
+        $objOrgaById->setIdOrga($data["idOrga"]);
+        $objOrgaById->setNom($data["nom"]);
+        $objOrgaById->setAdresse($data["adresse"]);
+        $objOrgaById->setCodePostal($data["codePostal"]);
+        $objOrgaById->setVille($data["ville"]);
+        $objOrgaById->setDescription($data["description"]);
+        $objOrgaById->setEmail($data["email"]);
+        $objOrgaById->setTelephone($data["telephone"]);
+        $objOrgaById->setAdresseTwitter($data["adresseTwitter"]);
+        $objOrgaById->setAdresseInsta($data["adresseInsta"]);
+        $objOrgaById->setAdresseFB($data["adresseFB"]);
+        $objOrgaById->setAdresseSite($data["adresseSite"]);
+        $objOrgaById->setImage($data["image"]);
+
+        return $objOrgaById;
+    }
+
 
     function updateOrga(Organisateur $objInsert, int $id)
     {

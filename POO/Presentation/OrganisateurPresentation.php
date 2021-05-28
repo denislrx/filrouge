@@ -45,13 +45,13 @@ function ViewBodyOrga($objOrga, $profil)
             <hr />
             <div class="row">
                 <div class="col-md-8 label">
-                    <p><?php echo $objOrga->getAdresse() ?></br> <?php echo $objOrga->getCodePostal() ?> </br> <?php echo $objOrga->getCodeVille() ?> </p>
-                    <p>Tel : <?php echo $objOrga->getCodeTelephone() ?></p>
+                    <p><?php echo $objOrga->getAdresse() ?></br> <?php echo $objOrga->getCodePostal() ?> </br> <?php echo $objOrga->getVille() ?> </p>
+                    <p>Tel : <?php echo $objOrga->getTelephone() ?></p>
                     <p>Mail : <?php echo $objOrga->getEmail() ?></p>
                 </div>
                 <div class="col-md-3 edition">
                     <?php if ($profil == "user" || $profil == "admin") { ?>
-                        <a href="####"><button type="button" class="btn btn-outline-secondary">Ajouter un événement</button></a>
+                        <a href="FormEventInsert.php"><button type="button" class="btn btn-outline-secondary">Ajouter un événement</button></a>
                         <a href="FormOrgaModif.php?id=<?php echo $objOrga->getIdOrga() ?>"><button type="button" class="btn btn-outline-secondary">Modifier la page</button></a>
                     <?php } ?>
                 </div>
@@ -67,7 +67,7 @@ function ViewBodyOrga($objOrga, $profil)
 
 
         <div class="section">
-            <img class="illustration" src="img/image-colisee.jpg" alt="Photo de l'organisateur">
+            <img class="illustration" src="<?php echo $objOrga->getImage() ?>"" alt=" Photo de l'organisateur">
         </div>
 
         <div class="footer">
@@ -226,17 +226,17 @@ function ViewBodyFormOrgaInsert($isThereError)
                                                                                                                                                                         }; ?>" />
                 </div>
                 <div class="saisie">
-                    <input type="text" class="form-control" placeholder="Adresse Facebook" aria-label="Adresse Facebook" aria-describedby="basic-addon2" name="adresseFB" value="<?php if ($isThereError) {
-                                                                                                                                                                                        echo $_POST["adresseFB"];
-                                                                                                                                                                                    }; ?>" />
+                    <input type="text" class="form-control" placeholder="www.facebook.com/votrenomdutilisateur" aria-label="Adresse Facebook" aria-describedby="basic-addon2" name="adresseFB" value="<?php if ($isThereError) {
+                                                                                                                                                                                                            echo $_POST["adresseFB"];
+                                                                                                                                                                                                        }; ?>" />
                 </div>
                 <div class="saisie">
-                    <input type="text" class="form-control" placeholder="Adresse Twitter" aria-label="Adresse Twitter" aria-describedby="basic-addon2" name="adresseTwitter" value="<?php if ($isThereError) {
+                    <input type="text" class="form-control" placeholder="@AdresseTwitter" aria-label="Adresse Twitter" aria-describedby="basic-addon2" name="adresseTwitter" value="<?php if ($isThereError) {
                                                                                                                                                                                         echo $_POST["adresseTwitter"];
                                                                                                                                                                                     }; ?>" />
                 </div>
                 <div class="saisie">
-                    <input type="text" class="form-control" placeholder="Adresse Instagram" aria-label="Adresse Instagram" aria-describedby="basic-addon2" name="adresseInsta" value="<?php if ($isThereError) {
+                    <input type="text" class="form-control" placeholder="@adresseInstagram" aria-label="Adresse Instagram" aria-describedby="basic-addon2" name="adresseInsta" value="<?php if ($isThereError) {
                                                                                                                                                                                             echo $_POST["adresseInsta"];
                                                                                                                                                                                         }; ?>" />
                 </div>

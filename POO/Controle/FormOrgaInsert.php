@@ -29,7 +29,6 @@ $adresseSiteRegex = "#^(http\:\/\/[a-zA-Z0-9_\-]+(?:\.[a-zA-Z0-9_\-]+)*\.[a-zA-Z
 
 if (!empty($_POST)) {
 
-    var_dump($_POST);
 
     if (!isset($_POST["nom"]) || empty($_POST["nom"]) || !preg_match($nomRegex, $_POST["nom"])) {
         $isThereError = true;
@@ -107,9 +106,9 @@ if (!empty($_POST)) {
         // var_dump($objPost);
 
         $objService->insertOrga($objPost);
-
-        // header vers page Organisateur créé (avec Get IdUser ?)
-        // header("location: AffichageOrga.php");
+        $objId = $objService->selectAllOrgaByIdUser($_SESSION["idUser"]);
+       
+        header("location: AffichageOrga.php?id=" . $objId->getIdOrga());
     }
 }
 AfficherFormOrgaInsert($isThereError, $messages);

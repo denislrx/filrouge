@@ -9,29 +9,38 @@ class OrganisateurService
     {
         $orginisateurDAO = new OrganisateurDAO;
 
-        $orginisateur = $orginisateurDAO->selectAllOrgaById($id);
+        $organisateur = $orginisateurDAO->selectAllOrgaById($id);
 
-        return $orginisateur;
+        return $organisateur;
+    }
+
+    public function selectAllOrgaByIdUser(int $id): Organisateur
+    {
+        $orginisateurDAO = new OrganisateurDAO;
+
+        $organisateur = $orginisateurDAO->selectAllOrgaByIdUser($id);
+
+        return $organisateur;
     }
 
     public function updateOrga(Organisateur $objInsert, int $id)
     {
-        $orginisateurDAO = new OrganisateurDAO;
+        $organisateurDAO = new OrganisateurDAO;
 
-        $orginisateurDAO->updateOrga($objInsert, $id);
+        $organisateurDAO->updateOrga($objInsert, $id);
     }
 
     public function insertOrga(Organisateur $objInsert)
     {
-        $orginisateurDAO = new OrganisateurDAO;
+        $organisateurDAO = new OrganisateurDAO;
 
-        $orginisateurDAO->insertOrga($objInsert);
+        $organisateurDAO->insertOrga($objInsert);
     }
 
     public function deleteOrga(int $id)
     {
-        $orginisateurDAO = new OrganisateurDAO;
+        $organisateurDAO = new OrganisateurDAO;
 
-        $orginisateurDAO->deleteOrga($id);
+        $organisateurDAO->deleteOrga($id);
     }
 }
