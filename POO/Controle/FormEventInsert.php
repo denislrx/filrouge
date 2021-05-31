@@ -4,7 +4,7 @@ include_once(__DIR__ . "/../Presentation/EvenementPresentation.php");
 include_once(__DIR__ . "/../Service/EvenementService.php");
 
 session_start();
-if (!isset($_SESSION) || empty($_SESSION) || $_SESSION["Profil"] == "user") {
+if (!isset($_SESSION)) {
     header("location: connexion.php");
 }
 
@@ -64,12 +64,14 @@ if (!empty($_POST)) {
         $objPost->setDescription($_POST["description"]);
         $objPost->setImage(file_get_contents($_FILES['image']['tmp_name']));
         $objPost->setUrlLien($_POST["description"]);
+        $objPost->setIdOrga($_SESSION["idOrga"]);
 
         $objService->insertEvent($objPost);
-        $objId = $objService->selectAllEventByIdOrga($_SESSION["idOrga"]);
 
+        $objId = $objService->selectAllEventByIdOrgaNameAndDate($_SESSION["idOrga"], $_POST["nomEvent"], $_POST["dateEvent"]);
+        $id = $objId->getIdEvent();
         // header vers page Organisateur créé (avec Get IdUser ?)
         header("location: AffichageEvent.php?id=" . $id);
     }
-    afficherFormInsertEvent($isThereError, $messages);
 }
+afficherFormInsertEvent($isThereError, $messages);

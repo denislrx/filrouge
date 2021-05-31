@@ -107,7 +107,7 @@ if (!empty($_POST)) {
 
         $objService->insertOrga($objPost);
         $objId = $objService->selectAllOrgaByIdUser($_SESSION["idUser"]);
-       
+        $_SESSION["idOrga"] = $objId->getIdOrga();
         header("location: AffichageOrga.php?id=" . $objId->getIdOrga());
     }
 }

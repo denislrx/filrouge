@@ -37,12 +37,16 @@ class UtilisateurDAO extends ConnexionDAO
 
     function selectAllByMail($mail): Utilisateur
     {
+        var_dump($mail);
         $db = $this->connexion();
         $stmt = $db->prepare("SELECT * FROM utilisateur WHERE mailUser = ?");
         $stmt->bind_param("s", $mail);
         $stmt->execute();
+        //var_dump($stmt);
         $rs = $stmt->get_result();
+        //var_dump($rs);
         $dataUtilisateur = $rs->fetch_array(MYSQLI_ASSOC);
+        //var_dump($dataUtilisateur);
         $obj = new Utilisateur;
         $obj->setIdUser($dataUtilisateur["idUser"]);
         $obj->setMailUser($dataUtilisateur["mailUser"]);

@@ -13,4 +13,4 @@ if (isset($_GET["id"])) {
     $data = $obj->selectAllEventById($_GET["id"]);
 }
 
-AfficherEvent($data, $profil);
+afficherEvent($data, $profil);

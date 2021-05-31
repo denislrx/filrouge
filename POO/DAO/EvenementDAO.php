@@ -91,4 +91,27 @@ class EvenementDAO extends ConnexionDAO
 
         return $objEventById;
     }
+    function selectAllEventByIdOrgaNameAndDate(int $id, string $name, string $date): Evenement
+    {
+        $bdd = $this->connexion();
+        $stmt = $bdd->prepare("SELECT * FROM evenement WHERE idOrga = ? AND nom= ? AND date= ?");
+        $stmt->bind_param("iss", $id, $name, $date);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $data = $result->fetch_array(MYSQLI_ASSOC);
+        $result->free();
+        $bdd->close();
+        $objEventByIdOrga = new Evenement;
+        $objEventByIdOrga->setIdEvent($data["idEvent"]);
+        $objEventByIdOrga->setDate($data["date"]);
+        $objEventByIdOrga->setHeure($data["heure"]);
+        $objEventByIdOrga->setNom($data["nom"]);
+        $objEventByIdOrga->setLieu($data["lieu"]);
+        $objEventByIdOrga->setDescription($data["description"]);
+        $objEventByIdOrga->setImage($data["image"]);
+        $objEventByIdOrga->setUrlLien($data["urlLien"]);
+
+
+        return $objEventByIdOrga;
+    }
 }
