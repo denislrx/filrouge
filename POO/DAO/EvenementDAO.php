@@ -16,7 +16,7 @@ class EvenementDAO extends ConnexionDAO
         $image = $obj->getImage();
         $urlLien = $obj->getUrlLien();
         $idOrga = $obj->getIdOrga();
-        $stmt = $db->prepare("INSERT INTO evenement(idEvent, date, heure, nom, lieu, description, image, urlLien, idOrga)
+        $stmt = $db->prepare("INSERT INTO evenement(idEvent, date, heure, nom, Lieu, description, image, urlLien, idOrga)
         VALUES(?,?,?,?,?,?,?,?,?);");
         $stmt->bind_param(
             "isssssssi",
@@ -45,7 +45,7 @@ class EvenementDAO extends ConnexionDAO
         $image = $objInsert->getImage();
         $urlLien = $objInsert->getUrlLien();
         $stmt = $bdd->prepare("UPDATE evenement SET
-        date =?, heure=?, nom=?, lieu=?, description=?, image=?, urlLien=?,WHERE idEvent = ?;");
+        date =?, heure=?, nom=?, Lieu=?, description=?, image=?, urlLien=?,WHERE idEvent = ?;");
         $stmt->bind_param(
             "sssssssi",
             $date,
@@ -57,6 +57,8 @@ class EvenementDAO extends ConnexionDAO
             $urlLien,
             $id
         );
+        $stmt->execute();
+        $bdd->close();
     }
 
     function deleteEvent($id)
@@ -83,7 +85,7 @@ class EvenementDAO extends ConnexionDAO
         $objEventById->setDate($data["date"]);
         $objEventById->setHeure($data["heure"]);
         $objEventById->setNom($data["nom"]);
-        $objEventById->setLieu($data["lieu"]);
+        $objEventById->setLieu($data["Lieu"]);
         $objEventById->setDescription($data["description"]);
         $objEventById->setImage($data["image"]);
         $objEventById->setUrlLien($data["urlLien"]);
@@ -106,7 +108,7 @@ class EvenementDAO extends ConnexionDAO
         $objEventByIdOrga->setDate($data["date"]);
         $objEventByIdOrga->setHeure($data["heure"]);
         $objEventByIdOrga->setNom($data["nom"]);
-        $objEventByIdOrga->setLieu($data["lieu"]);
+        $objEventByIdOrga->setLieu($data["Lieu"]);
         $objEventByIdOrga->setDescription($data["description"]);
         $objEventByIdOrga->setImage($data["image"]);
         $objEventByIdOrga->setUrlLien($data["urlLien"]);

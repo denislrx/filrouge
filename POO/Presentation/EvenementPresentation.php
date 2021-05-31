@@ -60,7 +60,7 @@ function viewBodyEvent($objEvent, $profil)
     <div class="page">
         <div class="header">
             Toute l'actualité culturelle de Roubaix
-            <img class="logo" src="img/Logo.png">
+            <a href="../page-acceuil/acceuil.html"><img class="logo" src="..\Presentation\Images\logo.png"></a>
         </div>
         <div class="aside">
             <div class="labeltitre"><?php echo $objEvent->getNom() ?></div>
@@ -132,13 +132,13 @@ function viewBodyEvent($objEvent, $profil)
                                 <div class="ligne">
                                     <div class="labeldate col-md-6">
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control" placeholder="Date de l'évenement" aria-label="Date de l'évenement" aria-describedby="basic-addon2" name="dateEvent" value="<?php if ($isThereError) {
+                                            <input type="date" class="form-control" placeholder="Date de l'évenement" aria-label="Date de l'évenement" aria-describedby="basic-addon2" name="dateEvent" value="<?php if ($isThereError) {
                                                                                                                                                                                                                     echo $_POST["dateEvent"];
                                                                                                                                                                                                                 }; ?>" />
                                         </div>
                                     </div>
                                     <div class="labeldate col-md-6">
-                                        <input type="text" class="form-control" placeholder="Heure de l'évenement" aria-label="Heure de l'évenement" aria-describedby="basic-addon2" name="heureEvent" value="<?php if ($isThereError) {
+                                        <input type="time" class="form-control" placeholder="Heure de l'évenement" aria-label="Heure de l'évenement" aria-describedby="basic-addon2" name="heureEvent" value="<?php if ($isThereError) {
                                                                                                                                                                                                                     echo $_POST["heureEvent"];
                                                                                                                                                                                                                 }; ?>" />
                                     </div>
@@ -161,7 +161,7 @@ function viewBodyEvent($objEvent, $profil)
                                 <input type="text" class="form-control" placeholder="Numéro de téléphone" aria-label="Numéro de téléphone" aria-describedby="basic-addon2" name="telephone" value="<?php if ($isThereError) {
                                                                                                                                                                                                         echo $_POST["telephone"];
                                                                                                                                                                                                     }; ?>" />
-                                <input type="text" class="form-control" placeholder="E-mail" aria-label="E-mail" aria-describedby="basic-addon2" name="email" value="<?php if ($isThereError) {
+                                <input type="mail" class="form-control" placeholder="E-mail" aria-label="E-mail" aria-describedby="basic-addon2" name="email" value="<?php if ($isThereError) {
                                                                                                                                                                             echo $_POST["email"];
                                                                                                                                                                         }; ?>" />
                             </div>
