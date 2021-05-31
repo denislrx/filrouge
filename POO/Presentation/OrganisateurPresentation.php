@@ -76,7 +76,7 @@ function viewBodyOrga($objOrga, $profil, $dataCarroussel)
                 <div id="carousel">
                     <div id="content">
                         <?php foreach ($dataCarroussel as $value) { ?>
-                            <a href="AffichageEvent.php?id=<?php $value->getIdUser ?>"><img class="item" src="data:image/jpg;base64,<?php echo base64_encode($value->getImage()) ?>" /></a>
+                            <a href="AffichageEvent.php?id=<?php $value->getIdEvent() ?>"><img class="item" src="data:image/jpg;base64,<?php echo base64_encode($value->getImage()) ?>" /></a>
                         <?php } ?>
                     </div>
                 </div>

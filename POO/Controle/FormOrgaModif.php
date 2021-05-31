@@ -111,7 +111,7 @@ if (!empty($_POST)) {
 
         $obj->updateOrga($objPost, $id);
 
-        // header("location: AffichageOrga.php?id=$id");
+        header("location: AffichageOrga.php?id=$id");
     }
 }
 AfficherModifFormOrga($isThereError, $messages, $data);

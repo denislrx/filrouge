@@ -66,29 +66,29 @@ class OrganisateurDAO extends ConnexionDAO
 
     function updateOrga(Organisateur $objInsert, int $id)
     {
-        var_dump($id);
+        // var_dump($id);
         $nom = $objInsert->getNom();
-        var_dump($nom);
+        // var_dump($nom);
         $adresse = $objInsert->getAdresse();
-        var_dump($adresse);
+        // var_dump($adresse);
         $codePostal = $objInsert->getCodePostal();
-        var_dump($codePostal);
+        // var_dump($codePostal);
         $ville = $objInsert->getVille();
-        var_dump($ville);
+        // var_dump($ville);
         $description = $objInsert->getDescription();
-        var_dump($description);
+        // var_dump($description);
         $email = $objInsert->getEmail();
-        var_dump($email);
+        // var_dump($email);
         $telephone = $objInsert->getTelephone();
-        var_dump($telephone);
+        // var_dump($telephone);
         $adresseTwitter = $objInsert->getAdresseTwitter();
-        var_dump($adresseTwitter);
+        // var_dump($adresseTwitter);
         $adresseInsta = $objInsert->getAdresseInsta();
-        var_dump($adresseInsta);
+        // var_dump($adresseInsta);
         $adresseFB = $objInsert->getAdresseFB();
-        var_dump($adresseFB);
+        // var_dump($adresseFB);
         $adresseSite = $objInsert->getAdresseSite();
-        var_dump($adresseSite);
+        // var_dump($adresseSite);
         $image = $objInsert->getImage();
         // var_dump($image);
         $bdd = $this->connexion();
@@ -106,7 +106,7 @@ class OrganisateurDAO extends ConnexionDAO
         adresseSite= ?, 
         image= ? 
         WHERE idOrga = ?;");
-        var_dump($stmt);
+        // var_dump($stmt);
         $stmt->bind_param(
             "ssisssssssssi",
             $nom,
@@ -123,6 +123,8 @@ class OrganisateurDAO extends ConnexionDAO
             $image,
             $id
         );
+        $stmt->execute();
+        $bdd->close();
     }
 
     function insertOrga(Organisateur $objInsert)
@@ -141,8 +143,6 @@ class OrganisateurDAO extends ConnexionDAO
         $adresseSite = $objInsert->getAdresseSite();
         $idUser = $objInsert->getIdUser();
         $image = $objInsert->getImage();
-
-
         $stmt = $bdd->prepare(" INSERT INTO organisateur(
             nom, adresse, codePostal, ville, description, email, telephone, adresseTwitter, adresseInsta, adresseFB, adresseSite, idUser, image) 
     VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);");
