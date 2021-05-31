@@ -6,7 +6,7 @@ function afficherEvent($objEvent, $profil)
     <!DOCTYPE html>
     <html lang="en">
     <?php
-    afficherHead("Evenement", "filrouge\POO\CSS\style_page_event.css");
+    afficherHead("Evenement", "..\Presentation\CSS\style_page_event.css");
     ?>
 
     <body>
@@ -66,12 +66,12 @@ function viewBodyEvent($objEvent, $profil)
             <div class="labeltitre"><?php echo $objEvent->getNom() ?></div>
             <hr>
             <div class="ligne">
-                <div class="labeldate col-md-6"><?php echo $objEvent->getDate() ?></div>
-                <div class="labeldate col-md-6"><?php echo $objEvent->getHeure() ?></div>
+                <div class="labeldate col-md-6">Le : <?php echo $objEvent->getDate() ?></div>
+                <div class="labeldate col-md-6">à : <?php echo $objEvent->getHeure() ?></div>
             </div>
             <hr>
-            <div class="labeldate">Au
-                <!--récuperer $_GET de l'orga -->Colisée
+            <div class="labeldate">
+                <div class="labeldate col-md-6">Lieu : <?php echo $objEvent->getLieu() ?></div>
             </div>
             <div class=label> 31 Rue de l'Epeule </br> 59100 Roubaix</br> Infos et réservations : </br>
                 Téléphone : 03 20 24 47 </br> E-mail: coliseerbx@gmail.com </div>
@@ -86,8 +86,7 @@ function viewBodyEvent($objEvent, $profil)
             </div>
         </div>
         <div class="section">
-            <a href="https://twitter.com/GRADIDUR">
-                <img class="illustration" src=<?php echo $objEvent->getImage() ?> alt="illustration de l'événement" /></a>
+            <img class="illustration" src="data:image/jpg;base64,<?php echo base64_encode($objEvent->getImage()) ?>" alt=" Photo de l'evenement" />
         </div>
 
         <div class="footer">
@@ -102,7 +101,7 @@ function viewBodyEvent($objEvent, $profil)
                 Evenement proposé par
                 <pre> </pre>
                 <a class="tag" href="page_orga.html">
-                    <!--récuperer $_POST de l'orga -->le Colisée
+                    <div class="labeldate col-md-6"><?php echo $objEvent->getLieu() ?></div>
                 </a>
                 <div>
 
