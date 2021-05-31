@@ -155,7 +155,7 @@ h2 {
 body {
   color: black;
   background-color: white;
-  background-image: url(img/home-rs.jpg);
+  background-image: url("../Images/home-rs.jpg");
   background-position: right top;
 }
 

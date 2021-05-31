@@ -1,17 +1,17 @@
 <?php
 
-function AfficherOrga($objOrga, $profil)
+function afficherOrga($objOrga, $profil, $dataCarroussel)
 {
 ?>
     <!DOCTYPE html>
     <html lang="en">
     <?php
-    AfficherHead("Organisateur", "CSS\style_form_orga.css");
+    afficherHead("Organisateur", "..\Presentation\CSS\style_orga.css");
     ?>
 
     <body>
         <?php
-        ViewBodyOrga($objOrga, $profil);
+        viewBodyOrga($objOrga, $profil, $dataCarroussel);
         ?>
     </body>
 
@@ -23,14 +23,14 @@ function AfficherOrga($objOrga, $profil)
 <?php
 }
 
-function ViewBodyOrga($objOrga, $profil)
+function viewBodyOrga($objOrga, $profil, $dataCarroussel)
 {
 ?>
     <div class="page">
 
         <div class="header">
             Toute l'actualité culturelle de Roubaix
-            <a href="../page-acceuil/acceuil.html"><img class="logo" src="C:\Users\roten\formation\filrouge\POO\Presentation\Images\logo.png"></a>
+            <a href="../page-acceuil/acceuil.html"><img class="logo" src="..\Presentation\Images\logo.png"></a>
         </div>
         <div class="labeltitre switch"><?php echo $objOrga->getNom() ?></div>
         <hr />
@@ -53,13 +53,14 @@ function ViewBodyOrga($objOrga, $profil)
                     <?php if ($profil == "user" || $profil == "admin") { ?>
                         <a href="FormEventInsert.php"><button type="button" class="btn btn-outline-secondary">Ajouter un événement</button></a>
                         <a href="FormOrgaModif.php?id=<?php echo $objOrga->getIdOrga() ?>"><button type="button" class="btn btn-outline-secondary">Modifier la page</button></a>
+                        <a href="DeleteOrga.php?id=<?php echo $objOrga->getIdOrga() ?>"><button type="button" class="btn btn-outline-secondary">Supprimer la page</button></a>
                     <?php } ?>
                 </div>
                 <hr />
                 <div class="ligne">
-                    <a href="<?php echo $objOrga->getAdresseFB() ?>"><img class="logoRS" src="img/fb.png" /></a>
-                    <a href="<?php echo $objOrga->getAdresseTwitter() ?>"><img class="logoRS" src="img/twit.png" /></a>
-                    <a href="<?php echo $objOrga->getAdresseInsta() ?>"><img class="logoRS" src="img/insta.png" /></a>
+                    <a href="<?php echo $objOrga->getAdresseFB() ?>"><img class="logoRS" src="..\Presentation\Images\fb.png" /></a>
+                    <a href="<?php echo $objOrga->getAdresseTwitter() ?>"><img class="logoRS" src="..\Presentation\Images\twit.png" /></a>
+                    <a href="<?php echo $objOrga->getAdresseInsta() ?>"><img class="logoRS" src="..\Presentation\Images\insta.png" /></a>
                 </div>
             </div>
             <hr />
@@ -67,33 +68,16 @@ function ViewBodyOrga($objOrga, $profil)
 
 
         <div class="section">
-            <img class="illustration" src="<?php echo $objOrga->getImage() ?>"" alt=" Photo de l'organisateur">
+            <img class="illustration" src="data:image/jpg;base64,<?php echo base64_encode($objOrga->getImage()) ?>" alt=" Photo de l'organisateur" />
         </div>
 
         <div class="footer">
             <div id="wrapper">
                 <div id="carousel">
                     <div id="content">
-                        <a href="https://www.ugc.fr/cinema.html?id=51"><img class="item" src="img/cinema.jpg" /></a>
-                        <a href="https://www.coliseeroubaix.com/"><img src="img/concert.jpg" class="item" /></a>
-                        <a href="https://www.lecomedyclub.com/fr"><img src="img/gradur.jpeg" class="item" /></a>
-                        <a href="https://www.lecomedyclub.com/fr"><img src="img/jcc.jpg" class="item" /></a>
-                        <a href="https://www.coliseeroubaix.com/"><img src="img/concert.jpg" class="item" /></a>
-                        <a href="https://www.lecomedyclub.com/fr"><img src="img/gradur.jpeg" class="item" /></a>
-                        <a href="https://www.ugc.fr/cinema.html?id=51"><img class="item" src="img/cinema.jpg" /></a>
-                        <a href="https://www.lecomedyclub.com/fr"><img src="img/jcc.jpg" class="item" /></a>
-                        <a href="https://www.lecomedyclub.com/fr"><img src="img/gradur.jpeg" class="item" /></a>
-                        <a href="https://www.coliseeroubaix.com/"><img src="img/concert.jpg" class="item" /></a>
-                        <a href="https://www.ugc.fr/cinema.html?id=51"><img class="item" src="img/cinema.jpg" /></a>
-                        <a href="https://www.lecomedyclub.com/fr"><img src="img/jcc.jpg" class="item" /></a>
-                        <a href="https://www.coliseeroubaix.com/"><img src="img/concert.jpg" class="item" /></a>
-                        <a href="https://www.ugc.fr/cinema.html?id=51"><img class="item" src="img/cinema.jpg" /></a>
-                        <a href="https://www.lecomedyclub.com/fr"><img src="img/gradur.jpeg" class="item" /></a>
-                        <a href="https://www.lecomedyclub.com/fr"><img src="img/jcc.jpg" class="item" /></a>
-                        <a href="https://www.ugc.fr/cinema.html?id=51"><img class="item" src="img/cinema.jpg" /></a>
-                        <a href="https://www.coliseeroubaix.com/"><img src="img/concert.jpg" class="item" /></a>
-                        <a href="https://www.lecomedyclub.com/fr"><img src="img/jcc.jpg" class="item" /></a>
-                        <a href="https://www.ugc.fr/cinema.html?id=51"><img class="item" src="img/cinema.jpg" /></a>
+                        <?php foreach ($dataCarroussel as $value) { ?>
+                            <a href="AffichageEvent.php?id=<?php $value->getIdUser ?>"><img class="item" src="data:image/jpg;base64,<?php echo base64_encode($value->getImage()) ?>" /></a>
+                        <?php } ?>
                     </div>
                 </div>
                 <button id="prev">
@@ -117,13 +101,13 @@ function ViewBodyOrga($objOrga, $profil)
 <?php
 }
 
-function AfficherFormOrgaInsert($isThereError, $messages)
+function afficherFormOrgaInsert($isThereError, $messages)
 { ?>
     <!DOCTYPE html>
     <html lang="en">
     <?php
 
-    AfficherHead("Créer un compte organisateur", "../Presentation/CSS/style_form_orga.css");
+    afficherHead("Créer un compte organisateur", "../Presentation/CSS/style_form_orga.css");
     ?>
 
     <body>
@@ -137,7 +121,7 @@ function AfficherFormOrgaInsert($isThereError, $messages)
 <?php
 };
 
-function AfficherHead($nomPage, $fichierCSS)
+function afficherHead($nomPage, $fichierCSS)
 {
 ?>
 
@@ -172,7 +156,7 @@ function erreurView($er, $messageErr)
 };
 
 
-function ViewBodyFormOrgaInsert($isThereError)
+function viewBodyFormOrgaInsert($isThereError)
 {
 ?>
 
@@ -277,19 +261,19 @@ function ViewBodyFormOrgaInsert($isThereError)
 
 
 
-function AfficherModifFormOrga($isThereError, $messages, $data)
+function afficherModifFormOrga($isThereError, $messages, $data)
 {
 ?>
     <!DOCTYPE html>
     <html lang="en">
     <?php
-    AfficherHead("Modifier Organisateur", "filrouge\POO\CSS\style_form_orga.css");
+    afficherHead("Modifier Organisateur", "..\Presentation\CSS\style_orga.css");
     ?>
 
     <body>
         <?php
         erreurView($isThereError, $messages);
-        ViewBodyFormOrgaModif($isThereError, $data);
+        viewBodyFormOrgaModif($isThereError, $data);
         ?>
     </body>
 
@@ -297,7 +281,7 @@ function AfficherModifFormOrga($isThereError, $messages, $data)
 <?php
 }
 
-function ViewBodyFormOrgaModif($isThereError, $data)
+function viewBodyFormOrgaModif($isThereError, $data)
 {
 ?>
 
@@ -306,7 +290,7 @@ function ViewBodyFormOrgaModif($isThereError, $data)
         <form action="" method="post" name="formule" enctype="multipart/form-data">
             <div class="header">
                 Toute l'actualité culturelle de Roubaix
-                <img class="logo" src="C:\Users\roten\formation\filrouge\POO\Presentation\Images\logo.png" />
+                <img class="logo" src="..\Presentation\Images\logo.png" />
             </div>
 
             <div class="aside">
@@ -322,11 +306,11 @@ function ViewBodyFormOrgaModif($isThereError, $data)
                     <input type="text" class="form-control" placeholder="Code Postal" aria-label="Code Postal" aria-describedby="basic-addon2" name="codePostal" value="<?php echo $isThereError ? $_POST["codePostal"] : $data->getCodePostal(); ?>" />
                 </div>
                 <div class="saisie">
-                    <input type="text" class="form-control" placeholder="Ville" aria-label="Ville" aria-describedby="basic-addon2" name="ville" value="<<?php echo $isThereError ? $_POST["ville"] : $data->getVille(); ?>" />
+                    <input type="text" class="form-control" placeholder="Ville" aria-label="Ville" aria-describedby="basic-addon2" name="ville" value="<?php echo $isThereError ? $_POST["ville"] : $data->getVille(); ?>" />
                 </div>
                 <div class="saisiedescr">
                     <div class="input-group">
-                        <textarea class="form-control" placeholder="Description" aria-label="With textarea" name="description" value="<?php echo $isThereError ? $_POST["description"] : $data->getDescription(); ?>"></textarea>
+                        <textarea class="form-control" placeholder="Description" aria-label="With textarea" name="description"><?php echo $isThereError ? $_POST["description"] : $data->getDescription(); ?></textarea>
                     </div>
                 </div>
                 <div class="titre">Contacts :</div>
@@ -353,16 +337,20 @@ function ViewBodyFormOrgaModif($isThereError, $data)
             </div>
 
             <div class="section">
-                <label class="center" for="avatar">Choisissez une image d'illustration:
+                <label class="center" for="avatar">Choisissez une nouvelle image d'illustration:
                 </label>
 
                 <input class="center" type="file" id="image" name="image" accept="image/png, image/jpeg" />
+
+                <img class="illustration" src="data:image/jpg;base64,<?php echo base64_encode($data->getImage()) ?>" alt=" Photo de l'organisateur" />
+
+
             </div>
             <div class="footer">
                 <hr />
                 <div class="demi col-md-6">
-                    <button class="btn btn-primary" type="reset">Annuler</button>
-                    <!-- <button class="btn btn-primary" >Supprimer</button> -->
+                    <a href="AffichageOrga.php?id=<?php echo $data->getIdOrga() ?> "><button class="btn btn-primary" type="button">Annuler</button></a>
+                    <a href="DeleteOrga.php?id=<?php echo $data->getIdOrga() ?> "><button class="btn btn-primary" type="button">Supprimer</button></a>
                     <button class="btn btn-primary" type="submit">Valider</button>
                 </div>
                 <hr />

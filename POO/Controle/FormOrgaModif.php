@@ -3,28 +3,30 @@
 include_once(__DIR__ . "/../Presentation/OrganisateurPresentation.php");
 include_once(__DIR__ . "/../Service/OrganisateurService.php");
 
-// session_start();
-// if (!isset($_SESSION) || empty($_SESSION) || $_SESSION["Profil"] == "user" || $_SESSION["Profil"] == "admin") {
-//     header("location: connexion.php");
-// }
+session_start();
+if (!isset($_SESSION) || empty($_SESSION)) {
+    header("location: connexion.php");
+}
 
 $isThereError = false;
 if (!isset($_POST)) {
     $isThereError = true;
 }
 
+$obj = new OrganisateurService;
+$objPost = new Organisateur;
 
 $messages = [];
-$nomRegex = "#^[A-Z-'\s]*$#";
-$adresseRegex = "#^[0-9 A-Z-\s]*$#";
+$nomRegex = "#^[\p{L}\s'-]*$#";
+$adresseRegex = "#^[0-9\p{L}\s'-]*$#";
 $codePostalRegex = "#[0-9]{5}#";
-$villeRegex = "#^[A-Z-'\s]*$#";
-$descriptionRegex = "";
-$emailRegex = "#^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$#";
-$telephoneRegex = "((?:\+|00)[17](?: |\-)?|(?:\+|00)[1-9]\d{0,2}(?: |\-)?|(?:\+|00)1\-\d{3}(?: |\-)?)?(0\d|\([0-9]{3}\)|[1-9]{0,3})(?:((?: |\-)[0-9]{2}){4}|((?:[0-9]{2}){4})|((?: |\-)[0-9]{3}(?: |\-)[0-9]{4})|([0-9]{7}))";
+$villeRegex = "#^[A-Z][\p{L}\s'-]*$#";
+$descriptionRegex = "#^[\p{L}\s'-]*$#";
+$emailRegex = "#^[\w\.]+@([\w\-]+\.)+[\w\-]{2,4}$#";
+$telephoneRegex = "#[0-9]*#";
 $adresseTwitterRegex = "#^@?(\w){1,15}$#";
 $adresseInstaRegex = "#(https?)?:?\/?\/?(www)?instagram\.com/[\w]*#";
-$adresseFBRegex = "#(?:(?:http|https):\/\/)?(?:www.|m.)?facebook.com\/(?!home.php)(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\.-]+)#";
+$adresseFBRegex = "#(?:(?:http|https):\/\/)?(?:www.|m.)?facebook.com\/(?!home.php)(?:(?:\w)*\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\.-]+)#";
 $adresseSiteRegex = "#^(http\:\/\/[a-zA-Z0-9_\-]+(?:\.[a-zA-Z0-9_\-]+)*\.[a-zA-Z]{2,4}(?:\/[a-zA-Z0-9_]+)*(?:\/[a-zA-Z0-9_]+\.[a-zA-Z]{2,4}(?:\?[a-zA-Z0-9_]+\=[a-zA-Z0-9_]+)?)?(?:\&[a-zA-Z0-9_]+\=[a-zA-Z0-9_]+)*)$#";
 
 if (isset($_GET["id"])) {
@@ -38,14 +40,16 @@ if (!empty($_POST)) {
         $isThereError = true;
         $messages[] = "Erreur de saisie du nom";
     }
-    if (!isset($_POST["adresse"]) || empty($_POST["adresse"]) || !preg_match($adresseRegex, $_POST["adresse"])) {
+    if (!isset($_POST["adresse"]) || (!empty($_POST["adresse"]) && !preg_match($adresseRegex, $_POST["adresse"]))) {
         $isThereError = true;
         $messages[] = "Erreur de saisie de l'adresse";
     }
-    if (!isset($_POST["codePostal"]) || empty($_POST["codePostal"]) || !preg_match($codePostalRegex, $_POST["codePostal"])) {
+
+    if (!isset($_POST["codePostal"]) || (!empty($_POST["codePostal"]) && !preg_match($codePostalRegex, $_POST["codePostal"]))) {
         $isThereError = true;
         $messages[] = "Erreur de saisie du code postal";
     }
+
     if (!isset($_POST["ville"]) || empty($_POST["ville"]) || !preg_match($villeRegex, $_POST["ville"])) {
         $isThereError = true;
         $messages[] = "Erreur de saisie de la ville";
@@ -58,30 +62,39 @@ if (!empty($_POST)) {
         $isThereError = true;
         $messages[] = "Erreur de saisie de l'e-mail";
     }
-    if (!isset($_POST["telephone"]) || empty($_POST["telephone"]) || !preg_match($telephoneRegex, $_POST["telephone"])) {
+    if (!isset($_POST["telephone"]) || (!empty($_POST["telephone"]) && !preg_match($telephoneRegex, $_POST["telephone"]))) {
         $isThereError = true;
         $messages[] = "Erreur de saisie du numéro de téléphone";
     }
-    if (!isset($_POST["adresseTwitter"]) || empty($_POST["adresseTwitter"]) || !preg_match($adresseTwitterRegex, $_POST["adresseTwitter"])) {
+
+    if (!isset($_POST["adresseTwitter"]) || (!empty($_POST["codePostal"]) && !preg_match($adresseTwitterRegex, $_POST["codePostal"]))) {
         $isThereError = true;
         $messages[] = "Erreur de saisie de l'adresse Twitter";
     }
-    if (!isset($_POST["adresseInsta"]) || empty($_POST["adresseInsta"]) || !preg_match($adresseInstaRegex, $_POST["adresseInsta"])) {
+
+    if (!isset($_POST["adresseInsta"]) || (!empty($_POST["adresseInsta"]) && !preg_match($adresseInstaRegex, $_POST["adresseInsta"]))) {
         $isThereError = true;
         $messages[] = "Erreur de saisie de l'adresse Instagram";
     }
-    if (!isset($_POST["adresseFB"]) || empty($_POST["adresseFB"]) || !preg_match($adresseFBRegex, $_POST["adresseFB"])) {
+
+    if (!isset($_POST["adresseFB"]) || (!empty($_POST["adresseFB"]) && !preg_match($adresseFBRegex, $_POST["adresseFB"]))) {
         $isThereError = true;
         $messages[] = "Erreur de saisie de l'adresse Facebook";
     }
-    if (!isset($_POST["adresseSite"]) || empty($_POST["adresseSite"]) || !preg_match($adresseSiteRegex, $_POST["adresseSite"])) {
+
+    if (!isset($_POST["adresseSite"]) || (!empty($_POST["adresseSite"]) && !preg_match($adresseSiteRegex, $_POST["adresseSite"]))) {
         $isThereError = true;
         $messages[] = "Erreur de saisie de l'adresse du site";
     }
 
     if (!$isThereError) {
-        $objService = new OrganisateurService;
-        $objPost = new Organisateur;
+
+        if (empty($_FILES['image']['tmp_name'])) {
+            $image = $data->getImage();
+        } else {
+            $image = file_get_contents($_FILES['image']['tmp_name']);
+        }
+        // var_dump($_POST);
         $objPost->setNom($_POST["nom"]);
         $objPost->setAdresse($_POST["adresse"]);
         $objPost->setCodePostal($_POST["codePostal"]);
@@ -93,13 +106,12 @@ if (!empty($_POST)) {
         $objPost->setAdresseInsta($_POST["adresseInsta"]);
         $objPost->setAdresseFB($_POST["adresseFB"]);
         $objPost->setAdresseSite($_POST["adresseSite"]);
-        $objPost->setAdresseSite($_POST["adresseSite"]);
-        $objPost->setImage($_POST["image"]);
+        $objPost->setImage($image);
+        $objPost->setIdUser($_SESSION["idUser"]);
 
-        $objService->updateOrga($objPost, $id);
+        $obj->updateOrga($objPost, $id);
 
-        // header vers page Organisateur créé (avec Get IdUser ?)
-        header("location: AffichageOrga.php");
+        // header("location: AffichageOrga.php?id=$id");
     }
-    AfficherModifFormOrga($isThereError, $messages, $obPost);
 }
+AfficherModifFormOrga($isThereError, $messages, $data);

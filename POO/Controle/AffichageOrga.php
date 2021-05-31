@@ -13,4 +13,4 @@ if (isset($_GET["id"])) {
     $data = $obj->selectAllOrgaById($_GET["id"]);
 }
 
-AfficherOrga($data, $profil);
+afficherOrga($data, $profil, $dataCarroussel);

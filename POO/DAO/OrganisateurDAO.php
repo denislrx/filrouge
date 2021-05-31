@@ -66,24 +66,49 @@ class OrganisateurDAO extends ConnexionDAO
 
     function updateOrga(Organisateur $objInsert, int $id)
     {
+        var_dump($id);
         $nom = $objInsert->getNom();
+        var_dump($nom);
         $adresse = $objInsert->getAdresse();
+        var_dump($adresse);
         $codePostal = $objInsert->getCodePostal();
+        var_dump($codePostal);
         $ville = $objInsert->getVille();
+        var_dump($ville);
         $description = $objInsert->getDescription();
+        var_dump($description);
         $email = $objInsert->getEmail();
+        var_dump($email);
         $telephone = $objInsert->getTelephone();
+        var_dump($telephone);
         $adresseTwitter = $objInsert->getAdresseTwitter();
+        var_dump($adresseTwitter);
         $adresseInsta = $objInsert->getAdresseInsta();
+        var_dump($adresseInsta);
         $adresseFB = $objInsert->getAdresseFB();
+        var_dump($adresseFB);
         $adresseSite = $objInsert->getAdresseSite();
-        $idUser = $objInsert->getIdUser();
+        var_dump($adresseSite);
         $image = $objInsert->getImage();
+        // var_dump($image);
         $bdd = $this->connexion();
         $stmt = $bdd->prepare("UPDATE organisateur SET
-        nom =?, adresse=?, codePostal=?, ville=?, description=?, email=?, telephone=?, adresseTwitter=?, adresseInsta=?, adresseFB=?, adresseSite=?,idUser=?, image=? WHERE idOrga = ?;");
+        nom = ?, 
+        adresse= ?, 
+        codePostal= ?, 
+        ville= ?, 
+        description= ?, 
+        email= ?, 
+        telephone= ?, 
+        adresseTwitter= ?, 
+        adresseInsta= ?, 
+        adresseFB= ?, 
+        adresseSite= ?, 
+        image= ? 
+        WHERE idOrga = ?;");
+        var_dump($stmt);
         $stmt->bind_param(
-            "ssissssssssisi",
+            "ssisssssssssi",
             $nom,
             $adresse,
             $codePostal,
@@ -95,7 +120,6 @@ class OrganisateurDAO extends ConnexionDAO
             $adresseInsta,
             $adresseFB,
             $adresseSite,
-            $idUser,
             $image,
             $id
         );
