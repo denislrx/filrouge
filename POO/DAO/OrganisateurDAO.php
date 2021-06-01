@@ -175,4 +175,20 @@ class OrganisateurDAO extends ConnexionDAO
         $stmt->execute();
         $bdd->close();
     }
+    function selectNameByIdOrga(int $id): Organisateur
+    {
+        $bdd = $this->connexion();
+        $stmt = $bdd->prepare("SELECT name FROM organisateur WHERE idOrga = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $data = $result->fetch_array(MYSQLI_ASSOC);
+        $result->free();
+        $bdd->close();
+        $NameIdOrga = new Organisateur;
+        $NameIdOrga->setNom($data["nom"]);
+
+
+        return $NameIdOrga;
+    }
 }

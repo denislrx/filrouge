@@ -299,7 +299,7 @@ function viewBodyEvent($objEvent, $profil)
                 <!DOCTYPE html>
                 <html lang="en">
                 <?php
-                afficherHead("Modifier Evenement", "filrouge\POO\CSS\style_form_orga.css");
+                afficherHead("Modifier Evenement", "..\Presentation\CSS\style_form_orga.css");
                 ?>
 
                 <body>
@@ -317,7 +317,7 @@ function viewBodyEvent($objEvent, $profil)
                 <!DOCTYPE html>
                 <html lang="en">
                 <?php
-                afficherHead("Créer un evenement", "filrouge\POO\CSS\style_form_event.css");
+                afficherHead("Créer un evenement", "..\Presentation\CSS\style_form_orga.css");
                 ?>
 
                 <body>
