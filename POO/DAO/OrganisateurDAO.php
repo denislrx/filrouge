@@ -178,7 +178,7 @@ class OrganisateurDAO extends ConnexionDAO
     function selectNameByIdOrga(int $id): Organisateur
     {
         $bdd = $this->connexion();
-        $stmt = $bdd->prepare("SELECT name FROM organisateur WHERE idOrga = ?");
+        $stmt = $bdd->prepare("SELECT nom FROM organisateur WHERE idOrga = ?");
         $stmt->bind_param("i", $id);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -187,7 +187,6 @@ class OrganisateurDAO extends ConnexionDAO
         $bdd->close();
         $NameIdOrga = new Organisateur;
         $NameIdOrga->setNom($data["nom"]);
-
 
         return $NameIdOrga;
     }
