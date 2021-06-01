@@ -120,10 +120,11 @@ class EvenementDAO extends ConnexionDAO
     function selectAllOrgaEventsOfWeek(int $id): array
     {
         $bdd = $this->connexion();
-        $stmt = $bdd->prepare("SELECT * FROM evenement WHERE idOrga = ? AND 'date' BETWEEN NOW() AND DATE_ADD(NOW(), INTERVAL 7 DAY)");
+        $stmt = $bdd->prepare("SELECT * FROM evenement WHERE idOrga = ? AND 'date' BETWEEN NOW() AND DATE_ADD(NOW(), INTERVAL 7 DAYS)");
         $stmt->bind_param("i", $id);
         $stmt->execute();
         $result = $stmt->get_result();
+
         $dataSet = $result->fetch_all(MYSQLI_ASSOC);
         $result->free();
         $bdd->close();

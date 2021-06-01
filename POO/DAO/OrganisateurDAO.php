@@ -185,9 +185,9 @@ class OrganisateurDAO extends ConnexionDAO
         $data = $result->fetch_array(MYSQLI_ASSOC);
         $result->free();
         $bdd->close();
-        $NameIdOrga = new Organisateur;
-        $NameIdOrga->setNom($data["nom"]);
+        $nameIdOrga = new Organisateur;
+        $nameIdOrga->setNom($data["nom"]);
 
-        return $NameIdOrga;
+        return $nameIdOrga;
     }
 }

@@ -46,14 +46,16 @@ if (!empty($_POST)) {
         $messages[] = "Erreur de saisie de la description";
     }
 
-    if (!isset($_FILES) || empty($_FILES)) {
-        $isThereError = true;
-        $messages[] = "Pas d'images à charger";
-    }
     if (!isset($_POST["urlLien"]) || empty($_POST["urlLien"])) {
         $isThereError = true;
         $messages[] = "Erreur de saisie de l'url";
     }
+
+    if (!isset($_FILES['image']['tmp_name']) || empty($_FILES['image']['tmp_name'])) {
+        $isThereError = true;
+        $messages[] = "Pas d'images à charger";
+    }
+
     if (!$isThereError) {
         $objService = new EvenementService;
         $objPost = new Evenement;

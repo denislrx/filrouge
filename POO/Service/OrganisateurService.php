@@ -43,4 +43,13 @@ class OrganisateurService
 
         $organisateurDAO->deleteOrga($id);
     }
+
+    public function selectNameByIdOrga(int $id): Organisateur
+    {
+        $orginisateurDAO = new OrganisateurDAO;
+
+        $organisateur = $orginisateurDAO->selectNameByIdOrga($id);
+
+        return $organisateur;
+    }
 }

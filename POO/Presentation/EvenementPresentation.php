@@ -1,6 +1,6 @@
 <?php
 
-function afficherEvent($objEvent, $profil)
+function afficherEvent($objEvent, $profil, $name)
 {
 ?>
     <!DOCTYPE html>
@@ -11,7 +11,7 @@ function afficherEvent($objEvent, $profil)
 
     <body>
         <?php
-        viewBodyEvent($objEvent, $profil);
+        viewBodyEvent($objEvent, $profil, $name);
         ?>
     </body>
 
@@ -54,7 +54,7 @@ function erreurView($er, $messageErr)
 <?php
 };
 
-function viewBodyEvent($objEvent, $profil)
+function viewBodyEvent($objEvent, $profil, $name)
 {
 ?>
     <div class="page">
@@ -73,16 +73,13 @@ function viewBodyEvent($objEvent, $profil)
             <div class="labeldate">
                 <div class="labeldate col-md-6">Lieu : <?php echo $objEvent->getLieu() ?></div>
             </div>
-            <div class=label> 31 Rue de l'Epeule </br> 59100 Roubaix</br> Infos et réservations : </br>
-                Téléphone : 03 20 24 47 </br> E-mail: coliseerbx@gmail.com </div>
+            <div class=label><?php echo $objEvent->getDescription() ?> </div>
             <hr>
             <div class="ligne">
                 <a href="accueil_agenda.html" class="tag">#HipHop</a>
                 <a href="accueil_agenda.html" class="tag">#Concert</a>
                 <a href="accueil_agenda.html" class="tag">#Sheguey</a>
                 <a href="accueil_agenda.html" class="tag">#Bob</a>
-            </div>
-            <div class="label"><?php echo $objEvent->getDescription() ?>
             </div>
         </div>
         <div class="section">
@@ -100,8 +97,8 @@ function viewBodyEvent($objEvent, $profil)
             <div class="demi col-lg-6">
                 Evenement proposé par
                 <pre> </pre>
-                <a class="tag" href="page_orga.html">
-                    <div class="labeldate col-md-6"><?php echo $objEvent->getLieu() ?></div>
+                <a href="AffichageOrga.php?id=<?php echo $objEvent->getIdOrga() ?>">
+                    <div class="labeldate col-md-6"><?php echo $name->getNom() ?></div>
                 </a>
                 <div>
 
@@ -147,13 +144,6 @@ function viewBodyEvent($objEvent, $profil)
                                     <input type="text" class="form-control" placeholder="Lieu de l'évenement" aria-label="Lieu de l'évenement" aria-describedby="basic-addon2" name="lieuEvent" value="<?php if ($isThereError) {
                                                                                                                                                                                                             echo $_POST["lieuEvent"];
                                                                                                                                                                                                         }; ?>" />
-                                </div>
-                                <div class="label">
-                                    <div class="input-group">
-                                        <textarea class="form-control" placeholder="Adresse de l'événement" aria-label="With textarea" name="adresseEvent" value="<?php if ($isThereError) {
-                                                                                                                                                                        echo $_POST["adresseEvent"];
-                                                                                                                                                                    }; ?>"></textarea>
-                                    </div>
                                 </div>
                                 Infos et réservations :
 
@@ -202,10 +192,6 @@ function viewBodyEvent($objEvent, $profil)
                                 <button class="btn btn-primary" type="submit">Valider</button>
                             </div>
                             <hr />
-                            <div class="demi col-md-6">
-                                Evenement proposé par
-                                <!--récuperer $_POST de l'orga -->le Colisée
-                            </div>
                         </div>
                 </div>
             <?php
