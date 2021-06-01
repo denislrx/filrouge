@@ -89,7 +89,7 @@ class EvenementDAO extends ConnexionDAO
         $objEventById->setDescription($data["description"]);
         $objEventById->setImage($data["image"]);
         $objEventById->setUrlLien($data["urlLien"]);
-
+        $objEventById->setIdOrga($data["idOrga"]);
 
         return $objEventById;
     }
