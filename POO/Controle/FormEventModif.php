@@ -4,7 +4,7 @@ include_once(__DIR__ . "/../Presentation/EvenementPresentation.php");
 include_once(__DIR__ . "/../Service/EvenementService.php");
 
 session_start();
-if (!isset($_SESSION) || empty($_SESSION) || $_SESSION["Profil"] == "user") {
+if (!isset($_SESSION) || empty($_SESSION) || $_SESSION["Profil"] != "user") {
     header("location: connexion.php");
 }
 

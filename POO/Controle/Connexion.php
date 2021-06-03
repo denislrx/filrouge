@@ -3,10 +3,18 @@ include_once(__DIR__ . "/../Service/UtilisateurService.php");
 include_once(__DIR__ . "/../Presentation/InscriptionView.php");
 include_once(__DIR__ . "/../Service/OrganisateurService.php");
 
+$err = false;
 $erreur = false;
 $message = "";
 $objUser = new UtilisateurService;
 $objOrga = new OrganisateurService;
+$tabMail = $objUser->listeMail();
+
+if (!isset($_POST) || isset($tabMail)) {
+    if (!in_array($_POST["mailUser"], $tabMail)) {
+        header("location:Inscription.php");
+    }
+}
 
 if (!empty($_POST)) {
     //var_dump($_POST);

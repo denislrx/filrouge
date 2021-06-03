@@ -142,12 +142,14 @@ function viewBodyEvent($objEvent, $profil, $name)
                                                                                                                                                                                                         }; ?>" />
                                 </div>
                                 <div class="label">
-                                    <div class="input-group">
-                                        <textarea class="form-control" placeholder="Adresse de l'événement" aria-label="With textarea" name="adresseEvent" value="<?php if ($isThereError) {
-                                                                                                                                                                        echo $_POST["adresseEvent"];
-                                                                                                                                                                    }; ?>"></textarea>
+                                    Description :
+                                    <div class="input-group-lg">
+                                        <textarea class="form-control" placeholder="Description" aria-label="With textarea" name="description" value="<?php if ($isThereError) {
+                                                                                                                                                            echo $_POST["description"];
+                                                                                                                                                        }; ?>"></textarea>
                                     </div>
                                 </div>
+
                                 Infos et réservations :
 
                                 <input type="text" class="form-control" placeholder="Numéro de téléphone" aria-label="Numéro de téléphone" aria-describedby="basic-addon2" name="telephone" value="<?php if ($isThereError) {
@@ -167,14 +169,7 @@ function viewBodyEvent($objEvent, $profil, $name)
                                     <input type="text" class="form-control tag" placeholder="#SaisirUnTag" aria-label="#SaisirUnTag" aria-describedby="basic-addon2" name="tag" />
                                 </div>
                             </div>
-                            <div class="label">
-                                Description :
-                                <div class="input-group-lg">
-                                    <textarea class="form-control" placeholder="Description" aria-label="With textarea" name="description" value="<?php if ($isThereError) {
-                                                                                                                                                        echo $_POST["description"];
-                                                                                                                                                    }; ?>"></textarea>
-                                </div>
-                            </div>
+
                             <hr />
                         </div>
                         <div class="section">
@@ -195,10 +190,7 @@ function viewBodyEvent($objEvent, $profil, $name)
                                 <button class="btn btn-primary" type="submit">Valider</button>
                             </div>
                             <hr />
-                            <div class="demi col-md-6">
-                                Evenement proposé par
-                                <!--récuperer $_POST de l'orga -->le Colisée
-                            </div>
+
                         </div>
                 </div>
             <?php
