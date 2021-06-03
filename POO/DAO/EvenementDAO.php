@@ -91,6 +91,7 @@ class EvenementDAO extends ConnexionDAO
         $objEventById->setUrlLien($data["urlLien"]);
         $objEventById->setIdOrga($data["idOrga"]);
 
+
         return $objEventById;
     }
     function selectAllEventByIdOrgaNameAndDate(int $id, string $name, string $date): Evenement
@@ -120,11 +121,36 @@ class EvenementDAO extends ConnexionDAO
     function selectAllOrgaEventsOfWeek(int $id): array
     {
         $bdd = $this->connexion();
-        $stmt = $bdd->prepare("SELECT * FROM evenement WHERE idOrga = ? AND 'date' BETWEEN NOW() AND DATE_ADD(NOW(), INTERVAL 7 DAYS)");
+        $stmt = $bdd->prepare("SELECT * FROM evenement WHERE idOrga = ? AND date BETWEEN CURDATE() AND ADDDATE(CURDATE(), INTERVAL 7 DAY)");
         $stmt->bind_param("i", $id);
         $stmt->execute();
         $result = $stmt->get_result();
+        $dataSet = $result->fetch_all(MYSQLI_ASSOC);
+        $result->free();
+        $bdd->close();
+        $tabObjEvent = [];
+        foreach ($dataSet as $data) {
+            $objEvent = new Evenement;
+            $objEvent->setIdEvent($data["idEvent"]);
+            $objEvent->setDate($data["date"]);
+            $objEvent->setHeure($data["heure"]);
+            $objEvent->setNom($data["nom"]);
+            $objEvent->setLieu($data["Lieu"]);
+            $objEvent->setDescription($data["description"]);
+            $objEvent->setImage($data["image"]);
+            $objEvent->setUrlLien($data["urlLien"]);
+            $tabObjEvent[] = $objEvent;
+        }
 
+        return $tabObjEvent;
+    }
+    function selectAllEventsOfWeek(): array
+    {
+        $bdd = $this->connexion();
+        $stmt = $bdd->prepare("SELECT * FROM evenement date BETWEEN CURDATE() AND ADDDATE(CURDATE(), INTERVAL 7 DAY)");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
         $dataSet = $result->fetch_all(MYSQLI_ASSOC);
         $result->free();
         $bdd->close();

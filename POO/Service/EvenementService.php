@@ -49,4 +49,12 @@ class EvenementService
 
         return $evenement;
     }
+    public function selectAllEventsOfWeek(): array
+    {
+        $evenementDAO = new EvenementDAO;
+
+        $evenement = $evenementDAO->selectAllEventsOfWeek();
+
+        return $evenement;
+    }
 }

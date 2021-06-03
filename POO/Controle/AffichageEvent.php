@@ -12,9 +12,9 @@ if (!isset($_SESSION) || empty($_SESSION) || $_SESSION["Profil"] == "user" || $_
 $obj = new EvenementService;
 $obj2 = new OrganisateurService;
 
-if (isset($_GET["id"])) {
-    $data = $obj->selectAllEventById($_GET["id"]);
-    $name = $obj2->selectNameByIdOrga($data->getIdOrga());
-}
+// if (isset($_GET["id"])) {
+$data = $obj->selectAllEventById($_GET["id"]);
+$name = $obj2->selectNameByIdOrga($data->getIdOrga());
+// }
 
 afficherEvent($data, $profil, $name);
