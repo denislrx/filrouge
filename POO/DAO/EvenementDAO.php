@@ -147,8 +147,7 @@ class EvenementDAO extends ConnexionDAO
     function selectAllEventsOfWeek(): array
     {
         $bdd = $this->connexion();
-        $stmt = $bdd->prepare("SELECT * FROM evenement date BETWEEN CURDATE() AND ADDDATE(CURDATE(), INTERVAL 7 DAY)");
-        $stmt->bind_param("i", $id);
+        $stmt = $bdd->prepare("SELECT * FROM evenement WHERE date BETWEEN CURDATE() AND ADDDATE(CURDATE(), INTERVAL 7 DAY)");
         $stmt->execute();
         $result = $stmt->get_result();
         $dataSet = $result->fetch_all(MYSQLI_ASSOC);

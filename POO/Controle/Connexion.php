@@ -10,9 +10,9 @@ $objUser = new UtilisateurService;
 $objOrga = new OrganisateurService;
 $tabMail = $objUser->listeMail();
 
-if (!isset($_POST) || isset($tabMail)) {
+if (!empty($_POST["mailUser"])) {
     if (!in_array($_POST["mailUser"], $tabMail)) {
-        header("location:Inscription.php");
+        header("location:Inscription.php?status=1");
     }
 }
 

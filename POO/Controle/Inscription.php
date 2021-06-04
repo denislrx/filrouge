@@ -8,6 +8,10 @@ $messageErreur = [];
 $objUser = new UtilisateurService;
 $tabMail = $objUser->listeMail();
 
+if ($_GET["status"] == 1) {
+    echo "Vous n'êtes pas inscrit ";
+}
+
 if (!empty($_POST)) {
 
 
