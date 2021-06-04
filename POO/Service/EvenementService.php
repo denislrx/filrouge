@@ -57,4 +57,12 @@ class EvenementService
 
         return $evenement;
     }
+    public function listOfMostActivIdOrga(): array
+    {
+        $evenementDAO = new EvenementDAO;
+
+        $evenement = $evenementDAO->listOfMostActivIdOrga();
+
+        return $evenement;
+    }
 }

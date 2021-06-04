@@ -8,14 +8,22 @@ $profil = "";
 session_start();
 
 if (isset($_SESSION["Profil"])) {
-    $profil = $_SESSION["Profil"];
+    $profil = $_SESSION;
 }
 
-var_dump($profil);
+// if (!isset($_SESSION["idOrga"])) {
+//     header("location:FormOrgaInsert.php");
+// }
+
 $objOrga = new OrganisateurService;
 $objEvent = new EvenementService;
 
 $data = $objEvent->selectAllEventsOfWeek();
+$listeIdOrga = $objEvent->listOfMostActivIdOrga();
+$orga = [];
+for ($i = 0; $i < 3; $i++) {
+    $org = $objOrga->selectAllOrgaById($listeIdOrga[$i]->getIdOrga());
+    $orga[] = $org;
+}
 
-
-afficherAgenda($data, $profil);
+afficherAgenda($data, $profil, $orga);

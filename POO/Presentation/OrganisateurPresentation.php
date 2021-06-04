@@ -1,5 +1,7 @@
 <?php
 
+include_once("Fonctions.php");
+
 function afficherOrga($objOrga, $profil, $dataCarroussel)
 {
 ?>
@@ -30,7 +32,7 @@ function viewBodyOrga($objOrga, $profil, $dataCarroussel)
 
         <div class="header">
             Toute l'actualité culturelle de Roubaix
-            <a href="../page-acceuil/acceuil.html"><img class="logo" src="..\Presentation\Images\logo.png"></a>
+            <a href="AccueilAgenda.php"><img class="logo" src="..\Presentation\Images\logo.png"></a>
         </div>
         <div class="labeltitre switch"><?php echo $objOrga->getNom() ?></div>
         <hr />
@@ -193,9 +195,9 @@ function viewBodyFormOrgaInsert($isThereError)
                 </div>
                 <div class="saisiedescr">
                     <div class="input-group">
-                        <textarea class="form-control" placeholder="Description" aria-label="With textarea" name="description" value="<?php if ($isThereError) {
-                                                                                                                                            echo $_POST["description"];
-                                                                                                                                        }; ?>"></textarea>
+                        <textarea class="form-control" placeholder="Description" aria-label="With textarea" name="description"><?php if ($isThereError) {
+                                                                                                                                    echo $_POST["description"];
+                                                                                                                                }; ?></textarea>
                     </div>
                 </div>
                 <div class="titre">Contacts :</div>
@@ -283,6 +285,7 @@ function afficherModifFormOrga($isThereError, $messages, $data)
 
 function viewBodyFormOrgaModif($isThereError, $data)
 {
+
 ?>
 
 

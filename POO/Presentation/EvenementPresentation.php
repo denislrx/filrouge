@@ -1,5 +1,7 @@
 <?php
 
+include_once("Fonctions.php");
+
 function afficherEvent($objEvent, $profil, $name)
 {
 ?>
@@ -60,14 +62,14 @@ function viewBodyEvent($objEvent, $profil, $name)
     <div class="page">
         <div class="header">
             Toute l'actualité culturelle de Roubaix
-            <a href="../page-acceuil/acceuil.html"><img class="logo" src="..\Presentation\Images\logo.png"></a>
+            <a href="AccueilAgenda.php"><img class="logo" src="..\Presentation\Images\logo.png"></a>
         </div>
         <div class="aside">
             <div class="labeltitre"><?php echo $objEvent->getNom() ?></div>
             <hr>
             <div class="ligne">
-                <div class="labeldate col-md-6">Le : <?php echo $objEvent->getDate() ?></div>
-                <div class="labeldate col-md-6">à : <?php echo $objEvent->getHeure() ?></div>
+                <div class="labeldate col-md-6"> <?php echo dateToFrench($objEvent->getDate(), "l j F Y"); ?></div>
+                <div class="labeldate col-md-6">à <?php echo $objEvent->getHeure() ?></div>
             </div>
             <hr>
             <div class="labeldate">
@@ -91,228 +93,258 @@ function viewBodyEvent($objEvent, $profil, $name)
         <div class="footer">
             <hr>
             <div class="demi col-lg-6">
-                <a href="FormEventModif.php?id=" .><button class="btn btn-primary" type="button">Editer l'événement</button></a>
+                <a href="FormEventModif.php?id=<?php echo $objEvent->getIdEvent() ?>" .><button class="btn btn-primary" type="button">Editer l'événement</button></a>
             </div>
             <hr>
             <div class="demi col-lg-6">
                 Evenement proposé par
+                <a href="AffichageOrga.php?id=<?php echo $objEvent->getIdOrga() ?>"></a>
+                <div class="labeldate "><?php echo $name->getNom() ?></div>
+            </div>
+        </div>
+    </div>
+<?php
+};
 
-                <a href="AffichageOrga.php?id=<?php echo $objEvent->getIdOrga() ?>">
-                    <div class="labeldate "><?php echo $name->getNom() ?></div>
-                </a>
-            <?php
-        };
 
-        function viewBodyFormInsertEvent($isThereError)
-        {
-            ?>
-                <div class="page">
-                    <form action="" method="post" enctype="multipart/form-data">
-                        <div class="header">
-                            Toute l'actualité culturelle de Roubaix
-                            <img class="logo" src="img/Logo.png" />
-                        </div>
-                        <div class="aside">
-                            <div class=label>
-                                Détails de l'événement :
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Nom de l'événement" aria-label="Nom de l'événement" aria-describedby="basic-addon2" name="nomEvent" value="<?php if ($isThereError) {
-                                                                                                                                                                                                        echo $_POST["nomEvent"];
-                                                                                                                                                                                                    }; ?>" />
-                                </div>
-                                <hr />
-                                <div class="ligne">
-                                    <div class="labeldate col-md-6">
-                                        <div class="input-group mb-3">
-                                            <input type="date" class="form-control" placeholder="Date de l'évenement" aria-label="Date de l'évenement" aria-describedby="basic-addon2" name="dateEvent" value="<?php if ($isThereError) {
-                                                                                                                                                                                                                    echo $_POST["dateEvent"];
-                                                                                                                                                                                                                }; ?>" />
-                                        </div>
-                                    </div>
-                                    <div class="labeldate col-md-6">
-                                        <input type="time" class="form-control" placeholder="Heure de l'évenement" aria-label="Heure de l'évenement" aria-describedby="basic-addon2" name="heureEvent" value="<?php if ($isThereError) {
-                                                                                                                                                                                                                    echo $_POST["heureEvent"];
-                                                                                                                                                                                                                }; ?>" />
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="labeldate">
-                                    <input type="text" class="form-control" placeholder="Lieu de l'évenement" aria-label="Lieu de l'évenement" aria-describedby="basic-addon2" name="lieuEvent" value="<?php if ($isThereError) {
-                                                                                                                                                                                                            echo $_POST["lieuEvent"];
-                                                                                                                                                                                                        }; ?>" />
-                                </div>
-                                <div class="label">
-                                    Description :
-                                    <div class="input-group-lg">
-                                        <textarea class="form-control" placeholder="Description" aria-label="With textarea" name="description" value="<?php if ($isThereError) {
-                                                                                                                                                            echo $_POST["description"];
-                                                                                                                                                        }; ?>"></textarea>
-                                    </div>
-                                </div>
 
-                                Infos et réservations :
 
-                                <input type="text" class="form-control" placeholder="Numéro de téléphone" aria-label="Numéro de téléphone" aria-describedby="basic-addon2" name="telephone" value="<?php if ($isThereError) {
-                                                                                                                                                                                                        echo $_POST["telephone"];
-                                                                                                                                                                                                    }; ?>" />
-                                <input type="mail" class="form-control" placeholder="E-mail" aria-label="E-mail" aria-describedby="basic-addon2" name="email" value="<?php if ($isThereError) {
-                                                                                                                                                                            echo $_POST["email"];
-                                                                                                                                                                        }; ?>" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+function viewBodyFormInsertEvent($isThereError)
+{
+?>
+    <div class="page">
+        <form action="" method="post" enctype="multipart/form-data">
+            <div class="header">
+                Toute l'actualité culturelle de Roubaix
+                <a href="AccueilAgenda.php"><img class="logo" src="..\Presentation\Images\logo.png"></a>
+            </div>
+            <div class="aside">
+                <div class=label>
+                    Détails de l'événement :
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Nom de l'événement" aria-label="Nom de l'événement" aria-describedby="basic-addon2" name="nom" value="<?php if ($isThereError) {
+                                                                                                                                                                                        echo $_POST["nomEvent"];
+                                                                                                                                                                                    }; ?>" />
+                    </div>
+                    <hr />
+                    <div class="ligne">
+                        <div class="labeldate col-md-6">
+                            <div class="input-group mb-3">
+                                <input type="date" class="form-control" placeholder="Date de l'évenement" aria-label="Date de l'évenement" aria-describedby="basic-addon2" name="date" value="<?php if ($isThereError) {
+                                                                                                                                                                                                    echo $_POST["dateEvent"];
+                                                                                                                                                                                                }; ?>" />
                             </div>
-                            <hr />
-                            <div class="label">
-                                Saisie des tags :
-                                <div class="ligne">
-                                    <input type="text" class="form-control tag" placeholder="#SaisirUnTag" aria-label="#SaisirUnTag" aria-describedby="basic-addon2" name="tag" />
-                                    <input type="text" class="form-control tag" placeholder="#SaisirUnTag" aria-label="#SaisirUnTag" aria-describedby="basic-addon2" name="tag" />
-                                    <input type="text" class="form-control tag" placeholder="#SaisirUnTag" aria-label="#SaisirUnTag" aria-describedby="basic-addon2" name="tag" />
-                                    <input type="text" class="form-control tag" placeholder="#SaisirUnTag" aria-label="#SaisirUnTag" aria-describedby="basic-addon2" name="tag" />
-                                </div>
-                            </div>
-
-                            <hr />
                         </div>
-                        <div class="section">
-                            <label class="center" for="avatar">Choisissez une image d'illustration:</label>
-
-                            <input class="center" type="file" id="avatar" name="image" accept="image/png, image/jpeg" />
-                            <label for="avatar" class="center">Saisissez l'adresse du lien associé à l'image :</label>
-
-                            <input class="center" type="text" class="form-control" placeholder="adresse du lien" aria-label="adresse du lien" aria-describedby="basic-addon2" name="urlLien" value="<?php if ($isThereError) {
-                                                                                                                                                                                                        echo $_POST["urlLien"];
-                                                                                                                                                                                                    }; ?>" />
+                        <div class="labeldate col-md-6">
+                            <input type="time" class="form-control" placeholder="Heure de l'évenement" aria-label="Heure de l'évenement" aria-describedby="basic-addon2" name="heure" value="<?php if ($isThereError) {
+                                                                                                                                                                                                    echo $_POST["heureEvent"];
+                                                                                                                                                                                                }; ?>" />
                         </div>
-                        <div class=" footer">
-                            <hr />
-                            <div class="demi col-md-6">
-                                <button class="btn btn-primary" type="submit">Annuler</button>
-                                <button class="btn btn-primary" type="submit">Supprimer</button>
-                                <button class="btn btn-primary" type="submit">Valider</button>
-                            </div>
-                            <hr />
-
+                    </div>
+                    <hr />
+                    <div class="labeldate">
+                        <input type="text" class="form-control" placeholder="Lieu de l'évenement" aria-label="Lieu de l'évenement" aria-describedby="basic-addon2" name="lieu" value="<?php if ($isThereError) {
+                                                                                                                                                                                            echo $_POST["lieuEvent"];
+                                                                                                                                                                                        }; ?>" />
+                    </div>
+                    <div class="label">
+                        Description :
+                        <div class="input-group-lg">
+                            <textarea class="form-control" placeholder="Description" aria-label="With textarea" name="description"><?php if ($isThereError) {
+                                                                                                                                        echo $_POST["description"];
+                                                                                                                                    }; ?></textarea>
                         </div>
+                    </div>
                 </div>
-            <?php
-        }
-
-        function viewBodyFormModifEvent($isThereError, $data)
-        {
-            ?>
-                <div class="page">
-                    <form action="" method="post" name="formule" enctype="multipart/form-data">
-                        <div class="header">
-                            Toute l'actualité culturelle de Roubaix
-                            <img class="logo" src="img/Logo.png" />
-                        </div>
-                        <div class="aside">
-                            <div class=label>
-                                Détails de l'événement :
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Nom de l'événement" aria-label="Nom de l'événement" aria-describedby="basic-addon2" name="nomEvent" value="<?php echo $isThereError ? $_POST["nomEvent"] : $data->getNom(); ?>" />
-                                </div>
-                                <hr />
-                                <div class="ligne">
-                                    <div class="labeldate col-md-6">
-                                        <div class="input-group mb-3">
-                                            <input type="text" class="form-control" placeholder="Date de l'évenement" aria-label="Date de l'évenement" aria-describedby="basic-addon2" name="dateEvent" value="<?php echo $isThereError ? $_POST["dateEvent"] : $data->getDate(); ?>" />
-                                        </div>
-                                    </div>
-                                    <div class="labeldate col-md-6">
-                                        <input type="text" class="form-control" placeholder="Heure de l'évenement" aria-label="Heure de l'évenement" aria-describedby="basic-addon2" name="heureEvent" value="<?php echo $isThereError ? $_POST["heureEvent"] : $data->getHeure(); ?>" />
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="labeldate">
-                                    <input type="text" class="form-control" placeholder="Lieu de l'évenement" aria-label="Lieu de l'évenement" aria-describedby="basic-addon2" name="lieuEvent" value="<?php echo $isThereError ? $_POST["lieuEvent"] : $data->getLieu(); ?>" />
-                                </div>
-                                <div class="label">
-                                    <div class="input-group">
-                                        <textarea class="form-control" placeholder="Adresse de l'événement" aria-label="With textarea" name="adresseEvent" value="<?php echo $isThereError ? $_POST["adresseEvent"] : $data->getLieu(); ?>"></textarea>
-                                    </div>
-                                </div>
-                                Infos et réservations :
-
-                                <input type="text" class="form-control" placeholder="Numéro de téléphone" aria-label="Numéro de téléphone" aria-describedby="basic-addon2" name="telephone" value="<?php echo $isThereError ? $_POST["telephone"] : $data->getTelephone(); ?>" />
-                                <input type="text" class="form-control" placeholder="E-mail" aria-label="E-mail" aria-describedby="basic-addon2" name="email" value="<?php echo $isThereError ? $_POST["email"] : $data->getEmail(); ?>" />
-                            </div>
-                            <hr />
-                            <div class="label">
-                                Saisie des tags :
-                                <div class="ligne">
-                                    <input type="text" class="form-control tag" placeholder="#SaisirUnTag" aria-label="#SaisirUnTag" aria-describedby="basic-addon2" name="tag" />
-                                    <input type="text" class="form-control tag" placeholder="#SaisirUnTag" aria-label="#SaisirUnTag" aria-describedby="basic-addon2" name="tag" />
-                                    <input type="text" class="form-control tag" placeholder="#SaisirUnTag" aria-label="#SaisirUnTag" aria-describedby="basic-addon2" name="tag" />
-                                    <input type="text" class="form-control tag" placeholder="#SaisirUnTag" aria-label="#SaisirUnTag" aria-describedby="basic-addon2" name="tag" />
-                                </div>
-                            </div>
-                            <div class="label">
-                                Description :
-                                <div class="input-group-lg">
-                                    <textarea class="form-control" placeholder="Description" aria-label="With textarea" name="description" value="<?php echo $isThereError ? $_POST["description"] : $data->getDescription(); ?>"></textarea>
-                                </div>
-                            </div>
-                            <hr />
-                        </div>
-                        <div class="section">
-                            <label class="center" for="avatar">Choisissez une image d'illustration:</label>
-
-                            <input class="center" type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" />
-                            <label for="avatar" class="center">Saisissez l'adresse du lien associé à l'image :</label>
-
-                            <input class="center" type="text" class="form-control" placeholder="adresse du lien" aria-label="adresse du lien" aria-describedby="basic-addon2" name="urlLien" value="<?php echo $isThereError ? $_POST["urlLien"] : $data->getUrlLien(); ?>" />
-                        </div>
-                        <div class=" footer">
-                            <hr />
-                            <div class="demi col-md-6">
-                                <button class="btn btn-primary" type="submit">Annuler</button>
-                                <button class="btn btn-primary" type="submit">Supprimer</button>
-                                <button class="btn btn-primary" type="submit">Valider</button>
-                            </div>
-                            <hr />
-                            <div class="demi col-md-6">
-                                Evenement proposé par
-                                <!--récuperer $_POST de l'orga -->le Colisée
-                            </div>
-                        </div>
+                <hr />
+                <div class="label">
+                    Saisie des tags :
+                    <div class="ligne">
+                        <input type="text" class="form-control tag" placeholder="#SaisirUnTag" aria-label="#SaisirUnTag" aria-describedby="basic-addon2" name="tag" />
+                        <input type="text" class="form-control tag" placeholder="#SaisirUnTag" aria-label="#SaisirUnTag" aria-describedby="basic-addon2" name="tag" />
+                        <input type="text" class="form-control tag" placeholder="#SaisirUnTag" aria-label="#SaisirUnTag" aria-describedby="basic-addon2" name="tag" />
+                        <input type="text" class="form-control tag" placeholder="#SaisirUnTag" aria-label="#SaisirUnTag" aria-describedby="basic-addon2" name="tag" />
+                    </div>
                 </div>
-            <?php
-        }
-        function afficherFormModifEvent($isThereError, $messages, $data)
-        {
-            ?>
-                <!DOCTYPE html>
-                <html lang="en">
-                <?php
-                afficherHead("Modifier Evenement", "..\Presentation\CSS\style_form_orga.css");
-                ?>
 
-                <body>
-                    <?php
-                    erreurView($isThereError, $messages);
-                    viewBodyFormModifEvent($isThereError, $data);
-                    ?>
-                </body>
+                <hr />
+            </div>
+            <div class="section">
 
-                </html>
-            <?php
-        }
-        function afficherFormInsertEvent($isThereError, $messages)
-        { ?>
-                <!DOCTYPE html>
-                <html lang="en">
-                <?php
-                afficherHead("Créer un evenement", "..\Presentation\CSS\style_form_orga.css");
-                ?>
+                <label class="center" for="avatar">Choisissez une image d'illustration:</label>
+                <input class="center" type="file" id="avatar" name="image" accept="image/png, image/jpeg" />
 
-                <body>
-                    <?php
-                    erreurView($isThereError, $messages);
-                    viewBodyFormInsertEvent($isThereError);
-                    ?>
-                </body>
+                <label for="avatar" class="center">Saisissez l'adresse du lien associé à l'image :</label>
+                <input class="center" type="text" class="form-control" placeholder="adresse du lien" aria-label="adresse du lien" aria-describedby="basic-addon2" name="urlLien" value="<?php if ($isThereError) {
+                                                                                                                                                                                            echo $_POST["urlLien"];
+                                                                                                                                                                                        }; ?>" />
+            </div>
+            <div class=" footer">
+                <hr />
+                <div class="demi col-md-6">
+                    <button class="btn btn-primary" type="submit">Annuler</button>
+                    <button class="btn btn-primary" type="submit">Supprimer</button>
+                    <button class="btn btn-primary" type="submit">Valider</button>
+                </div>
+                <hr />
 
-                </html>
-            <?php
-        };
-            ?>
+            </div>
+        </form>
+    </div>
+<?php
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function viewBodyFormModifEvent($isThereError, $data)
+{
+
+?>
+    <div class="page">
+        <form action="" method="post" name="formule" enctype="multipart/form-data">
+            <div class="header">
+                Toute l'actualité culturelle de Roubaix
+                <a href="AccueilAgenda.php"><img class="logo" src="..\Presentation\Images\logo.png"></a>
+            </div>
+            <div class="aside">
+                <div class=label>
+                    Détails de l'événement :
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Nom de l'événement" aria-label="Nom de l'événement" aria-describedby="basic-addon2" name="nom" value="<?php echo $isThereError ? $_POST["nom"] : $data->getNom(); ?>" />
+                    </div>
+                    <hr />
+                    <div class="ligne">
+                        <div class="labeldate col-md-6">
+                            <div class="input-group mb-3">
+                                <input type="date" class="form-control" placeholder="Date de l'évenement" aria-label="Date de l'évenement" aria-describedby="basic-addon2" name="date" value="<?php echo $isThereError ? $_POST["date"] : $data->getDate(); ?>" />
+                            </div>
+                        </div>
+                        <div class="labeldate col-md-6">
+                            <input type="time" class="form-control" placeholder="Heure de l'évenement" aria-label="Heure de l'évenement" aria-describedby="basic-addon2" name="heure" value="<?php echo $isThereError ? $_POST["heure"] : $data->getHeure(); ?>" />
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="labeldate">
+                        <input type="text" class="form-control" placeholder="Lieu de l'évenement" aria-label="Lieu de l'évenement" aria-describedby="basic-addon2" name="lieu" value="<?php echo $isThereError ? $_POST["lieu"] : $data->getLieu(); ?>" />
+                    </div>
+
+                </div>
+                <hr />
+                <div class="label">
+                    Saisie des tags :
+                    <div class="ligne">
+                        <input type="text" class="form-control tag" placeholder="#SaisirUnTag" aria-label="#SaisirUnTag" aria-describedby="basic-addon2" name="tag" />
+                        <input type="text" class="form-control tag" placeholder="#SaisirUnTag" aria-label="#SaisirUnTag" aria-describedby="basic-addon2" name="tag" />
+                        <input type="text" class="form-control tag" placeholder="#SaisirUnTag" aria-label="#SaisirUnTag" aria-describedby="basic-addon2" name="tag" />
+                        <input type="text" class="form-control tag" placeholder="#SaisirUnTag" aria-label="#SaisirUnTag" aria-describedby="basic-addon2" name="tag" />
+                    </div>
+                </div>
+                <div class="label">
+                    Description :
+                    <div class="input-group-lg">
+                        <textarea class="form-control" placeholder="Description" aria-label="With textarea" name="description"><?php echo $isThereError ? $_POST["description"] : $data->getDescription(); ?></textarea>
+                    </div>
+                </div>
+                <hr />
+            </div>
+            <div class="section">
+                <label class="center" for="avatar">Choisissez une image d'illustration:</label>
+                <input class="center" type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" />
+
+                <label for="avatar" class="center">Saisissez l'adresse du lien associé à l'image :</label>
+                <input class="center" type="text" class="form-control" placeholder="adresse du lien" aria-label="adresse du lien" aria-describedby="basic-addon2" name="urlLien" value="<?php echo $isThereError ? $_POST["urlLien"] : $data->getUrlLien(); ?>" />
+
+                <img class="illustration" src="data:image/jpg;base64,<?php echo base64_encode($data->getImage()) ?>" alt=" Photo de l'organisateur" />
+
+
+            </div>
+            <div class=" footer">
+                <hr />
+                <div class="demi col-md-6">
+                    <button class="btn btn-primary" type="submit">Annuler</button>
+                    <button class="btn btn-primary" type="submit">Supprimer</button>
+                    <button class="btn btn-primary" type="submit">Valider</button>
+                </div>
+                <hr />
+
+            </div>
+        </form>
+    </div>
+<?php
+}
+
+
+
+
+
+function afficherFormModifEvent($isThereError, $messages, $data)
+{
+?>
+    <!DOCTYPE html>
+    <html lang="en">
+    <?php
+    afficherHead("Modifier Evenement", "..\Presentation\CSS\style_form_orga.css");
+    ?>
+
+    <body>
+        <?php
+        erreurView($isThereError, $messages);
+        viewBodyFormModifEvent($isThereError, $data);
+        ?>
+    </body>
+
+    </html>
+<?php
+}
+
+
+
+
+function afficherFormInsertEvent($isThereError, $messages)
+{ ?>
+    <!DOCTYPE html>
+    <html lang="en">
+    <?php
+    afficherHead("Créer un evenement", "..\Presentation\CSS\style_form_orga.css");
+    ?>
+
+    <body>
+        <?php
+        erreurView($isThereError, $messages);
+        viewBodyFormInsertEvent($isThereError);
+        ?>
+    </body>
+
+    </html>
+<?php
+};
+?>

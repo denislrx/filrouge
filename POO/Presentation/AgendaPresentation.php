@@ -1,17 +1,25 @@
 <?php
 
-function afficherAgenda($objEvent, $profil)
+include_once(__DIR__ . "/../Model/Evenement.php");
+include_once("Fonctions.php");
+
+
+
+function afficherAgenda($objEvent, $profil, $orga)
 {
 ?>
     <!DOCTYPE html>
     <html lang="en">
-    <?php
-    afficherHead("L'agenda", "..\Presentation\CSS\style_page_event.css");
-    ?>
+
+    <head>
+        <?php
+        afficherHead("L'agenda", "..\Presentation\CSS\style_agenda.css");
+        ?>
+    </head>
 
     <body>
         <?php
-        viewAgendaBody($objEvent, $profil);
+        viewAgendaBody($objEvent, $profil, $orga);
         ?>
     </body>
 
@@ -26,32 +34,37 @@ function afficherHead($nomPage, $fichierCSS)
 {
 ?>
 
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous" />
-        <link rel="stylesheet" href="<?php echo ($fichierCSS) ?>" />
-        <title><?php echo ($nomPage) ?></title>
-    </head>
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous" />
+    <link rel="stylesheet" href="<?php echo ($fichierCSS) ?>" />
+    <title><?php echo ($nomPage) ?></title>
+
 
 
 <?php
 };
 
-function viewAgendaBody($objEvent, $profil)
+function viewAgendaBody($objEvent, $profil, $orga)
 {
 ?>
+
+
     <div class="container-fluid">
+        <!-- Bannière -->
         <div class="row header1">
             <div class="col-md-10">
                 <h1>Toute l'actualité culturelle de Roubaix</h1>
             </div>
-            <div class="col-md-2 logoDroite"><img src="img/logo.png" alt="" height="80px"></div>
+            <div class="col-md-2 logoDroite"><img src="..\Presentation\Images\logo.png" alt="" height="80px"></div>
             <hr>
         </div>
 
+        <!-- 3 colonnes -->
         <div class="row">
+            <!-- colonne gauche -->
             <div class="col-md-2 coteGauche">
                 <nav class="navbar">
                     <div class="container fluid">
@@ -89,171 +102,87 @@ function viewAgendaBody($objEvent, $profil)
                         <a href="#" class="badge badge-dark">#ce mois</a>
                     </div>
                 </nav>
+                <nav class="navbar navbar-light">
+                    <div class="container-fluid barreDeRecherche">
+                        <form class="d-flex">
+                            <input class="form-control me-2 tailleBarre" type="search" placeholder="rechercher un tag" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit"><span class="motRechercher">rechercher</span></button>
+                        </form>
+                    </div>
+                    <div class="container box_search">
+                        <a href="#" class="badge badge-dark">Dark</a>
+                        <a href="#" class="badge badge-dark">Dark</a>
+                        <a href="#" class="badge badge-dark">Dark</a>
+                        <a href="#" class="badge badge-dark">Dark</a>
+                        <a href="#" class="badge badge-dark">Dark</a>
+                        <a href="#" class="badge badge-dark">Dark</a>
+                    </div>
+                </nav>
             </div>
 
-            <nav class="navbar navbar-expand-lg bg-light menu">
-                <div class="container-fluid BarreNav">
-                    <div class="banniere">
-                        <div class="col-md-4"><img src="img/logo.png" alt="" height="60px"></div>
-                        <div class="col-md-8">
-                            <h3>Toute l'actualité culturelle de Roubaix</h3>
-                        </div>
-                    </div>
 
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                        <span><img src="img/navbar.png" alt=""></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                        <ul class="navbar-nav">
-
-                            <div class="row justify-content-center connexionDansMenu">
-                                <div class="col deletePaddingConnexion">
-                                    <li class="nav-item">
-                                        <a href="../form_event/form_event.html" class="btn btn-secondary bouton">Connexion</a>
-                                    </li>
-                                </div>
-
-                                <div class="col deletePaddingConnexion1">
-                                    <li class="nav-item">
-                                        <a href="../form_event/form_event.html" class="btn btn-secondary bouton">Sinscrire</a>
-                                    </li>
-                                </div>
-
-                                <div class="col deletePaddingConnexion2">
-                                    <li class="nav-item">
-                                        <a href="../form_event/form_event.html" class="btn btn-secondary bouton">Mon compte</a>
-                                    </li>
-                                </div>
-                            </div>
-
-                            <li>
-                                <nav class="navbar navbar-light">
-                                    <div class="container-fluid barreDeRecherche">
-                                        <form class="d-flex">
-                                            <input class="form-control me-2 tailleBarre" type="search" placeholder="rechercher un organisateur" aria-label="Search">
-                                            <button class="btn btn-outline-success" type="submit"><span class="motRechercher">rechercher</span></button>
-                                        </form>
-                                    </div>
-                                </nav>
-                            </li>
-                            <hr>
-                            <li>
-                                <nav class="navbar navbar-light">
-                                    <div class="container-fluid barreDeRecherche">
-                                        <form class="d-flex">
-                                            <input class="form-control me-2 tailleBarre" type="search" placeholder="rechercher un jour" aria-label="Search">
-                                            <button class="btn btn-outline-success" type="submit"><span class="motRechercher">rechercher</span></button>
-                                        </form>
-                                    </div>
-                                </nav>
-                            </li>
-                            <hr>
-                            <li>
-                                <nav class="navbar navbar-light">
-                                    <div class="container-fluid barreDeRecherche">
-                                        <form class="d-flex">
-                                            <input class="form-control me-2 tailleBarre" type="search" placeholder="rechercher un tag" aria-label="Search">
-                                            <button class="btn btn-outline-success" type="submit"><span class="motRechercher">rechercher</span></button>
-                                        </form>
-                                    </div>
-                                </nav>
-                            </li>
-                        </ul>
-                        <p>recherche populaire</p>
-                        <a href="#" class="badge badge-dark">Dark</a>
-                        <a href="#" class="badge badge-dark">Dark</a>
-                        <a href="#" class="badge badge-dark">Dark</a>
-                        <a href="#" class="badge badge-dark">Dark</a>
-                        <a href="#" class="badge badge-dark">Dark</a>
-                        <a href="#" class="badge badge-dark">Dark</a>
-                    </div>
-                </div>
-            </nav>
-
+            <!-- colonne centrale -->
             <div class="col-lg-8 col-md-9 col-sm-9 centre">
 
-                <!-- bannière date -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <h2>samedi 4 janvier 2021</h2>
-                    </div>
-                </div>
-                <hr />
 
                 <div class="row ligneCard">
+                    <?php
+                    $lastEvent = new Evenement;
 
-                    <!-- box evenement -->
-                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
-                        <div class="card boxEvenemt">
-                            <a href="https://www.ugc.fr/cinema.html?id=51#"><img src="img/cinema.jpg" class="card-img-top" alt="..."></a>
-
-                            <div class="card-body">
-                                <p class="card-text">salle de cinema blablabla blablabl blablabl blablabl</p>
+                    foreach ($objEvent as $event) {
+                        if ($event->getDate() != $lastEvent->getDate()) {
+                    ?>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h2> <?php echo dateToFrench($event->getDate(), "l j F Y"); ?></h2>
+                                </div>
+                            </div>
+                            <hr />
+                        <?php
+                        }
+                        ?>
+                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                            <div class="card boxEvenemt">
+                                <a href="AffichageEvent.php?id=<?php echo $event->getIdEvent() ?>"><img src="data:image/jpg;base64,<?php echo base64_encode($event->getImage()) ?>" class="card-img-top" alt="..."></a>
+                                <div class="card-body">
+                                    <p class="card-text"><?php echo $event->getNom() ?></p>
+                                </div>
                             </div>
                         </div>
+                    <?php
+                        $lastEvent = $event;
+                    }
+                    ?>
+                </div>
+            </div>
+
+
+            <!-- colonne droite -->
+            <div class="col-lg-2 col-md-3 col-sm-3 coteDroit">
+                <div class="menuCoterDroite">
+                    <?php
+                    if (empty($_SESSION)) { ?>
+                        <a href="Inscription.php" class="btn btn-secondary bouton">M'inscrire</a>
+                        <a href="Connexion.php" class="btn btn-secondary bouton">Me connecter</a>
+
+                    <?php } else { ?>
+                        <a href="AffichageOrga.php?id=<?php echo $profil["idOrga"] ?>" class="btn btn-secondary bouton">Mon compte</a>
+                        <a href="Deconnexion.php" class="btn btn-secondary bouton">Me déconnecter</a>
+
+                    <?php } ?>
+                    <div class="card boxOrga">
+                        <?php foreach ($orga as $o) { ?>
+                            <img src="data:image/jpg;base64,<?php echo base64_encode($o->getImage()) ?>" class="card-img-top imgDroite" alt="...">
+
+                            <p class="card-titre"><?php echo $o->getNom() ?></p>
                     </div>
-
-
+                <?php } ?>
 
                 </div>
-
-
             </div>
-        </div>
-        <div class="col-lg-2 col-md-3 col-sm-3 coteDroit">
-            <div class="menuCoterDroite">
-
-                <button class="open-button" onclick="openForm()" class="btn btn-primary"><strong>connexion</strong></button>
-            </div>
-            <div class="login-popup">
-                <div class="form-popup" id="popupForm">
-                    <form action="/action_page.php" class="form-container">
-                        <h2>Veuillez vous connecter</h2>
-                        <label for="email">
-                            <strong>E-mail</strong>
-                        </label>
-                        <input type="text" id="email" placeholder="Votre Email" name="email" required>
-                        <label for="psw">
-                            <strong>Mot de passe</strong>
-                        </label>
-                        <input type="password" id="psw" placeholder="Votre Mot de passe" name="psw" required>
-                        <button type="submit" class="btn">Connecter</button>
-                        <button type="button" class="btn cancel" onclick="closeForm()">Fermer</button>
-                    </form>
-                </div>
-            </div>
-            <script>
-                function openForm() {
-                    document.getElementById("popupForm").style.display = "block";
-                }
-
-                function closeForm() {
-                    document.getElementById("popupForm").style.display = "none";
-                }
-            </script>
-
-            <a href="../form_event/form_event.html" class="btn btn-secondary bouton">S'inscrire</a>
-            <a href="../page-orga/page-orga.html" class="btn btn-secondary bouton">Mon compte</a>
-        </div>
-        <div class="card boxOrga">
-
-            <img src="img/orga.jpg" class="card-img-top imgDroite" alt="...">
-
-            <p class="card-titre">nom organisation</p>
-        </div>
-        <div class="card boxOrga">
-
-            <img src="img/orga.jpg" class="card-img-top imgDroite" alt="...">
-
-            <p class="card-titre">nom organisation</p>
-        </div>
-        <div class="card boxOrga">
-
-            <img src="img/orga.jpg" class="card-img-top imgDroite" alt="...">
-
-            <p class="card-titre">nom organisation</p>
         </div>
     </div>
-
 <?php
+
+
 }

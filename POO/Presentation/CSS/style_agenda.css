@@ -1,5 +1,5 @@
 body {
-  background-image: url(img/home-rs.jpg);
+  background-image: url("../Images/home-rs.jpg");
   background-attachment: fixed;
   background-position: right top;
 }

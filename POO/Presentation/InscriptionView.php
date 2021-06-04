@@ -1,5 +1,6 @@
 <?php
 
+
 function afficherConex($erreur, $message)
 {
 ?>

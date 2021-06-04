@@ -16,12 +16,17 @@ if (!isset($_POST)) {
 $obj = new OrganisateurService;
 $objPost = new Organisateur;
 
+if (isset($_GET["id"])) {
+    $id = $_GET["id"];
+    $data = $obj->selectAllOrgaById($_GET["id"]);
+}
+
 $messages = [];
 $nomRegex = "#^[\p{L}\s'-]*$#";
 $adresseRegex = "#^[0-9\p{L}\s'-]*$#";
 $codePostalRegex = "#[0-9]{5}#";
 $villeRegex = "#^[A-Z][\p{L}\s'-]*$#";
-$descriptionRegex = "#^[\p{L}\s'-]*$#";
+$descriptionRegex = "#^[0-9\p{L}\s'-]*$#";
 $emailRegex = "#^[\w\.]+@([\w\-]+\.)+[\w\-]{2,4}$#";
 $telephoneRegex = "#[0-9]*#";
 $adresseTwitterRegex = "#^@?(\w){1,15}$#";
@@ -29,10 +34,6 @@ $adresseInstaRegex = "#(https?)?:?\/?\/?(www)?instagram\.com/[\w]*#";
 $adresseFBRegex = "#(?:(?:http|https):\/\/)?(?:www.|m.)?facebook.com\/(?!home.php)(?:(?:\w)*\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\.-]+)#";
 $adresseSiteRegex = "#^(http\:\/\/[a-zA-Z0-9_\-]+(?:\.[a-zA-Z0-9_\-]+)*\.[a-zA-Z]{2,4}(?:\/[a-zA-Z0-9_]+)*(?:\/[a-zA-Z0-9_]+\.[a-zA-Z]{2,4}(?:\?[a-zA-Z0-9_]+\=[a-zA-Z0-9_]+)?)?(?:\&[a-zA-Z0-9_]+\=[a-zA-Z0-9_]+)*)$#";
 
-if (isset($_GET["id"])) {
-    $id = $_GET["id"];
-    $data = $obj->selectAllOrgaById($_GET["id"]);
-}
 
 if (!empty($_POST)) {
 
@@ -94,7 +95,7 @@ if (!empty($_POST)) {
         } else {
             $image = file_get_contents($_FILES['image']['tmp_name']);
         }
-        // var_dump($_POST);
+
         $objPost->setNom($_POST["nom"]);
         $objPost->setAdresse($_POST["adresse"]);
         $objPost->setCodePostal($_POST["codePostal"]);

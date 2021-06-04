@@ -72,6 +72,7 @@ class EvenementDAO extends ConnexionDAO
 
     function selectAllEventById(int $id): Evenement
     {
+
         $bdd = $this->connexion();
         $stmt = $bdd->prepare("SELECT * FROM evenement WHERE idEvent = ?");
         $stmt->bind_param("i", $id);
@@ -147,7 +148,7 @@ class EvenementDAO extends ConnexionDAO
     function selectAllEventsOfWeek(): array
     {
         $bdd = $this->connexion();
-        $stmt = $bdd->prepare("SELECT * FROM evenement WHERE date BETWEEN CURDATE() AND ADDDATE(CURDATE(), INTERVAL 7 DAY)");
+        $stmt = $bdd->prepare("SELECT * FROM evenement WHERE date BETWEEN CURDATE() AND ADDDATE(CURDATE(), INTERVAL 7 DAY) ORDER BY date");
         $stmt->execute();
         $result = $stmt->get_result();
         $dataSet = $result->fetch_all(MYSQLI_ASSOC);
@@ -164,9 +165,28 @@ class EvenementDAO extends ConnexionDAO
             $objEvent->setDescription($data["description"]);
             $objEvent->setImage($data["image"]);
             $objEvent->setUrlLien($data["urlLien"]);
+            $objEvent->setIdOrga($data["idOrga"]);
             $tabObjEvent[] = $objEvent;
         }
-
+        // var_dump(count($tabObjEvent));
+        return $tabObjEvent;
+    }
+    function listOfMostActivIdOrga()
+    {
+        $bdd = $this->connexion();
+        $stmt = $bdd->prepare("SELECT idOrga FROM evenement WHERE date >= CURDATE() GROUP BY idOrga ORDER BY COUNT(idOrga) desc");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $dataSet = $result->fetch_all(MYSQLI_ASSOC);
+        $result->free();
+        $bdd->close();
+        $tabObjEvent = [];
+        foreach ($dataSet as $data) {
+            $objEvent = new Evenement;
+            $objEvent->setIdOrga($data["idOrga"]);
+            $tabObjEvent[] = $objEvent;
+        }
+        // var_dump(count($tabObjEvent));
         return $tabObjEvent;
     }
 }
