@@ -2,6 +2,9 @@
 
 include_once(__DIR__ . "/../Presentation/EvenementPresentation.php");
 include_once(__DIR__ . "/../Service/EvenementService.php");
+include_once(__DIR__ . "/../Service/TagService.php");
+include_once(__DIR__ . "/../Service/AssocTagEventService.php");
+
 
 session_start();
 if (!isset($_SESSION) || empty($_SESSION) || $_SESSION["Profil"] != "user") {
@@ -30,7 +33,7 @@ $heureEventRegex = "^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$";
 $lieuEventRegex = "#^[0-9\p{L}\s'-]*$#";
 $descriptionRegex = "#^[0-9\p{L}\s'-]*$#";
 $urlLienRegex = "#^(http\:\/\/[a-zA-Z0-9_\-]+(?:\.[a-zA-Z0-9_\-]+)*\.[a-zA-Z]{2,4}(?:\/[a-zA-Z0-9_]+)*(?:\/[a-zA-Z0-9_]+\.[a-zA-Z]{2,4}(?:\?[a-zA-Z0-9_]+\=[a-zA-Z0-9_]+)?)?(?:\&[a-zA-Z0-9_]+\=[a-zA-Z0-9_]+)*)$#";
-
+$tagRegex = "#^\#[\w_]{3,29}$#";
 
 if (!empty($_POST)) {
 
@@ -64,6 +67,8 @@ if (!empty($_POST)) {
         $isThereError = true;
         $messages[] = "Erreur de saisie de l'url";
     }
+
+
     if (!$isThereError) {
 
         if (empty($_FILES['image']['tmp_name'])) {

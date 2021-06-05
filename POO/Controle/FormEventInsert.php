@@ -2,11 +2,16 @@
 
 include_once(__DIR__ . "/../Presentation/EvenementPresentation.php");
 include_once(__DIR__ . "/../Service/EvenementService.php");
+include_once(__DIR__ . "/../Service/TagService.php");
+include_once(__DIR__ . "/../Service/AssocTagEventService.php");
 
 session_start();
 if (!isset($_SESSION)) {
     header("location: connexion.php");
 }
+
+$objTag = new TagService;
+$objAssoc = new AssocTagEventService;
 
 $isThereError = false;
 if (!isset($_POST)) {
@@ -15,9 +20,10 @@ if (!isset($_POST)) {
 
 $messages = [];
 
+$tagRegex = "#^\#[\w_]{3,29}$#";
 $nomEventRegex = "#^[0-9\p{L}\s'-]*$#";
-$dateEventRegex = "#^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$#";
-$heureEventRegex = "^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$";
+$dateEventRegex = "#^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$#";
+$heureEventRegex = "#^[0-9]{2}:[0-9]{2}$#";
 $lieuEventRegex = "#^[0-9\p{L}\s'-]*$#";
 $descriptionRegex = "#^[0-9\p{L}\s'-]*$#";
 $urlLienRegex = "#^(http\:\/\/[a-zA-Z0-9_\-]+(?:\.[a-zA-Z0-9_\-]+)*\.[a-zA-Z]{2,4}(?:\/[a-zA-Z0-9_]+)*(?:\/[a-zA-Z0-9_]+\.[a-zA-Z]{2,4}(?:\?[a-zA-Z0-9_]+\=[a-zA-Z0-9_]+)?)?(?:\&[a-zA-Z0-9_]+\=[a-zA-Z0-9_]+)*)$#";
@@ -25,19 +31,19 @@ $urlLienRegex = "#^(http\:\/\/[a-zA-Z0-9_\-]+(?:\.[a-zA-Z0-9_\-]+)*\.[a-zA-Z]{2,
 
 if (!empty($_POST)) {
 
-    if (!isset($_POST["nomEvent"]) || empty($_POST["nom"]) || !preg_match($nomEventRegex, $_POST["heureNom"])) {
+    if (!isset($_POST["nom"]) || empty($_POST["nom"]) || !preg_match($nomEventRegex, $_POST["nom"])) {
         $isThereError = true;
         $messages[] = "Erreur de saisie du nom";
     }
-    if (!isset($_POST["dateEvent"]) || empty($_POST["date"]) || !preg_match($dateEventRegex, $_POST["date"])) {
+    if (!isset($_POST["date"]) || empty($_POST["date"]) || !preg_match($dateEventRegex, $_POST["date"])) {
         $isThereError = true;
         $messages[] = "Erreur de saisie de la date";
     }
-    if (!isset($_POST["heureEvent"]) || empty($_POST["heure"]) || !preg_match($heureEventRegex, $_POST["heure"])) {
+    if (!isset($_POST["heure"]) || empty($_POST["heure"]) || !preg_match($heureEventRegex, $_POST["heure"])) {
         $isThereError = true;
         $messages[] = "Erreur de saisie du l'heure";
     }
-    if (!isset($_POST["lieuEvent"]) || empty($_POST["lieu"]) || !preg_match($lieuEventRegex, $_POST["lieu"])) {
+    if (!isset($_POST["lieu"]) || empty($_POST["lieu"]) || !preg_match($lieuEventRegex, $_POST["lieu"])) {
         $isThereError = true;
         $messages[] = "Erreur de saisie du lieu";
     }
@@ -57,24 +63,52 @@ if (!empty($_POST)) {
         $messages[] = "Pas d'images à charger";
     }
 
+    $tabTag = [$_POST["tag1"], $_POST["tag2"], $_POST["tag3"], $_POST["tag4"]];
+
+    // var_dump($tabTag);
+
+    $tabDefTag = [];
+    foreach ($tabTag as $tag) {
+        if (!empty($tag) && preg_match($tagRegex, $tag)) {
+            $tabDefTag[] = $tag;
+        }
+    }
+
+    // var_dump($tabDefTag);
+
     if (!$isThereError) {
         $objService = new EvenementService;
         $objPost = new Evenement;
-        $objPost->setNom($_POST["nomEvent"]);
-        $objPost->setDate($_POST["dateEvent"]);
-        $objPost->setHeure($_POST["heureEvent"]);
-        $objPost->setLieu($_POST["lieuEvent"]);
+        $objPost->setNom($_POST["nom"]);
+        $objPost->setDate($_POST["date"]);
+        $objPost->setHeure($_POST["heure"]);
+        $objPost->setLieu($_POST["lieu"]);
         $objPost->setDescription($_POST["description"]);
         $objPost->setImage(file_get_contents($_FILES['image']['tmp_name']));
         $objPost->setUrlLien($_POST["urlLien"]);
         $objPost->setIdOrga($_SESSION["idOrga"]);
 
-        $objService->insertEvent($objPost);
+        $idEvent = $objService->insertEvent($objPost);
 
-        $objId = $objService->selectAllEventByIdOrgaNameAndDate($_SESSION["idOrga"], $_POST["nomEvent"], $_POST["dateEvent"]);
-        $id = $objId->getIdEvent();
-        // header vers page Organisateur créé (avec Get IdUser ?)
-        header("location: AffichageEvent.php?id=" . $id);
+        // var_dump($idEvent);
+        if (!empty($tabDefTag)) {
+            foreach ($tabDefTag as $tag) {
+                $t = $objTag->selectTagByName($tag);
+                if (!$t->getFalse()) {
+                    $idTag = $objTag->insertTag($tag);
+                } else {
+                    $idTag = $t->getIdTag();
+                }
+                // var_dump($idTag);
+                $assoc = new AssocTagEvent;
+                $assoc->setEvenement($idEvent);
+                $assoc->setTag($idTag);
+                var_dump($assoc);
+                $objAssoc->insertAssoc($assoc);
+            }
+        }
+
+        header("location: AffichageEvent.php?id=" . $idEvent);
     }
 }
 afficherFormInsertEvent($isThereError, $messages);

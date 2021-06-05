@@ -4,11 +4,13 @@ include_once(__DIR__ . "/../DAO/EvenementDAO.php");
 
 class EvenementService
 {
-    public function insertEvent(Evenement $objInsert)
+    public function insertEvent(Evenement $objInsert): int
     {
         $evenementDAO = new EvenementDAO;
 
-        $evenementDAO->insertEvent($objInsert);
+        $id = $evenementDAO->insertEvent($objInsert);
+
+        return $id;
     }
 
     public function deleteEvent(int $id)

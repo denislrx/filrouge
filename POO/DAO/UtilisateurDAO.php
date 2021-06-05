@@ -37,7 +37,6 @@ class UtilisateurDAO extends ConnexionDAO
 
     function selectAllByMail($mail): Utilisateur
     {
-        var_dump($mail);
         $db = $this->connexion();
         $stmt = $db->prepare("SELECT * FROM utilisateur WHERE mailUser = ?");
         $stmt->bind_param("s", $mail);

@@ -1,17 +1,20 @@
 <?php
 
-include_once("Model/Tag.php");
+include_once(__DIR__ . "/../Model/Tag.php");
 
 class TagDAO extends ConnexionDAO
 {
-    function insertTag($tag)
+    function insertTag(string $tag)
     {
         $db = parent::connexion();
         $stmt = $db->prepare("INSERT INTO tag (nomTag) VALUES(?);");
         $stmt->bind_param("s", $tag);
         $stmt->execute();
+        $id = $stmt->insert_id;
         $db->close();
+        return $id;
     }
+
 
     function selectTagById($id)
     {
@@ -32,18 +35,20 @@ class TagDAO extends ConnexionDAO
     {
         $db = parent::connexion();
         $stmt = $db->prepare("SELECT * FROM tag WHERE nameTag = ?");
-        $stmt->bind_param("s", $name);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $dataSet = $result->fetch_all(MYSQLI_ASSOC);
-        $db->close();
-        $tabTag = [];
-        foreach ($dataSet as $set) {
-            $objTag = new Tag;
-            $objTag->setIdTag($dataSet["idTag"]);
-            $objTag->setNomTag($dataSet["nomTag"]);
-            $tabTag[] = $objTag;
+        $objTag = new Tag;
+        if ($stmt == false) {
+            $objTag->setFalse(false);
+        } else {
+            $stmt->bind_param("s", $name);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $tag = $result->fetch_array(MYSQLI_ASSOC);
+            $objTag->setNomTag($tag["nomTag"]);
+            $objTag->setIdTag($tag["idOrga"]);
+            $objTag->setFalse(true);
         }
-        return $tabTag;
+        $db->close();
+
+        return $objTag;
     }
 }

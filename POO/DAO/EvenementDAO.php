@@ -5,7 +5,7 @@ include_once(__DIR__ . "/ConnexionDAO.php");
 
 class EvenementDAO extends ConnexionDAO
 {
-    public function insertEvent(Evenement $obj): void
+    public function insertEvent(Evenement $obj): int
     {
         $db = parent::connexion();
         $date = $obj->getDate();
@@ -31,7 +31,9 @@ class EvenementDAO extends ConnexionDAO
             $idOrga
         );
         $stmt->execute();
+        $id = $stmt->insert_id;
         $db->close();
+        return $id;
     }
 
     function updateEvent(Evenement $objInsert, int $id)

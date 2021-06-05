@@ -7,8 +7,10 @@ include_once(__DIR__ . "/../Model/Tag.php");
 
 class AssocTagEventDAO extends ConnexionDAO
 {
-    function insertAssoc($tag, $event)
+    function insertAssoc(AssocTagEvent $assoc)
     {
+        $tag = $assoc->getEvenement();
+        $event = $assoc->getTag();
         $db = parent::connexion();
         $stmt = $db->prepare("INSERT INTO assoctagevent(idTag, idEvent) VALUES(?,?);");
         $stmt->bind_param("ii", $tag, $event);
@@ -32,22 +34,8 @@ class AssocTagEventDAO extends ConnexionDAO
         return $objTag;
     }
 
-    function selectAssocByIdTag($idTag)
+    function selectEventBtTagName($name)
     {
-        $db = parent::connexion();
-        $stmt = $db->prepare("SELECT * FROM tag WHERE nameTag = ?");
-        $stmt->bind_param("s", $name);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $dataSet = $result->fetch_all(MYSQLI_ASSOC);
-        $db->close();
-        $tabTag = [];
-        foreach ($dataSet as $set) {
-            $objTag = new Tag;
-            $objTag->setIdTag($dataSet["idTag"]);
-            $objTag->setNomTag($dataSet["nomTag"]);
-            $tabTag[] = $objTag;
-        }
-        return $tabTag;
+        //SELECT e.* FROM evenement AS e INNER JOIN asssoctagevent AS a ON e.idEvent = a.idEvent INNER JOIN tag as t ON t.idTag = a.idTag WHERE t.nom Tag = ? 
     }
 }

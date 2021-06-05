@@ -1,7 +1,24 @@
 <?php
 
-include_once("DAO/TagDAO.php");
+include_once(__DIR__ . "/../DAO/TagDAO.php");
 
 class TagService
 {
+    public function selectTagByName(string $name)
+    {
+        $tagDAO = new TagDAO;
+
+        $tag = $tagDAO->selectTagByName($name);
+
+        return $tag;
+    }
+
+    public function insertTag(string $nom)
+    {
+        $tagDAO = new TagDAO;
+
+        $id = $tagDAO->insertTag($nom);
+
+        return $id;
+    }
 }

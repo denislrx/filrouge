@@ -2,6 +2,9 @@
 
 include_once("Fonctions.php");
 
+
+
+
 function afficherEvent($objEvent, $profil, $name)
 {
 ?>
@@ -24,6 +27,12 @@ function afficherEvent($objEvent, $profil, $name)
     </html>
 <?php
 }
+
+
+
+
+
+
 function afficherHead($nomPage, $fichierCSS)
 {
 ?>
@@ -136,7 +145,7 @@ function viewBodyFormInsertEvent($isThereError)
                     Détails de l'événement :
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="Nom de l'événement" aria-label="Nom de l'événement" aria-describedby="basic-addon2" name="nom" value="<?php if ($isThereError) {
-                                                                                                                                                                                        echo $_POST["nomEvent"];
+                                                                                                                                                                                        echo $_POST["nom"];
                                                                                                                                                                                     }; ?>" />
                     </div>
                     <hr />
@@ -144,20 +153,20 @@ function viewBodyFormInsertEvent($isThereError)
                         <div class="labeldate col-md-6">
                             <div class="input-group mb-3">
                                 <input type="date" class="form-control" placeholder="Date de l'évenement" aria-label="Date de l'évenement" aria-describedby="basic-addon2" name="date" value="<?php if ($isThereError) {
-                                                                                                                                                                                                    echo $_POST["dateEvent"];
+                                                                                                                                                                                                    echo $_POST["date"];
                                                                                                                                                                                                 }; ?>" />
                             </div>
                         </div>
                         <div class="labeldate col-md-6">
                             <input type="time" class="form-control" placeholder="Heure de l'évenement" aria-label="Heure de l'évenement" aria-describedby="basic-addon2" name="heure" value="<?php if ($isThereError) {
-                                                                                                                                                                                                    echo $_POST["heureEvent"];
+                                                                                                                                                                                                    echo $_POST["heure"];
                                                                                                                                                                                                 }; ?>" />
                         </div>
                     </div>
                     <hr />
                     <div class="labeldate">
                         <input type="text" class="form-control" placeholder="Lieu de l'évenement" aria-label="Lieu de l'évenement" aria-describedby="basic-addon2" name="lieu" value="<?php if ($isThereError) {
-                                                                                                                                                                                            echo $_POST["lieuEvent"];
+                                                                                                                                                                                            echo $_POST["lieu"];
                                                                                                                                                                                         }; ?>" />
                     </div>
                     <div class="label">
@@ -173,10 +182,18 @@ function viewBodyFormInsertEvent($isThereError)
                 <div class="label">
                     Saisie des tags :
                     <div class="ligne">
-                        <input type="text" class="form-control tag" placeholder="#SaisirUnTag" aria-label="#SaisirUnTag" aria-describedby="basic-addon2" name="tag" />
-                        <input type="text" class="form-control tag" placeholder="#SaisirUnTag" aria-label="#SaisirUnTag" aria-describedby="basic-addon2" name="tag" />
-                        <input type="text" class="form-control tag" placeholder="#SaisirUnTag" aria-label="#SaisirUnTag" aria-describedby="basic-addon2" name="tag" />
-                        <input type="text" class="form-control tag" placeholder="#SaisirUnTag" aria-label="#SaisirUnTag" aria-describedby="basic-addon2" name="tag" />
+                        <input type="text" class="form-control tag" placeholder="#SaisirUnTag" aria-label="#SaisirUnTag" aria-describedby="basic-addon2" name="tag1" value="<?php if ($isThereError) {
+                                                                                                                                                                                echo $_POST["tag1"];
+                                                                                                                                                                            }; ?>" />
+                        <input type="text" class="form-control tag" placeholder="#SaisirUnTag" aria-label="#SaisirUnTag" aria-describedby="basic-addon2" name="tag2" value="<?php if ($isThereError) {
+                                                                                                                                                                                echo $_POST["tag2"];
+                                                                                                                                                                            }; ?>" />
+                        <input type="text" class="form-control tag" placeholder="#SaisirUnTag" aria-label="#SaisirUnTag" aria-describedby="basic-addon2" name="tag3" value="<?php if ($isThereError) {
+                                                                                                                                                                                echo $_POST["tag3"];
+                                                                                                                                                                            }; ?>" />
+                        <input type="text" class="form-control tag" placeholder="#SaisirUnTag" aria-label="#SaisirUnTag" aria-describedby="basic-addon2" name="tag4" value="<?php if ($isThereError) {
+                                                                                                                                                                                echo $_POST["tag4"];
+                                                                                                                                                                            }; ?>" />
                     </div>
                 </div>
 

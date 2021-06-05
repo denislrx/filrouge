@@ -4,7 +4,7 @@ class Tag
 {
     private $idTag;
     private $nomTag;
-
+    private $false;
 
     /**
      * Get the value of idTag
@@ -42,6 +42,26 @@ class Tag
     public function setNomTag(string $nomTag)
     {
         $this->nomTag = $nomTag;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of false
+     */
+    public function getFalse(): bool
+    {
+        return $this->false;
+    }
+
+    /**
+     * Set the value of false
+     *
+     * @return  self
+     */
+    public function setFalse(bool $false)
+    {
+        $this->false = $false;
 
         return $this;
     }

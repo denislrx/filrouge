@@ -3,14 +3,14 @@
 class AssocTagEvent
 {
 
-    private Evenement $evenement;
-    private Tag $tag;
+    private $evenement;
+    private $tag;
     private $idAssocTagEvent;
 
     /**
      * Get the value of Evenement
      */
-    public function getEvenement(): Evenement
+    public function getEvenement(): int
     {
         return $this->evenement;
     }
@@ -20,7 +20,7 @@ class AssocTagEvent
      *
      * @return  self
      */
-    public function setEvenement(Evenement $evenement)
+    public function setEvenement(int $evenement)
     {
         $this->evenement = $evenement;
 
@@ -30,7 +30,7 @@ class AssocTagEvent
     /**
      * Get the value of Tag
      */
-    public function getTag(): Tag
+    public function getTag(): int
     {
         return $this->tag;
     }
@@ -40,9 +40,9 @@ class AssocTagEvent
      *
      * @return  self
      */
-    public function setTag(Tag $tag)
+    public function setTag(int $tag)
     {
-        $this->Tag = $tag;
+        $this->tag = $tag;
 
         return $this;
     }
