@@ -5,6 +5,18 @@ include_once("Fonctions.php");
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 function afficherAgenda($objEvent, $profil, $orga)
 {
 ?>
@@ -30,6 +42,14 @@ function afficherAgenda($objEvent, $profil, $orga)
     </html>
 <?php
 }
+
+
+
+
+
+
+
+
 function afficherHead($nomPage, $fichierCSS)
 {
 ?>
@@ -46,6 +66,18 @@ function afficherHead($nomPage, $fichierCSS)
 
 <?php
 };
+
+
+
+
+
+
+
+
+
+
+
+
 
 function viewAgendaBody($objEvent, $profil, $orga)
 {

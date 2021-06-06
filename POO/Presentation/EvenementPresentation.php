@@ -141,6 +141,26 @@ function viewBodyEvent($objEvent, $profil, $name, $listTag)
 
 
 
+function afficherFormInsertEvent($isThereError, $messages)
+{ ?>
+    <!DOCTYPE html>
+    <html lang="en">
+    <?php
+    afficherHead("Créer un evenement", "..\Presentation\CSS\style_form_orga.css");
+    ?>
+
+    <body>
+        <?php
+        erreurView($isThereError, $messages);
+        viewBodyFormInsertEvent($isThereError);
+        ?>
+    </body>
+
+    </html>
+<?php
+};
+
+
 
 
 
@@ -249,6 +269,25 @@ function viewBodyFormInsertEvent($isThereError)
 
 
 
+function afficherFormModifEvent($isThereError, $messages, $data, $dataTag)
+{
+?>
+    <!DOCTYPE html>
+    <html lang="en">
+    <?php
+    afficherHead("Modifier Evenement", "..\Presentation\CSS\style_form_orga.css");
+    ?>
+
+    <body>
+        <?php
+        erreurView($isThereError, $messages);
+        viewBodyFormModifEvent($isThereError, $data, $dataTag);
+        ?>
+    </body>
+
+    </html>
+<?php
+}
 
 
 
@@ -259,7 +298,7 @@ function viewBodyFormInsertEvent($isThereError)
 
 
 
-function viewBodyFormModifEvent($isThereError, $data)
+function viewBodyFormModifEvent($isThereError, $data, $dataTag)
 {
 
 ?>
@@ -296,13 +335,25 @@ function viewBodyFormModifEvent($isThereError, $data)
                 <div class="label">
                     Saisie des tags :
                     <div class="ligne">
-                        <input type="text" class="form-control tag" placeholder="#SaisirUnTag" aria-label="#SaisirUnTag" aria-describedby="basic-addon2" name="tag" />
-                        <input type="text" class="form-control tag" placeholder="#SaisirUnTag" aria-label="#SaisirUnTag" aria-describedby="basic-addon2" name="tag" />
-                        <input type="text" class="form-control tag" placeholder="#SaisirUnTag" aria-label="#SaisirUnTag" aria-describedby="basic-addon2" name="tag" />
-                        <input type="text" class="form-control tag" placeholder="#SaisirUnTag" aria-label="#SaisirUnTag" aria-describedby="basic-addon2" name="tag" />
+                        <?php
+
+                        for ($i = 1; $i < 5; $i++) { ?>
+                            <input type="text" class="form-control tag" placeholder="#SaisirUnTag" aria-label="#SaisirUnTag" aria-describedby="basic-addon2" name="tag<?php echo $i ?>" value="<?php if ($isThereError) {
+                                                                                                                                                                                                    echo $_POST["tag" . $i];
+                                                                                                                                                                                                } else {
+                                                                                                                                                                                                    if (isset($dataTag[$i - 1])) {
+                                                                                                                                                                                                        echo $dataTag[$i - 1]->getNomTag();
+                                                                                                                                                                                                    } else {
+                                                                                                                                                                                                        echo "";
+                                                                                                                                                                                                    }
+                                                                                                                                                                                                } ?>" />
+                        <?php
+                        }
+                        ?>
+
                     </div>
                 </div>
-                <div class="label">
+                <div class=" label">
                     Description :
                     <div class="input-group-lg">
                         <textarea class="form-control" placeholder="Description" aria-label="With textarea" name="description"><?php echo $isThereError ? $_POST["description"] : $data->getDescription(); ?></textarea>
@@ -335,50 +386,3 @@ function viewBodyFormModifEvent($isThereError, $data)
     </div>
 <?php
 }
-
-
-
-
-
-function afficherFormModifEvent($isThereError, $messages, $data)
-{
-?>
-    <!DOCTYPE html>
-    <html lang="en">
-    <?php
-    afficherHead("Modifier Evenement", "..\Presentation\CSS\style_form_orga.css");
-    ?>
-
-    <body>
-        <?php
-        erreurView($isThereError, $messages);
-        viewBodyFormModifEvent($isThereError, $data);
-        ?>
-    </body>
-
-    </html>
-<?php
-}
-
-
-
-
-function afficherFormInsertEvent($isThereError, $messages)
-{ ?>
-    <!DOCTYPE html>
-    <html lang="en">
-    <?php
-    afficherHead("Créer un evenement", "..\Presentation\CSS\style_form_orga.css");
-    ?>
-
-    <body>
-        <?php
-        erreurView($isThereError, $messages);
-        viewBodyFormInsertEvent($isThereError);
-        ?>
-    </body>
-
-    </html>
-<?php
-};
-?>

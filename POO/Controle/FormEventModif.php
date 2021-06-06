@@ -24,7 +24,7 @@ if (!isset($_POST)) {
 
 // if (isset($_GET["id"])) {
 $id = $_GET["id"];
-$data = $objService->selectAllEventById($id);
+$data = $objEventService->selectAllEventById($id);
 // }
 
 
@@ -112,28 +112,32 @@ if (!empty($_POST)) {
         // séparer en deux tableau les nouveaux tags : ceux qui existe déja et ceux qui faut créer
         $tabObjTagExist = [];
         $tabObjTagToCreate = [];
-        foreach ($tabDefTag as $newTag) {
-            $objTag = $objTagService->selectTagByName($newTag);
-            if ($objTag->getFalse() == TRUE) {
-                $tabObjTagExist[] = $ObjTag;
-            } else {
-                $tabTagToCreate = $newTag;
+        if (!empty($tabDefTag)) {
+            foreach ($tabDefTag as $newTag) {
+                $objTag = $objTagService->selectTagByName($newTag);
+                if ($objTag->getFalse() == TRUE) {
+                    $tabObjTagExist[] = $ObjTag;
+                } else {
+                    $tabTagToCreate = $newTag;
+                }
             }
         }
         //Comparer les anciennes relations avec Tags existants : 
         // Rassembler les relations qui ne sont pas dedans dans un tableau pour les effacer
         $tabAssocToErase = [];
         $tabTagToErase = [];
-        foreach ($tabOldAssoc as $OldAssoc) {
-            $a = true;
-            foreach ($tabObjTagExist as $ObjTagExist) {
-                if ($ObjTagExist->getIdTag() === $oldAssoc->getIdTag()) {
-                    $a = false;
-                    $tabTagToErase[] = $ObjTagExist;
+        if (!empty($tabOldAssoc)) {
+            foreach ($tabOldAssoc as $OldAssoc) {
+                $a = true;
+                foreach ($tabObjTagExist as $ObjTagExist) {
+                    if ($ObjTagExist->getIdTag() === $oldAssoc->getIdTag()) {
+                        $a = false;
+                        $tabTagToErase[] = $ObjTagExist;
+                    }
                 }
-            }
-            if ($a) {
-                $tabAssocToErase[] = $OldAssoc;
+                if ($a) {
+                    $tabAssocToErase[] = $OldAssoc;
+                }
             }
         }
         // effacer les Assoc qui ne sont pas dans NewTag         
@@ -152,7 +156,7 @@ if (!empty($_POST)) {
             }
         }
 
-        // inserer les newTag et liens si n'existent pas         insertTag - insertAssoc
+        // inserer les newTag et liens si n'existent pas         
         if (!empty($tabTagToCreate)) {
             foreach ($tabTagToCreate as $tag) {
                 $idTag = $objTagService->insertTag($tag);
@@ -163,7 +167,11 @@ if (!empty($_POST)) {
             $objAssocService->insertAssoc($assoc);
         }
 
+
         header("location: AffichageEvent.php?id=" . $id);
     }
 }
-afficherFormModifEvent($isThereError, $messages, $data);
+$dataTag = $objAssocService->selectTagListByEvent($id);
+
+
+afficherFormModifEvent($isThereError, $messages, $data, $dataTag);
