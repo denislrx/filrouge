@@ -94,7 +94,8 @@ if (!empty($_POST)) {
         if (!empty($tabDefTag)) {
             foreach ($tabDefTag as $tag) {
                 $t = $objTag->selectTagByName($tag);
-                if (!$t->getFalse()) {
+                // var_dump($t);
+                if ($t->getFalse() == false) {
                     $idTag = $objTag->insertTag($tag);
                 } else {
                     $idTag = $t->getIdTag();
@@ -103,12 +104,12 @@ if (!empty($_POST)) {
                 $assoc = new AssocTagEvent;
                 $assoc->setEvenement($idEvent);
                 $assoc->setTag($idTag);
-                var_dump($assoc);
+                // var_dump($assoc);
                 $objAssoc->insertAssoc($assoc);
             }
         }
 
-        header("location: AffichageEvent.php?id=" . $idEvent);
+        // header("location: AffichageEvent.php?id=" . $idEvent);
     }
 }
 afficherFormInsertEvent($isThereError, $messages);

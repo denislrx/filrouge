@@ -34,17 +34,17 @@ class TagDAO extends ConnexionDAO
     function selectTagByName($name)
     {
         $db = parent::connexion();
-        $stmt = $db->prepare("SELECT * FROM tag WHERE nameTag = ?");
+        $stmt = $db->prepare("SELECT * FROM tag WHERE nomTag = ?");
+        $stmt->bind_param("s", $name);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $tag = $result->fetch_array(MYSQLI_ASSOC);
         $objTag = new Tag;
-        if ($stmt == false) {
+        if ($tag == NULL) {
             $objTag->setFalse(false);
         } else {
-            $stmt->bind_param("s", $name);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            $tag = $result->fetch_array(MYSQLI_ASSOC);
             $objTag->setNomTag($tag["nomTag"]);
-            $objTag->setIdTag($tag["idOrga"]);
+            $objTag->setIdTag($tag["idTag"]);
             $objTag->setFalse(true);
         }
         $db->close();

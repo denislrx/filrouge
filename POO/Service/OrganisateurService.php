@@ -34,7 +34,9 @@ class OrganisateurService
     {
         $organisateurDAO = new OrganisateurDAO;
 
-        $organisateurDAO->insertOrga($objInsert);
+        $id = $organisateurDAO->insertOrga($objInsert);
+
+        return $id;
     }
 
     public function deleteOrga(int $id)

@@ -88,7 +88,7 @@ function viewBodyEvent($objEvent, $profil, $name)
             </div>
             <hr>
             <div class="ligne">
-                <a href="accueil_agenda.html" class="tag">#HipHop</a>
+                <a href="accueil_agenda.html" class="tag"></a>
                 <a href="accueil_agenda.html" class="tag">#Concert</a>
                 <a href="accueil_agenda.html" class="tag">#Sheguey</a>
                 <a href="accueil_agenda.html" class="tag">#Bob</a>
@@ -107,10 +107,12 @@ function viewBodyEvent($objEvent, $profil, $name)
             <hr>
             <div class="demi col-lg-6">
                 Evenement proposé par
-                <a href="AffichageOrga.php?id=<?php echo $objEvent->getIdOrga() ?>"></a>
-                <div class="labeldate "><?php echo $name->getNom() ?></div>
+                <a href="AffichageOrga.php?id=<?php echo $objEvent->getIdOrga() ?>">
+                    <div class="labeldate "><?php echo $name->getNom() ?>
+                </a>
             </div>
         </div>
+    </div>
     </div>
 <?php
 };

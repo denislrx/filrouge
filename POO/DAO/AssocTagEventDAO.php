@@ -9,8 +9,8 @@ class AssocTagEventDAO extends ConnexionDAO
 {
     function insertAssoc(AssocTagEvent $assoc)
     {
-        $tag = $assoc->getEvenement();
-        $event = $assoc->getTag();
+        $tag = $assoc->getTag();
+        $event = $assoc->getEvenement();
         $db = parent::connexion();
         $stmt = $db->prepare("INSERT INTO assoctagevent(idTag, idEvent) VALUES(?,?);");
         $stmt->bind_param("ii", $tag, $event);

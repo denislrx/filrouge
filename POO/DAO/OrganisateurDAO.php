@@ -150,7 +150,9 @@ class OrganisateurDAO extends ConnexionDAO
         );
 
         $stmt->execute();
+        $id = $stmt->insert_id;
         $bdd->close();
+        return $id;
     }
 
     function deleteOrga($id)

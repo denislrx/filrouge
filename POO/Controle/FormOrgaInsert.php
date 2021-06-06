@@ -105,11 +105,10 @@ if (!empty($_POST)) {
 
         // var_dump($objPost);
 
-        $objService->insertOrga($objPost);
+        $id = $objService->insertOrga($objPost);
 
-        $objId = $objService->selectAllOrgaByIdUser($_SESSION["idUser"]);
-        $_SESSION["idOrga"] = $objId->getIdOrga();
-        header("location: AffichageOrga.php?id=" . $objId->getIdOrga());
+
+        header("location: AffichageOrga.php?id=" . $id);
     }
 }
 AfficherFormOrgaInsert($isThereError, $messages);
