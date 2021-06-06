@@ -58,7 +58,8 @@ function viewAgendaBody($objEvent, $profil, $orga)
             <div class="col-md-10">
                 <h1>Toute l'actualité culturelle de Roubaix</h1>
             </div>
-            <div class="col-md-2 logoDroite"><img src="..\Presentation\Images\logo.png" alt="" height="80px"></div>
+
+            <div class="col-md-2 logoDroite"><a href="AccueilAgenda.php"><img src="..\Presentation\Images\logo.png" alt="" height="80px"></a></div>
             <hr>
         </div>
 

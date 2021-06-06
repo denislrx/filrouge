@@ -51,4 +51,15 @@ class TagDAO extends ConnexionDAO
 
         return $objTag;
     }
+
+
+
+    function deleteTag($id)
+    {
+        $bdd = $this->connexion();
+        $stmt = $bdd->prepare("DELETE FROM  Tag WHERE idTag = ?;");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $bdd->close();
+    }
 }

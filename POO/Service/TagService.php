@@ -21,4 +21,11 @@ class TagService
 
         return $id;
     }
+
+    public function deleteTag(int $id)
+    {
+        $tagDAO = new TagDAO;
+
+        $tagDAO->deleteTag($id);
+    }
 }

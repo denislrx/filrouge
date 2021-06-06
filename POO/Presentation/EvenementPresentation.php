@@ -5,7 +5,7 @@ include_once("Fonctions.php");
 
 
 
-function afficherEvent($objEvent, $profil, $name)
+function afficherEvent($objEvent, $profil, $name, $listTag)
 {
 ?>
     <!DOCTYPE html>
@@ -16,7 +16,7 @@ function afficherEvent($objEvent, $profil, $name)
 
     <body>
         <?php
-        viewBodyEvent($objEvent, $profil, $name);
+        viewBodyEvent($objEvent, $profil, $name, $listTag);
         ?>
     </body>
 
@@ -49,6 +49,10 @@ function afficherHead($nomPage, $fichierCSS)
 
 <?php
 };
+
+
+
+
 function erreurView($er, $messageErr)
 {
 ?>
@@ -65,7 +69,12 @@ function erreurView($er, $messageErr)
 <?php
 };
 
-function viewBodyEvent($objEvent, $profil, $name)
+
+
+
+
+
+function viewBodyEvent($objEvent, $profil, $name, $listTag)
 {
 ?>
     <div class="page">
@@ -88,10 +97,16 @@ function viewBodyEvent($objEvent, $profil, $name)
             </div>
             <hr>
             <div class="ligne">
-                <a href="accueil_agenda.html" class="tag"></a>
-                <a href="accueil_agenda.html" class="tag">#Concert</a>
-                <a href="accueil_agenda.html" class="tag">#Sheguey</a>
-                <a href="accueil_agenda.html" class="tag">#Bob</a>
+                <?php
+
+                foreach ($listTag as $tag) {
+                ?>
+                    <a href="AccueilAgenda.php?tag=<?php echo $tag->getIdTag()  ?>" class="tag"><?php echo $tag->getNomTag() ?></a>
+
+                <?php
+                }
+                ?>
+
             </div>
 
         </div>

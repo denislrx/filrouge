@@ -109,7 +109,10 @@ if (!empty($_POST)) {
             }
         }
 
-        // header("location: AffichageEvent.php?id=" . $idEvent);
+
+
+
+        header("location: AffichageEvent.php?id=" . $idEvent);
     }
 }
 afficherFormInsertEvent($isThereError, $messages);
