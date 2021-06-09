@@ -28,4 +28,13 @@ class TagService
 
         $tagDAO->deleteTag($id);
     }
+
+    function selectTagByIdEvent($id)
+    {
+        $tagDAO = new TagDAO;
+
+        $tabTag = $tagDAO->selectTagByIdEvent($id);
+
+        return $tabTag;
+    }
 }

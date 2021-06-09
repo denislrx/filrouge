@@ -102,4 +102,13 @@ class UtilisateurDAO extends ConnexionDAO
         $bdd->close();
         return  $tabMail;
     }
+
+    function validate($id)
+    {
+        $db = $this->connexion();
+        $stmt = $db->prepare("UPDATE utilisateur SET profil = 'user' WHERE idUser= ?;");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $db->close();
+    }
 }

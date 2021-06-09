@@ -62,4 +62,23 @@ class TagDAO extends ConnexionDAO
         $stmt->execute();
         $bdd->close();
     }
+
+    function selectTagByIdEvent($id)
+    {
+        $db = parent::connexion();
+        $stmt = $db->prepare("SELECT * FROM tag AS t INNER JOIN assoctagevent AS a ON t.idTag = a.idTag WHERE a.idEvent = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $dataSet = $result->fetch_all(MYSQLI_ASSOC);
+        $db->close();
+        $tabObjTag = [];
+        foreach ($dataSet as $data) {
+            $objTag = new Tag;
+            $objTag->setIdTag($data["idTag"]);
+            $objTag->setNomTag($data["nomTag"]);
+            $$tabObjTag[] = $objTag;
+        }
+        return $tabObjTag;
+    }
 }

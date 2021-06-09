@@ -127,4 +127,13 @@ class AssocTagEventDAO extends ConnexionDAO
         $nbrAssoc = $result->fetch_array(MYSQLI_ASSOC);
         return $nbrAssoc[0];
     }
+
+    function deleteAssocByIdEvent($id)
+    {
+        $bdd = $this->connexion();
+        $stmt = $bdd->prepare("DELETE FROM  assoctagevent WHERE idEvent = ?;");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $bdd->close();
+    }
 }

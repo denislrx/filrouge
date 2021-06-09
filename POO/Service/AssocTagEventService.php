@@ -53,4 +53,11 @@ class AssocTagEventService
 
         return $nbrAssoc;
     }
+
+    public function deleteAssocByIdEvent(int $id)
+    {
+        $assocDAO = new AssocTagEventDAO;
+
+        $assocDAO->deleteAssocByIdEvent($id);
+    }
 }

@@ -6,8 +6,8 @@ include_once(__DIR__ . "/../Service/OrganisateurService.php");
 include_once(__DIR__ . "/../Service/AssocTagEventService.php");
 
 session_start();
-if (!isset($_SESSION) || empty($_SESSION) || $_SESSION["Profil"] == "user" || $_SESSION["Profil"] == "admin") {
-    $profil = $_SESSION["Profil"];
+if (!isset($_SESSION) || empty($_SESSION) || $_SESSION["profil"] == "user" || $_SESSION["profil"] == "admin") {
+    $profil = $_SESSION["profil"];
 }
 
 $obj = new EvenementService;

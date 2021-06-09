@@ -12,6 +12,7 @@ class Evenement
     private $image;
     private $urlLien;
     private $idOrga;
+    private $datePubli;
 
 
     /**
@@ -190,6 +191,26 @@ class Evenement
     public function setIdOrga(int $idOrga)
     {
         $this->idOrga = $idOrga;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of datePubli
+     */
+    public function getDatePubli()
+    {
+        return $this->datePubli;
+    }
+
+    /**
+     * Set the value of datePubli
+     *
+     * @return  self
+     */
+    public function setDatePubli($datePubli)
+    {
+        $this->datePubli = $datePubli;
 
         return $this;
     }

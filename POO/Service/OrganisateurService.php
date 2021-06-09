@@ -14,7 +14,7 @@ class OrganisateurService
         return $organisateur;
     }
 
-    public function selectAllOrgaByIdUser(int $id): Organisateur
+    public function selectAllOrgaByIdUser(int $id): ?Organisateur
     {
         $orginisateurDAO = new OrganisateurDAO;
 
@@ -51,6 +51,24 @@ class OrganisateurService
         $orginisateurDAO = new OrganisateurDAO;
 
         $organisateur = $orginisateurDAO->selectNameByIdOrga($id);
+
+        return $organisateur;
+    }
+
+    public function selectAllNoobOrga(): array
+    {
+        $orginisateurDAO = new OrganisateurDAO;
+
+        $organisateur = $orginisateurDAO->selectAllNoobOrga();
+
+        return $organisateur;
+    }
+
+    public function selectAllUserOrga(): array
+    {
+        $orginisateurDAO = new OrganisateurDAO;
+
+        $organisateur = $orginisateurDAO->selectAllUserOrga();
 
         return $organisateur;
     }

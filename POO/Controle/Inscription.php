@@ -27,7 +27,7 @@ if (!empty($_POST)) {
         foreach ($tabMail as $mail) {
             if ($_POST["mailUser"] == $mail["mailUser"]) {
                 $erreur = true;
-                $messageErreur[] = "Mail déjà utilisé";
+                $messageErreur[] = "Mail déjà enregistré. Connectez vous.";
             }
         }
     }
@@ -63,6 +63,7 @@ if (!empty($_POST)) {
         $_SESSION["idUser"] = $dataUser->getIdUSer();
         $_SESSION["Nom"] = $dataUser->getMailUser();
         $_SESSION["Profil"] = $dataUser->getProfil();
+
         header("location:FormOrgaInsert.php");
     }
 }

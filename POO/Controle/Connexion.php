@@ -18,21 +18,23 @@ if (!empty($_POST["mailUser"])) {
 }
 
 if (!empty($_POST)) {
-    //var_dump($_POST);
+
     $dataUser = $objUser->selectAllByMail($_POST["mailUser"]);
-    //var_dump($dataUser);
+
 
     if (password_verify($_POST["MDP"], $dataUser->getMdpHash())) {
         session_start();
         $_SESSION["idUser"] = $dataUser->getIdUSer();
-        $_SESSION["Nom"] = $dataUser->getMailUser();
-        $_SESSION["Profil"] = $dataUser->getProfil();
-        //var_dump($_SESSION["idUser"]);
+        $_SESSION["nom"] = $dataUser->getMailUser();
+        $_SESSION["profil"] = $dataUser->getProfil();
 
         $objId = $objOrga->selectAllOrgaByIdUser($_SESSION["idUser"]);
-        if (is_null($ob))
+
+        if (!is_null($objId)) {
             $_SESSION["idOrga"] = $objId->getIdOrga();
-        //var_dump($_SESSION["idOrga"]);
+        } else {
+            header("location: FormOrgaInsert.php");
+        }
 
         header("location:AffichageOrga.php?id=" . $_SESSION["idOrga"]);
     } else {

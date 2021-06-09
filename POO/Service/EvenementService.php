@@ -67,4 +67,22 @@ class EvenementService
 
         return $evenement;
     }
+
+    function selectEventByIdOrga(int $id): array
+    {
+        $evenementDAO = new EvenementDAO;
+
+        $evenement = $evenementDAO->selectEventByIdOrga($id);
+
+        return $evenement;
+    }
+
+    public function selectLastPublishedEvent()
+    {
+        $evenementDAO = new EvenementDAO;
+
+        $evenement = $evenementDAO->selectLastPublishedEvent();
+
+        return $evenement;
+    }
 }

@@ -35,7 +35,7 @@ class OrganisateurDAO extends ConnexionDAO
         return $objOrgaById;
     }
 
-    function selectAllOrgaByIdUser(int $id): Organisateur
+    function selectAllOrgaByIdUser(int $id): ?Organisateur
     {
         $bdd = $this->connexion();
         $stmt = $bdd->prepare("SELECT * FROM organisateur WHERE idUser = ?");
@@ -59,6 +59,7 @@ class OrganisateurDAO extends ConnexionDAO
         $objOrgaById->setAdresseFB($data["adresseFB"]);
         $objOrgaById->setAdresseSite($data["adresseSite"]);
         $objOrgaById->setImage($data["image"]);
+        $objOrgaById->setDateCreation($data["dateCreation"]);
 
         return $objOrgaById;
     }
@@ -177,5 +178,67 @@ class OrganisateurDAO extends ConnexionDAO
         $nameIdOrga->setNom($data["nom"]);
 
         return $nameIdOrga;
+    }
+
+    function selectAllNoobOrga(): array
+    {
+        $bdd = $this->connexion();
+        $stmt = $bdd->prepare("SELECT * FROM organisateur as o INNER JOIN user AS u WHERE o.idOrga = u.idOrga AND u.profil = 'noob'");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $data = $result->fetch_all(MYSQLI_ASSOC);
+        $result->free();
+        $bdd->close();
+        $tabEvent = [];
+        foreach ($data as $d) {
+            $objOrga = new Organisateur;
+            $objOrga->setIdOrga($d["idOrga"]);
+            $objOrga->setNom($d["nom"]);
+            $objOrga->setAdresse($d["adresse"]);
+            $objOrga->setCodePostal($d["codePostal"]);
+            $objOrga->setVille($d["ville"]);
+            $objOrga->setDescription($d["description"]);
+            $objOrga->setEmail($d["email"]);
+            $objOrga->setTelephone($d["telephone"]);
+            $objOrga->setAdresseTwitter($d["adresseTwitter"]);
+            $objOrga->setAdresseInsta($d["adresseInsta"]);
+            $objOrga->setAdresseFB($d["adresseFB"]);
+            $objOrga->setAdresseSite($d["adresseSite"]);
+            $objOrga->setImage($d["image"]);
+            $objOrga->setDateCreation($d["dateCreation"]);
+            $tabEvent[] = $objOrga;
+        }
+        return $tabEvent;
+    }
+
+    function selectAllUserOrga(): array
+    {
+        $bdd = $this->connexion();
+        $stmt = $bdd->prepare("SELECT * FROM organisateur as o INNER JOIN user AS u WHERE o.idOrga = u.idOrga AND u.profil = 'user' OR u.profil = 'admin'");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $data = $result->fetch_all(MYSQLI_ASSOC);
+        $result->free();
+        $bdd->close();
+        $tabEvent = [];
+        foreach ($data as $d) {
+            $objOrga = new Organisateur;
+            $objOrga->setIdOrga($d["idOrga"]);
+            $objOrga->setNom($d["nom"]);
+            $objOrga->setAdresse($d["adresse"]);
+            $objOrga->setCodePostal($d["codePostal"]);
+            $objOrga->setVille($d["ville"]);
+            $objOrga->setDescription($d["description"]);
+            $objOrga->setEmail($d["email"]);
+            $objOrga->setTelephone($d["telephone"]);
+            $objOrga->setAdresseTwitter($d["adresseTwitter"]);
+            $objOrga->setAdresseInsta($d["adresseInsta"]);
+            $objOrga->setAdresseFB($d["adresseFB"]);
+            $objOrga->setAdresseSite($d["adresseSite"]);
+            $objOrga->setImage($d["image"]);
+            $objOrga->setDateCreation($d["dateCreation"]);
+            $tabEvent[] = $objOrga;
+        }
+        return $tabEvent;
     }
 }

@@ -7,6 +7,7 @@ class Utilisateur
     private $mailUser;
     private $mdpHash;
     private $profil;
+    private $valide;
 
 
 
@@ -87,6 +88,26 @@ class Utilisateur
     public function setProfil(string $profil)
     {
         $this->profil = $profil;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of valide
+     */
+    public function getValide()
+    {
+        return $this->valide;
+    }
+
+    /**
+     * Set the value of valide
+     *
+     * @return  self
+     */
+    public function setValide($valide)
+    {
+        $this->valide = $valide;
 
         return $this;
     }

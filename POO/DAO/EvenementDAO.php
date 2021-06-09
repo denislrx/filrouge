@@ -191,4 +191,58 @@ class EvenementDAO extends ConnexionDAO
         // var_dump(count($tabObjEvent));
         return $tabObjEvent;
     }
+
+    function selectEventByIdOrga($id)
+    {
+        $bdd = $this->connexion();
+        $stmt = $bdd->prepare("SELECT * FROM evenement WHERE idOrga = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $dataSet = $result->fetch_all(MYSQLI_ASSOC);
+        $result->free();
+        $bdd->close();
+        $tabObjEvent = [];
+        foreach ($dataSet as $data) {
+            $objEvent = new Evenement;
+            $objEvent->setIdEvent($data["idEvent"]);
+            $objEvent->setDate($data["date"]);
+            $objEvent->setHeure($data["heure"]);
+            $objEvent->setNom($data["nom"]);
+            $objEvent->setLieu($data["Lieu"]);
+            $objEvent->setDescription($data["description"]);
+            $objEvent->setImage($data["image"]);
+            $objEvent->setUrlLien($data["urlLien"]);
+            $tabObjEvent[] = $objEvent;
+        }
+
+        return $tabObjEvent;
+    }
+
+    public function selectLastPublishedEvent()
+    {
+        $bdd = $this->connexion();
+        $stmt = $bdd->prepare("SELECT * FROM evenement WHERE date WHERE date > CURDATE() ORDER BY datePubli");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $dataSet = $result->fetch_all(MYSQLI_ASSOC);
+        $result->free();
+        $bdd->close();
+        $tabObjEvent = [];
+        foreach ($dataSet as $data) {
+            $objEvent = new Evenement;
+            $objEvent->setIdEvent($data["idEvent"]);
+            $objEvent->setDate($data["date"]);
+            $objEvent->setHeure($data["heure"]);
+            $objEvent->setNom($data["nom"]);
+            $objEvent->setLieu($data["Lieu"]);
+            $objEvent->setDescription($data["description"]);
+            $objEvent->setImage($data["image"]);
+            $objEvent->setUrlLien($data["urlLien"]);
+            $objEvent->setIdOrga($data["idOrga"]);
+            $tabObjEvent[] = $objEvent;
+        }
+        // var_dump(count($tabObjEvent));
+        return $tabObjEvent;
+    }
 }

@@ -17,6 +17,7 @@ class Organisateur
     private $adresseSite;
     private $idUser;
     private $image;
+    private $dateCreation;
 
 
 
@@ -296,6 +297,26 @@ class Organisateur
     public function setImage($image)
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of dateCreation
+     */
+    public function getDateCreation()
+    {
+        return $this->dateCreation;
+    }
+
+    /**
+     * Set the value of dateCreation
+     *
+     * @return  self
+     */
+    public function setDateCreation($dateCreation)
+    {
+        $this->dateCreation = $dateCreation;
 
         return $this;
     }

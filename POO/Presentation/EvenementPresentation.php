@@ -91,7 +91,7 @@ function viewBodyEvent($objEvent, $profil, $name, $listTag)
             </div>
             <hr>
             <div class="labeldate">
-                <div class="labeldate col-md-6">Lieu : <?php echo $objEvent->getLieu() ?></div>
+                <div class="labeldate col-md-6"><?php echo $objEvent->getLieu() ?></div>
             </div>
             <div class="label"><?php echo $objEvent->getDescription() ?>
             </div>
@@ -117,7 +117,9 @@ function viewBodyEvent($objEvent, $profil, $name, $listTag)
         <div class="footer">
             <hr>
             <div class="demi col-lg-6">
-                <a href="FormEventModif.php?id=<?php echo $objEvent->getIdEvent() ?>" .><button class="btn btn-primary" type="button">Editer l'événement</button></a>
+                <?php if ($_SESSION["profil"] == "user" || $_SESSION["profil"] == "admin") { ?>
+                    <a href="FormEventModif.php?id=<?php echo $objEvent->getIdEvent() ?>" .><button class="btn btn-primary" type="button">Editer l'événement</button></a>
+                <?php } ?>
             </div>
             <hr>
             <div class="demi col-lg-6">
