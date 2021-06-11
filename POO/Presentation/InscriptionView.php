@@ -1,7 +1,7 @@
 <?php
 
 
-function afficherConex($erreur, $message)
+function afficherConex($erreur, $message, $token)
 {
 ?>
     <!DOCTYPE html>
@@ -9,7 +9,7 @@ function afficherConex($erreur, $message)
     <?php
     viewHead();
     echoError($erreur, $message);
-    formConnex();
+    formConnex($token);
 
     ?>
 
@@ -24,7 +24,7 @@ function echoError($erreur, $message)
     }
 }
 
-function formConnex()
+function formConnex($token)
 {
 ?>
     <div class="container position-absolute top-50 start-50 translate-middle">
@@ -40,10 +40,11 @@ function formConnex()
                 <div> Mot de passe :</div>
                 <input name="MDP" type="password" placeholder="Saisir votre mot de passe" />
             </div>
-
+            <input name = "csrf_token" type= "hidden" value = "<?php echo $token ?>"/>
             <div class="row">
                 <button type="submit">Valider</button>
             </div>
+
         </form>
     </div>
 <?php
