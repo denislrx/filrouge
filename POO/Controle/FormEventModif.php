@@ -7,7 +7,8 @@ include_once(__DIR__ . "/../Service/AssocTagEventService.php");
 
 
 session_start();
-if (!isset($_SESSION) || empty($_SESSION) || $_SESSION["Profil"] != "user") {
+
+if (!($_SESSION["profil"] = "user" || $_SESSION["profil"] = "admin")) {
     header("location: connexion.php");
 }
 
@@ -29,29 +30,30 @@ $data = $objEventService->selectAllEventById($id);
 
 
 $messages = [];
-$nomEvenRegex = "#^[0-9\p{L}\s'-]*$#";
-$dateEventRegex = "#^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$#";
-$heureEventRegex = "^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$";
+$tagRegex = "#^\#[\w_]{3,29}$#";
+$nomEventRegex = "#^[0-9\p{L}\s'-]*$#";
+$dateEventRegex = "#^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$#";
+$heureEventRegex = "#^[0-9]{2}:[0-9]{2}:[0-9]{2}$#";
 $lieuEventRegex = "#^[0-9\p{L}\s'-]*$#";
 $descriptionRegex = "#^[0-9\p{L}\s'-]*$#";
 $urlLienRegex = "#^(http\:\/\/[a-zA-Z0-9_\-]+(?:\.[a-zA-Z0-9_\-]+)*\.[a-zA-Z]{2,4}(?:\/[a-zA-Z0-9_]+)*(?:\/[a-zA-Z0-9_]+\.[a-zA-Z]{2,4}(?:\?[a-zA-Z0-9_]+\=[a-zA-Z0-9_]+)?)?(?:\&[a-zA-Z0-9_]+\=[a-zA-Z0-9_]+)*)$#";
-$tagRegex = "#^\#[\w_]{3,29}$#";
+
 
 if (!empty($_POST)) {
 
-    if (!isset($_POST["nomEvent"]) || empty($_POST["nomEvent"]) || !preg_match($nomEvenRegex, $_POST["nom"])) {
+    if (!isset($_POST["nom"]) || empty($_POST["nom"]) || !preg_match($nomEventRegex, $_POST["nom"])) {
         $isThereError = true;
         $messages[] = "Erreur de saisie du nom";
     }
-    if (!isset($_POST["dateEvent"]) || empty($_POST["dateEvent"]) || !preg_match($dateEventRegex, $_POST["dateEvent"])) {
+    if (!isset($_POST["date"]) || empty($_POST["date"]) || !preg_match($dateEventRegex, $_POST["date"])) {
         $isThereError = true;
         $messages[] = "Erreur de saisie de la date";
     }
-    if (!isset($_POST["heureEvent"]) || empty($_POST["heureEvent"]) || !preg_match($heureEventRegex, $_POST["heureEvent"])) {
+    if (!isset($_POST["heure"]) || empty($_POST["heure"]) || !preg_match($heureEventRegex, $_POST["heure"])) {
         $isThereError = true;
         $messages[] = "Erreur de saisie du l'heure";
     }
-    if (!isset($_POST["lieuEvent"]) || empty($_POST["lieuEvent"]) || !preg_match($lieuEventRegex, $_POST["lieuEvent"])) {
+    if (!isset($_POST["lieu"]) || empty($_POST["lieu"]) || !preg_match($lieuEventRegex, $_POST["lieu"])) {
         $isThereError = true;
         $messages[] = "Erreur de saisie du lieu";
     }
@@ -116,42 +118,44 @@ if (!empty($_POST)) {
             foreach ($tabDefTag as $newTag) {
                 $objTag = $objTagService->selectTagByName($newTag);
                 if ($objTag->getFalse() == TRUE) {
-                    $tabObjTagExist[] = $ObjTag;
+                    $tabObjTagExist[] = $objTag;
                 } else {
                     $tabTagToCreate = $newTag;
                 }
             }
         }
+
         //Comparer les anciennes relations avec Tags existants : 
         // Rassembler les relations qui ne sont pas dedans dans un tableau pour les effacer
         $tabAssocToErase = [];
         $tabTagToErase = [];
         if (!empty($tabOldAssoc)) {
-            foreach ($tabOldAssoc as $OldAssoc) {
+            foreach ($tabOldAssoc as $oldAssoc) {
                 $a = true;
-                foreach ($tabObjTagExist as $ObjTagExist) {
-                    if ($ObjTagExist->getIdTag() === $oldAssoc->getIdTag()) {
+                foreach ($tabObjTagExist as $objTagExist) {
+                    if ($objTagExist->getidTag() === $oldAssoc->getTag()) {
                         $a = false;
-                        $tabTagToErase[] = $ObjTagExist;
+                        $tabTagToErase[] = $objTagExist;
                     }
                 }
                 if ($a) {
-                    $tabAssocToErase[] = $OldAssoc;
+                    $tabAssocToErase[] = $oldAssoc;
                 }
             }
         }
         // effacer les Assoc qui ne sont pas dans NewTag         
         if (!empty($tabAssocToErase)) {
             foreach ($tabAssocToErase as $assoc) {
-                $objAssocService->deleteAssoc($assoc->getIdAssoc());
+                $objAssocService->deleteAssoc($assoc->getIdAssocTagEvent());
             }
         }
+        // var_dump($tabTagToErase);
         // effacer les Tags si ils n'ont plus d'assoc            
         if (!empty($tabTagToErase)) {
             foreach ($tabTagToErase as $tag) {
-                $n = $objAssocService->numberOfAssocForATag($assoc->getIdTag);
+                $n = $objAssocService->numberOfAssocForATag($tag->getIdTag());
                 if ($n == 0) {
-                    $objTagService->deleteTag($assoc->getIdTag());
+                    $objTagService->deleteTag($tag->getIdTag());
                 }
             }
         }

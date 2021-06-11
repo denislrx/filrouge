@@ -47,7 +47,7 @@ class EvenementDAO extends ConnexionDAO
         $image = $objInsert->getImage();
         $urlLien = $objInsert->getUrlLien();
         $stmt = $bdd->prepare("UPDATE evenement SET
-        date =?, heure=?, nom=?, Lieu=?, description=?, image=?, urlLien=?,WHERE idEvent = ?;");
+        date =?, heure=?, nom=?, Lieu=?, description=?, image=?, urlLien=? WHERE idEvent = ?");
         $stmt->bind_param(
             "sssssssi",
             $date,
@@ -222,7 +222,7 @@ class EvenementDAO extends ConnexionDAO
     public function selectLastPublishedEvent()
     {
         $bdd = $this->connexion();
-        $stmt = $bdd->prepare("SELECT * FROM evenement WHERE date WHERE date > CURDATE() ORDER BY datePubli");
+        $stmt = $bdd->prepare("SELECT * FROM evenement WHERE date > CURDATE() ORDER BY datePubli");
         $stmt->execute();
         $result = $stmt->get_result();
         $dataSet = $result->fetch_all(MYSQLI_ASSOC);

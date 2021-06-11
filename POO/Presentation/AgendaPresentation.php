@@ -109,6 +109,13 @@ function viewAgendaBody($objEvent, $profil, $orga)
                 <nav class="navbar">
                     <div class="container fluid">
                         <form class="d-flex" style="width:100%;">
+                            <input class="form-control me-2" type="date" placeholder="rechercher une date" aria-label="Search">
+                        </form>
+                    </div>
+                </nav>
+                <nav class="navbar">
+                    <div class="container fluid">
+                        <form class="d-flex" style="width:100%;">
                             <input class="form-control me-2" type="search" placeholder="rechercher un tag" aria-label="Search">
                         </form>
                     </div>
@@ -121,36 +128,7 @@ function viewAgendaBody($objEvent, $profil, $orga)
                         <a href="#" class="badge badge-dark">#cinéma</a>
                     </div>
                 </nav>
-                <nav class="navbar">
-                    <div class="container fluid">
-                        <form class="d-flex" style="width:100%;">
-                            <input class="form-control me-2" type="date" placeholder="rechercher une date" aria-label="Search">
-                        </form>
-                    </div>
-                    <div class="container box_search">
-                        <a href="#" class="badge badge-dark">#demain</a>
-                        <a href="#" class="badge badge-dark">#apres demain</a>
-                        <a href="#" class="badge badge-dark">#ce week-end</a>
-                        <a href="#" class="badge badge-dark">#cette semine</a>
-                        <a href="#" class="badge badge-dark">#ce mois</a>
-                    </div>
-                </nav>
-                <nav class="navbar navbar-light">
-                    <div class="container-fluid barreDeRecherche">
-                        <form class="d-flex">
-                            <input class="form-control me-2 tailleBarre" type="search" placeholder="rechercher un tag" aria-label="Search">
-                            <button class="btn btn-outline-success" type="submit"><span class="motRechercher">rechercher</span></button>
-                        </form>
-                    </div>
-                    <div class="container box_search">
-                        <a href="#" class="badge badge-dark">Dark</a>
-                        <a href="#" class="badge badge-dark">Dark</a>
-                        <a href="#" class="badge badge-dark">Dark</a>
-                        <a href="#" class="badge badge-dark">Dark</a>
-                        <a href="#" class="badge badge-dark">Dark</a>
-                        <a href="#" class="badge badge-dark">Dark</a>
-                    </div>
-                </nav>
+
             </div>
 
 
@@ -194,18 +172,22 @@ function viewAgendaBody($objEvent, $profil, $orga)
             <div class="col-lg-2 col-md-3 col-sm-3 coteDroit">
                 <div class="menuCoterDroite">
                     <?php
-                    if (empty($_SESSION)) { ?>
+                    if (!isset($_SESSION["profil"])) { ?>
                         <a href="Inscription.php" class="btn btn-secondary bouton">M'inscrire</a>
                         <a href="Connexion.php" class="btn btn-secondary bouton">Me connecter</a>
 
-                    <?php } else { ?>
+                    <?php } elseif ($_SESSION["profil"] == "user" || $_SESSION["profil"] ==  "noob") { ?>
+
                         <a href="AffichageOrga.php?id=<?php echo $profil["idOrga"] ?>" class="btn btn-secondary bouton">Mon compte</a>
                         <a href="Deconnexion.php" class="btn btn-secondary bouton">Me déconnecter</a>
 
+                    <?php } elseif ($_SESSION["profil"] == "admin") { ?>
+                        <a href="PageAdmin.php" class="btn btn-secondary bouton">Administration</a>
+                        <a href="Deconnexion.php" class="btn btn-secondary bouton">Me déconnecter</a>
                     <?php } ?>
                     <div class="card boxOrga">
                         <?php foreach ($orga as $o) { ?>
-                            <img src="data:image/jpg;base64,<?php echo base64_encode($o->getImage()) ?>" class="card-img-top imgDroite" alt="...">
+                            <a href="AffichageOrga.php?id=<?php echo $o->getIdOrga() ?>"><img src="data:image/jpg;base64,<?php echo base64_encode($o->getImage()) ?>" class="card-img-top imgDroite" alt="..."></a>
 
                             <p class="card-titre"><?php echo $o->getNom() ?></p>
                     </div>

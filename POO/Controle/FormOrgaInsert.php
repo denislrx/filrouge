@@ -4,9 +4,9 @@ include_once(__DIR__ . "/../Presentation/OrganisateurPresentation.php");
 include_once(__DIR__ . "/../Service/OrganisateurService.php");
 
 session_start();
-if (!isset($_SESSION) || empty($_SESSION) || $_SESSION["Profil"] != "user") {
-    header("location: connexion.php");
-}
+// if (!isset($_SESSION) || empty($_SESSION) ||  $_SESSION["profil"] != "user" || $_SESSION["profil"] != "noob") {
+//     header("location: connexion.php");
+// }
 
 $isThereError = false;
 if (!isset($_POST)) {

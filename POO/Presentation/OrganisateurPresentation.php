@@ -25,6 +25,14 @@ function afficherOrga($objOrga, $profil, $dataCarroussel)
 <?php
 }
 
+
+
+
+
+
+
+
+
 function viewBodyOrga($objOrga, $profil, $dataCarroussel)
 {
 ?>
@@ -52,7 +60,13 @@ function viewBodyOrga($objOrga, $profil, $dataCarroussel)
                     <p>Mail : <?php echo $objOrga->getEmail() ?></p>
                 </div>
                 <div class="col-md-3 edition">
-                    <?php if ($profil == "user" || $profil == "admin") { ?>
+
+                    <?php
+                    if ($profil == "noob") { ?>
+                        <a href="FormOrgaModif.php?id=<?php echo $objOrga->getIdOrga() ?>"><button type="button" class="btn btn-outline-secondary">Modifier la page</button></a>
+
+                    <?php }
+                    if ($profil == "user" || $profil == "admin") { ?>
                         <a href="FormEventInsert.php"><button type="button" class="btn btn-outline-secondary">Ajouter un événement</button></a>
                         <a href="FormOrgaModif.php?id=<?php echo $objOrga->getIdOrga() ?>"><button type="button" class="btn btn-outline-secondary">Modifier la page</button></a>
                         <a href="DeleteOrga.php?id=<?php echo $objOrga->getIdOrga() ?>"><button type="button" class="btn btn-outline-secondary">Supprimer la page</button></a>
@@ -102,6 +116,14 @@ function viewBodyOrga($objOrga, $profil, $dataCarroussel)
     </body>
 <?php
 }
+
+
+
+
+
+
+
+
 
 function afficherFormOrgaInsert($isThereError, $messages)
 { ?>

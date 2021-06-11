@@ -43,4 +43,17 @@ class UtilisateurService
         $Utilisateur = $UserDAO->listeMail();
         return $Utilisateur;
     }
+
+    function validate(int $id): void
+    {
+        $objDAO = new UtilisateurDAO;
+        $objDAO->validate($id);
+    }
+
+    function getIdUserByIdOrga(int $idOrga): int
+    {
+        $UserDAO = new UtilisateurDAO;
+        $idEvent = $UserDAO->getIdUserByIdOrga($idOrga);
+        return $idEvent;
+    }
 }

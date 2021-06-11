@@ -277,7 +277,7 @@ function afficherFormModifEvent($isThereError, $messages, $data, $dataTag)
     <!DOCTYPE html>
     <html lang="en">
     <?php
-    afficherHead("Modifier Evenement", "..\Presentation\CSS\style_form_orga.css");
+    afficherHead("Modifier Evenement", "..\Presentation\CSS\style_form_event.css");
     ?>
 
     <body>

@@ -8,7 +8,7 @@ include_once(__DIR__ . "/../Service/AssocTagEventService.php");
 $profil = "";
 session_start();
 
-if (isset($_SESSION["Profil"])) {
+if (isset($_SESSION["profil"])) {
     $profil = $_SESSION;
 }
 
@@ -27,6 +27,7 @@ if (!empty($_GET["tag"])) {
     $data = $objEvent->selectAllEventsOfWeek();
 }
 $listeIdOrga = $objEvent->listOfMostActivIdOrga();
+
 $orga = [];
 for ($i = 0; $i < 3; $i++) {
     $org = $objOrga->selectAllOrgaById($listeIdOrga[$i]->getIdOrga());

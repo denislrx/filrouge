@@ -8,7 +8,7 @@ function afficherAdmin($tabOrgaNoob, $tabOrgaUser, $tabLastPublishedEvent)
     <!DOCTYPE html>
     <html lang="en">
     <?php
-    afficherHead("Organisateur", "..\Presentation\CSS\style_orga.css");
+    afficherHead("Administration", "..\Presentation\CSS\style_orga.css");
     ?>
 
     <body>
@@ -27,7 +27,21 @@ function afficherAdmin($tabOrgaNoob, $tabOrgaUser, $tabLastPublishedEvent)
 
 
 
+function afficherHead($nomPage, $fichierCSS)
+{
+?>
 
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous" />
+        <link rel="stylesheet" href="<?php echo ($fichierCSS) ?>" />
+        <title><?php echo ($nomPage) ?></title>
+    </head>
+
+<?php
+};
 
 
 
@@ -45,46 +59,60 @@ function viewBodyAdmin($tabOrgaNoob, $tabOrgaUser, $tabLastPublishedEvent)
 
 
         <div class="aside">
-            <tr>
-                <?php
-                foreach ($tabOrgaUser as $orgaUser) {
-                ?>
-
-
-                    <td> <a href="AffichageOrga.php?id=.<?php echo $orgaUser->getIdOrga() ?>"><?php echo $orgaUser->setNom() ?></a>
-            </tr>
-            <td> <?php echo $orgaUser->setMail() ?> </tr>
-            <td> <?php echo $orgaUser->setTelephone() ?> </tr>
-                <tr> <a href="validate.php?id=.<?php $orgaUser->getIdUser() ?>"><button class="btn btn-primary">Valider</button> </a>
-
-
-                <?php
-                }
-                ?>
+            <h2>Comptes organisateur à valider</h2>
+            <table>
+                <tr>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th>Telephone</th>
+                    <th>Valider</th>
                 </tr>
-
-        </div>
-
-        <div class="section">
-            <tr>
                 <?php
                 foreach ($tabOrgaNoob as $orgaNoob) {
                 ?>
 
 
-                    <td> <a href="AffichageOrga.php?id=.<?php echo $orgaNoob->getIdOrga() ?>"><?php echo $orgaNoob->setNom() ?></a>
-            </tr>
-            <td> <?php echo $orgaNoob->setMail() ?> </tr>
-            <td> <?php echo $orgaNoob->setTelephone() ?> </tr>
-                <tr> <a href="validate.php?id=.<?php $orgaNoob->getIdUser() ?>"><button class="btn btn-primary">Valider</button> </a>
+                    <tr>
+                        <td> <a href="AffichageOrga.php?id=.<?php echo $orgaNoob->getIdOrga() ?>"><?php echo $orgaNoob->getNom() ?></a> </td>
+                        <td> <?php echo $orgaNoob->getEmail() ?> </td>
+                        <td> <?php echo $orgaNoob->getTelephone() ?> </td>
+                        <td> <a href="Validate.php?id=<?php echo $orgaNoob->getIdOrga() ?>"><button type="button" class="btn btn-outline-secondary">Valider</button></a></td>
+                    </tr>
 
 
                 <?php
                 }
                 ?>
-                </tr>
+            </table>
         </div>
 
+        <div class="section">
+            <h2>Organisateurs</h2>
+            <table>
+                <tr>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th>Telephone</th>
+                </tr>
+                <?php
+                foreach ($tabOrgaUser as $orgaUser) {
+                ?>
+
+                    <tr>
+                        <td> <a href="AffichageOrga.php?id=.<?php echo $orgaUser->getIdOrga() ?>"><?php echo $orgaUser->getNom() ?></a>
+                        </td>
+                        <td> <?php echo $orgaUser->getEmail() ?> </td>
+                        <td> <?php echo $orgaUser->getTelephone() ?> </td>
+
+
+                    <?php
+                }
+                    ?>
+                    </tr>
+            </table>
+        </div>
+
+        <h2>Derniers événements publiés</h2>
         <div class="footer">
             <div id="wrapper">
                 <div id="carousel">
