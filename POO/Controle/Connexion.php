@@ -16,40 +16,37 @@ if (!empty($_POST["mailUser"])) {
         $message = "Mail inconnu ou invalide";;
     }
 }
-$token = bin2hex(random_bytes(20));
-$_SESSION["csrf_token"] = $token;
-// var_dump($_SESSION);
-// var_dump($_POST);
+if (!empty($_POST)) {
 
-if ($_POST) {
-    if($_SESSION["csrf_token"] == $_POST["csrf_token"]){
-        $dataUser = $objUser->selectAllByMail($_POST["mailUser"]);
-    
-    
-        if (password_verify($_POST["MDP"], $dataUser->getMdpHash())) {
-            session_start();
-            $_SESSION["idUser"] = $dataUser->getIdUSer();
-            $_SESSION["nom"] = $dataUser->getMailUser();
-            $_SESSION["profil"] = $dataUser->getProfil();
-    
+    $dataUser = $objUser->selectAllByMail($_POST["mailUser"]);
+
+
+    if (password_verify($_POST["MDP"], $dataUser->getMdpHash())) {
+        session_start();
+        $_SESSION["idUser"] = $dataUser->getIdUser();
+        $_SESSION["nom"] = $dataUser->getMailUser();
+        $_SESSION["profil"] = $dataUser->getProfil();
+
+
+        if ($_SESSION["profil"] != "admin") {
             $objId = $objOrga->selectAllOrgaByIdUser($_SESSION["idUser"]);
-    
+
             if (!is_null($objId)) {
                 $_SESSION["idOrga"] = $objId->getIdOrga();
             } else {
                 header("location: FormOrgaInsert.php");
             }
-    
             header("location:AffichageOrga.php?id=" . $_SESSION["idOrga"]);
         } else {
-    
-            $erreur = true;
-            $message = "Identification invalide";
+            header("location:AccueilAgenda.php");
         }
-    }else{
+    } else {
         $erreur = true;
-        $message = "Token invalide";
+        $message = "Identification invalide";
     }
- }
-    
+}
+
+
+
+
 afficherConex($erreur, $message, $token);

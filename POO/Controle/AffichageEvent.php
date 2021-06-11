@@ -7,6 +7,7 @@ include_once(__DIR__ . "/../Service/AssocTagEventService.php");
 
 session_start();
 if (!isset($_SESSION) || empty($_SESSION) || $_SESSION["profil"] == "user" || $_SESSION["profil"] == "admin") {
+    var_dump($_SESSION);
     $profil = $_SESSION["profil"];
 }
 

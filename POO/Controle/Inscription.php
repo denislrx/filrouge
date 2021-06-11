@@ -24,11 +24,10 @@ if (!empty($_POST)) {
 
 
     if (isset($tabMail)) {
-        foreach ($tabMail as $mail) {
-            if ($_POST["mailUser"] == $mail["mailUser"]) {
-                $erreur = true;
-                $messageErreur[] = "Mail déjà enregistré. Connectez vous.";
-            }
+
+        if (in_array($_POST["mailUser"], $tabMail)) {
+            $erreur = true;
+            $messageErreur[] = "Mail déjà enregistré. Connectez vous.";
         }
     }
 
@@ -61,8 +60,8 @@ if (!empty($_POST)) {
         $dataUser = $objUser->selectAllByMail($_POST["mailUser"]);
         session_start();
         $_SESSION["idUser"] = $dataUser->getIdUSer();
-        $_SESSION["Nom"] = $dataUser->getMailUser();
-        $_SESSION["Profil"] = $dataUser->getProfil();
+        $_SESSION["nom"] = $dataUser->getMailUser();
+        $_SESSION["profil"] = $dataUser->getProfil();
 
         header("location:FormOrgaInsert.php");
     }

@@ -47,7 +47,7 @@ class EvenementDAO extends ConnexionDAO
         $image = $objInsert->getImage();
         $urlLien = $objInsert->getUrlLien();
         $stmt = $bdd->prepare("UPDATE evenement SET
-        date =?, heure=?, nom=?, Lieu=?, description=?, image=?, urlLien=?,WHERE idEvent = ?;");
+        date =?, heure=?, nom=?, Lieu=?, description=?, image=?, urlLien=? WHERE idEvent = ?");
         $stmt->bind_param(
             "sssssssi",
             $date,
@@ -97,29 +97,7 @@ class EvenementDAO extends ConnexionDAO
 
         return $objEventById;
     }
-    function selectAllEventByIdOrgaNameAndDate(int $id, string $name, string $date): Evenement
-    {
-        $bdd = $this->connexion();
-        $stmt = $bdd->prepare("SELECT * FROM evenement WHERE idOrga = ? AND nom= ? AND date= ?");
-        $stmt->bind_param("iss", $id, $name, $date);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $data = $result->fetch_array(MYSQLI_ASSOC);
-        $result->free();
-        $bdd->close();
-        $objEventByIdOrga = new Evenement;
-        $objEventByIdOrga->setIdEvent($data["idEvent"]);
-        $objEventByIdOrga->setDate($data["date"]);
-        $objEventByIdOrga->setHeure($data["heure"]);
-        $objEventByIdOrga->setNom($data["nom"]);
-        $objEventByIdOrga->setLieu($data["Lieu"]);
-        $objEventByIdOrga->setDescription($data["description"]);
-        $objEventByIdOrga->setImage($data["image"]);
-        $objEventByIdOrga->setUrlLien($data["urlLien"]);
 
-
-        return $objEventByIdOrga;
-    }
 
     function selectAllOrgaEventsOfWeek(int $id): array
     {
@@ -222,7 +200,7 @@ class EvenementDAO extends ConnexionDAO
     public function selectLastPublishedEvent()
     {
         $bdd = $this->connexion();
-        $stmt = $bdd->prepare("SELECT * FROM evenement WHERE date WHERE date > CURDATE() ORDER BY datePubli");
+        $stmt = $bdd->prepare("SELECT * FROM evenement WHERE date > CURDATE() ORDER BY datePubli");
         $stmt->execute();
         $result = $stmt->get_result();
         $dataSet = $result->fetch_all(MYSQLI_ASSOC);

@@ -35,14 +35,7 @@ class EvenementService
 
         return $evenement;
     }
-    public function selectAllEventByIdOrgaNameAndDate(int $id, string $name, string $date): Evenement
-    {
-        $evenementDAO = new EvenementDAO;
 
-        $evenement = $evenementDAO->selectAllEventByIdOrgaNameAndDate($id, $name, $date);
-
-        return $evenement;
-    }
     public function selectAllOrgaEventsOfWeek(int $id): array
     {
         $evenementDAO = new EvenementDAO;
