@@ -100,11 +100,7 @@ class UtilisateurDAO extends ConnexionDAO
         $tabMail = $result->fetch_all(MYSQLI_ASSOC);
         $result->free();
         $bdd->close();
-        $tabDef = [];
-        foreach ($tabMail as $mail) {
-            $tabDef[] = $mail["mailUser"];
-        }
-        return  $tabDef;
+        return  $tabMail;
     }
 
     function validate($id)
@@ -114,17 +110,5 @@ class UtilisateurDAO extends ConnexionDAO
         $stmt->bind_param("i", $id);
         $stmt->execute();
         $db->close();
-    }
-
-    function getIdUserByIdOrga($idOrga)
-    {
-        $db = $this->connexion();
-        $stmt = $db->prepare("SELECT u.idUser FROM utilisateur as u INNER JOIN organisateur AS o WHERE o.idOrga = ? ");
-        $stmt->bind_param("i", $idOrga);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $idUser = $result->fetch_all(MYSQLI_NUM);
-        $db->close();
-        return $idUser[0];
     }
 }

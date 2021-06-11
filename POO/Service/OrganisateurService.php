@@ -72,6 +72,4 @@ class OrganisateurService
 
         return $organisateur;
     }
-
-   
 }

@@ -183,7 +183,7 @@ class OrganisateurDAO extends ConnexionDAO
     function selectAllNoobOrga(): array
     {
         $bdd = $this->connexion();
-        $stmt = $bdd->prepare("SELECT * FROM organisateur as o INNER JOIN utilisateur AS u WHERE o.idUser = u.idUser AND u.profil = 'noob'");
+        $stmt = $bdd->prepare("SELECT * FROM organisateur as o INNER JOIN user AS u WHERE o.idOrga = u.idOrga AND u.profil = 'noob'");
         $stmt->execute();
         $result = $stmt->get_result();
         $data = $result->fetch_all(MYSQLI_ASSOC);
@@ -214,7 +214,7 @@ class OrganisateurDAO extends ConnexionDAO
     function selectAllUserOrga(): array
     {
         $bdd = $this->connexion();
-        $stmt = $bdd->prepare("SELECT * FROM organisateur as o INNER JOIN utilisateur AS u WHERE o.idUser = u.idUser AND u.profil = 'user'");
+        $stmt = $bdd->prepare("SELECT * FROM organisateur as o INNER JOIN user AS u WHERE o.idOrga = u.idOrga AND u.profil = 'user' OR u.profil = 'admin'");
         $stmt->execute();
         $result = $stmt->get_result();
         $data = $result->fetch_all(MYSQLI_ASSOC);

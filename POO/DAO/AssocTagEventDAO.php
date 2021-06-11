@@ -124,8 +124,7 @@ class AssocTagEventDAO extends ConnexionDAO
         $stmt->bind_param("i", $idTag);
         $stmt->execute();
         $result = $stmt->get_result();
-        $nbrAssoc = $result->fetch_array(MYSQLI_NUM);
-        var_dump($nbrAssoc);
+        $nbrAssoc = $result->fetch_array(MYSQLI_ASSOC);
         return $nbrAssoc[0];
     }
 

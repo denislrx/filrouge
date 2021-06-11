@@ -3,7 +3,7 @@
 class Utilisateur
 {
 
-    private $idUser;
+    private $idUSer;
     private $mailUser;
     private $mdpHash;
     private $profil;
@@ -13,7 +13,7 @@ class Utilisateur
 
 
     /**
-     * Get the value of idUser
+     * Get the value of idUSer
      */
     public function getIdUSer(): int
     {
@@ -21,11 +21,11 @@ class Utilisateur
     }
 
     /**
-     * Set the value of idUser
+     * Set the value of idUSer
      *
      * @return  self
      */
-    public function setIdUser(int $idUSer)
+    public function setIdUSer(int $idUSer)
     {
         $this->idUSer = $idUSer;
 

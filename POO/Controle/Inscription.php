@@ -21,13 +21,14 @@ if (!empty($_POST)) {
         $erreur = true;
         $messageErreur[] = "Erreur de saisie : mail non-valide ";
     }
-    var_dump($_POST["mailUser"]);
-    var_dump($tabMail);
-    if (isset($tabMail)) {
 
-        if (in_array($_POST["mailUser"], $tabMail)) {
-            $erreur = true;
-            $messageErreur[] = "Mail déjà enregistré. Connectez vous.";
+
+    if (isset($tabMail)) {
+        foreach ($tabMail as $mail) {
+            if ($_POST["mailUser"] == $mail["mailUser"]) {
+                $erreur = true;
+                $messageErreur[] = "Mail déjà enregistré. Connectez vous.";
+            }
         }
     }
 
@@ -60,8 +61,8 @@ if (!empty($_POST)) {
         $dataUser = $objUser->selectAllByMail($_POST["mailUser"]);
         session_start();
         $_SESSION["idUser"] = $dataUser->getIdUSer();
-        $_SESSION["nom"] = $dataUser->getMailUser();
-        $_SESSION["profil"] = $dataUser->getProfil();
+        $_SESSION["Nom"] = $dataUser->getMailUser();
+        $_SESSION["Profil"] = $dataUser->getProfil();
 
         header("location:FormOrgaInsert.php");
     }
