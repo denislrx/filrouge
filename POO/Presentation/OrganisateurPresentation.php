@@ -157,7 +157,7 @@ function viewBodyOrga($objOrga, $dataCarroussel)
 
 
 
-function afficherFormOrgaInsert($isThereError, $messages)
+function afficherFormOrgaInsert($isThereError, $messages, $token)
 { ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -169,7 +169,7 @@ function afficherFormOrgaInsert($isThereError, $messages)
     <body>
         <?php
         erreurView($isThereError, $messages);
-        ViewBodyFormOrgaInsert($isThereError);
+        ViewBodyFormOrgaInsert($isThereError, $token);
         ?>
     </body>
 
@@ -212,7 +212,7 @@ function erreurView($er, $messageErr)
 };
 
 
-function viewBodyFormOrgaInsert($isThereError)
+function viewBodyFormOrgaInsert($isThereError, $token)
 {
 ?>
 
@@ -286,6 +286,7 @@ function viewBodyFormOrgaInsert($isThereError)
                                                                                                                                                                             }; ?>" />
 
                 </div>
+                <input name="csrf_token" type="hidden" value="<?php echo $token ?>" />
                 <hr />
             </div>
 
@@ -317,7 +318,7 @@ function viewBodyFormOrgaInsert($isThereError)
 
 
 
-function afficherModifFormOrga($isThereError, $messages, $data)
+function afficherModifFormOrga($isThereError, $messages, $data, $token)
 {
 ?>
     <!DOCTYPE html>
@@ -329,7 +330,7 @@ function afficherModifFormOrga($isThereError, $messages, $data)
     <body>
         <?php
         erreurView($isThereError, $messages);
-        viewBodyFormOrgaModif($isThereError, $data);
+        viewBodyFormOrgaModif($isThereError, $data, $token);
         ?>
     </body>
 
@@ -337,7 +338,7 @@ function afficherModifFormOrga($isThereError, $messages, $data)
 <?php
 }
 
-function viewBodyFormOrgaModif($isThereError, $data)
+function viewBodyFormOrgaModif($isThereError, $data, $token)
 {
 
 ?>
@@ -388,8 +389,8 @@ function viewBodyFormOrgaModif($isThereError, $data)
                 </div>
                 <div class="saisie">
                     <input type="text" class="form-control" placeholder="Adresse Site" aria-label="Adresse Site" aria-describedby="basic-addon2" name="adresseSite" value="<?php echo $isThereError ? $_POST["adresseSite"] : $data->getAdresseSite(); ?>" />
-
                 </div>
+                <input name="csrf_token" type="hidden" value="<?php echo $token ?>" />
                 <hr />
             </div>
 

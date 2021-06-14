@@ -40,7 +40,7 @@ function formConnex($token)
                 <div> Mot de passe :</div>
                 <input name="MDP" type="password" placeholder="Saisir votre mot de passe" />
             </div>
-            <input name = "csrf_token" type= "hidden" value = "<?php echo $token ?>"/>
+            <input name="csrf_token" type="hidden" value="<?php echo $token ?>" />
             <div class="row">
                 <button type="submit">Valider</button>
             </div>
@@ -50,7 +50,7 @@ function formConnex($token)
 <?php
 }
 
-function afficherInscr($er, $messageErr, $post)
+function afficherInscr($er, $messageErr, $token)
 {
 ?>
     <!DOCTYPE html>
@@ -58,7 +58,7 @@ function afficherInscr($er, $messageErr, $post)
     <?php
     viewHead();
     erreurView($er, $messageErr);
-    formInscrView($er, $post)
+    formInscrView($er, $token)
     ?>
 
     </html>
@@ -88,7 +88,7 @@ function viewHead()
 
 }
 
-function formInscrView($er, $post)
+function formInscrView($er, $token)
 {
 ?>
 
@@ -112,6 +112,8 @@ function formInscrView($er, $post)
                     <div> Confirmer le mot de passe :</div>
                     <input name="MDP2" type="password" placeholder="Saisir votre mot de passe" />
                 </div>
+
+                <input name="csrf_token" type="hidden" value="<?php echo $token ?>" />
                 <div class="row">
                     <button type="submit">Valider</button>
                 </div>
