@@ -5,7 +5,7 @@ include_once("Fonctions.php");
 
 
 
-function afficherEvent($objEvent, $profil, $name, $listTag)
+function afficherEvent($objEvent, $name, $listTag)
 {
 ?>
     <!DOCTYPE html>
@@ -16,13 +16,13 @@ function afficherEvent($objEvent, $profil, $name, $listTag)
 
     <body>
         <?php
-        viewBodyEvent($objEvent, $profil, $name, $listTag);
+        viewBodyEvent($objEvent, $name, $listTag);
         ?>
     </body>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
-    <script src="js/script.js"></script>
+    <script src="js/scriptCarrousel.js"></script>
 
     </html>
 <?php
@@ -74,7 +74,7 @@ function erreurView($er, $messageErr)
 
 
 
-function viewBodyEvent($objEvent, $profil, $name, $listTag)
+function viewBodyEvent($objEvent, $name, $listTag)
 {
 ?>
     <div class="page">
@@ -117,9 +117,13 @@ function viewBodyEvent($objEvent, $profil, $name, $listTag)
         <div class="footer">
             <hr>
             <div class="demi col-lg-6">
-                <?php if ($_SESSION["profil"] == "user" || $_SESSION["profil"] == "admin") { ?>
-                    <a href="FormEventModif.php?id=<?php echo $objEvent->getIdEvent() ?>" .><button class="btn btn-primary" type="button">Editer l'événement</button></a>
-                <?php } ?>
+                <?php if (isset($_SESSION["profil"])) {
+                    if ($_SESSION["profil"] == "user" || $_SESSION["profil"] == "admin") {
+                ?>
+                        <a href="FormEventModif.php?id=<?php echo $objEvent->getIdEvent() ?>" .><button class="btn btn-primary" type="button">Editer l'événement</button></a>
+                <?php
+                    }
+                } ?>
             </div>
             <hr>
             <div class="demi col-lg-6">
@@ -302,14 +306,15 @@ function afficherFormModifEvent($isThereError, $messages, $data, $dataTag)
 
 function viewBodyFormModifEvent($isThereError, $data, $dataTag)
 {
-
 ?>
     <div class="page">
         <form action="" method="post" name="formule" enctype="multipart/form-data">
+
             <div class="header">
                 Toute l'actualité culturelle de Roubaix
                 <a href="AccueilAgenda.php"><img class="logo" src="..\Presentation\Images\logo.png"></a>
             </div>
+
             <div class="aside">
                 <div class=label>
                     Détails de l'événement :
@@ -363,6 +368,7 @@ function viewBodyFormModifEvent($isThereError, $data, $dataTag)
                 </div>
                 <hr />
             </div>
+
             <div class="section">
                 <label class="center" for="avatar">Choisissez une image d'illustration:</label>
                 <input class="center" type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" />
@@ -382,9 +388,9 @@ function viewBodyFormModifEvent($isThereError, $data, $dataTag)
                     <button class="btn btn-primary" type="submit">Valider</button>
                 </div>
                 <hr />
-
             </div>
+
         </form>
     </div>
 <?php
-};
+}

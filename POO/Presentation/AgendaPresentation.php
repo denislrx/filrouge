@@ -17,7 +17,7 @@ include_once("Fonctions.php");
 
 
 
-function afficherAgenda($objEvent, $profil, $orga)
+function afficherAgenda($objEvent, $profil, $orga, $topTenTags, $er, $messageEr)
 {
 ?>
     <!DOCTYPE html>
@@ -31,7 +31,8 @@ function afficherAgenda($objEvent, $profil, $orga)
 
     <body>
         <?php
-        viewAgendaBody($objEvent, $profil, $orga);
+        erreurView($er, $messageEr);
+        viewAgendaBody($objEvent, $profil, $orga, $topTenTags);
         ?>
     </body>
 
@@ -74,12 +75,31 @@ function afficherHead($nomPage, $fichierCSS)
 
 
 
+function erreurView($er, $messageErr)
+{
+?>
+    <ul>
+        <?php
+
+        if ($er) {
+            foreach ($messageErr as $message) {
+        ?> <li> <?php
+                echo $message;
+                ?> </li> <?php
+                        }
+                    } ?> </ul>
+<?php
+};
 
 
 
 
 
-function viewAgendaBody($objEvent, $profil, $orga)
+
+
+
+
+function viewAgendaBody($objEvent, $profil, $orga, $topTenTags)
 {
 ?>
 
@@ -99,33 +119,42 @@ function viewAgendaBody($objEvent, $profil, $orga)
         <div class="row">
             <!-- colonne gauche -->
             <div class="col-md-2 coteGauche">
+                <h4>Recherche</h4>
+                <h5>Organisateur</h5>
                 <nav class="navbar">
                     <div class="container fluid">
-                        <form class="d-flex" style="width:100%;">
-                            <input class="form-control me-2" type="search" placeholder="rechercher un organisateur" aria-label="Search">
+                        <form method="post" action="AccueilAgenda.php" class="d-flex" style="width:100%;">
+                            <input name="orgaResearch" class="form-control me-2" type="search" placeholder="rechercher un organisateur" aria-label="Search"><input type="submit" name="ch" value="Ok" />
                         </form>
                     </div>
                 </nav>
+                <h5>Date</h5>
                 <nav class="navbar">
                     <div class="container fluid">
-                        <form class="d-flex" style="width:100%;">
-                            <input class="form-control me-2" type="date" placeholder="rechercher une date" aria-label="Search">
+                        <form method="post" action="AccueilAgenda.php" class="d-flex" style="width:100%;">
+                            <input name="dateResearch" class="form-control me-2" type="date" placeholder="rechercher une date" aria-label="Search"><input type="submit" name="ch" value="Ok" />
                         </form>
                     </div>
                 </nav>
+                <h5>Tag</h5>
                 <nav class="navbar">
                     <div class="container fluid">
-                        <form class="d-flex" style="width:100%;">
-                            <input class="form-control me-2" type="search" placeholder="rechercher un tag" aria-label="Search">
+                        <form method="post" action="AccueilAgenda.php" class="d-flex" style="width:100%;">
+                            <input name="tagResearch" class="form-control me-2" type="search" placeholder="rechercher un tag" aria-label="Search"><input type="submit" name="ch" value="Ok" />
                         </form>
                     </div>
+
                     <div class="container box_search">
-                        <a href="#" class="badge badge-dark">#musique</a>
-                        <a href="#" class="badge badge-dark">#foot</a>
-                        <a href="#" class="badge badge-dark">#musée</a>
-                        <a href="#" class="badge badge-dark">#jeunesse</a>
-                        <a href="#" class="badge badge-dark">#sport</a>
-                        <a href="#" class="badge badge-dark">#cinéma</a>
+
+                        <?php
+                        foreach ($topTenTags as $tag) {
+                        ?>
+
+                            <a href="AccueilAgenda.php?tag=<?php echo $tag->getIdTag() ?>" class="badge"><?php echo $tag->getNomTag() ?></a>
+
+                        <?php
+                        }
+                        ?>
                     </div>
                 </nav>
 
@@ -185,13 +214,13 @@ function viewAgendaBody($objEvent, $profil, $orga)
                         <a href="PageAdmin.php" class="btn btn-secondary bouton">Administration</a>
                         <a href="Deconnexion.php" class="btn btn-secondary bouton">Me déconnecter</a>
                     <?php } ?>
-                    <div class="card boxOrga">
-                        <?php foreach ($orga as $o) { ?>
-                            <a href="AffichageOrga.php?id=<?php echo $o->getIdOrga() ?>"><img src="data:image/jpg;base64,<?php echo base64_encode($o->getImage()) ?>" class="card-img-top imgDroite" alt="..."></a>
+                    <h5>Les 3 plus actifs</h5>
+                    <?php foreach ($orga as $o) { ?>
+                        <a href="AffichageOrga.php?id=<?php echo $o->getIdOrga() ?>"><img src="data:image/jpg;base64,<?php echo base64_encode($o->getImage()) ?>" class="card-img-top imgDroite" alt="..."></a>
 
-                            <p class="card-titre"><?php echo $o->getNom() ?></p>
-                    </div>
-                <?php } ?>
+                        <p class="card-titre"><?php echo $o->getNom() ?></p>
+
+                    <?php } ?>
 
                 </div>
             </div>

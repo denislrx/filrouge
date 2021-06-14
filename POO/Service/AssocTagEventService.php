@@ -60,4 +60,22 @@ class AssocTagEventService
 
         $assocDAO->deleteAssocByIdEvent($id);
     }
+
+    public function selectTenMoreFrequentTags()
+    {
+        $assocDAO = new AssocTagEventDAO;
+
+        $tabObjTag = $assocDAO->selectTenMoreFrequentTags();
+
+        return $tabObjTag;
+    }
+
+    public function selectEventByTagName(string $name): array
+    {
+        $assocDAO = new AssocTagEventDAO;
+
+        $tabObjEvent = $assocDAO->selectEventByTagName($name);
+
+        return $tabObjEvent;
+    }
 }

@@ -78,4 +78,13 @@ class EvenementService
 
         return $evenement;
     }
+
+    function selectEventsByDate(string $date): array
+    {
+        $evenementDAO = new EvenementDAO;
+
+        $evenement = $evenementDAO->selectEventsByDate($date);
+
+        return $evenement;
+    }
 }

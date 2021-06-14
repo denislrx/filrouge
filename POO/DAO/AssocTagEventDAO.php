@@ -136,4 +136,52 @@ class AssocTagEventDAO extends ConnexionDAO
         $stmt->execute();
         $bdd->close();
     }
+
+    function selectTenMoreFrequentTags()
+    {
+        $bdd = $this->connexion();
+        $stmt = $bdd->prepare(" SELECT t.* FROM assoctagevent AS a INNER JOIN tag AS t WHERE a.idTag = t.idTag GROUP BY t.idTag ORDER BY COUNT(t.idTag) DESC LIMIT 10");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $dataSet = $result->fetch_all(MYSQLI_ASSOC);
+        $result->free();
+        $bdd->close();
+        $tabObjTag = [];
+        foreach ($dataSet as $data) {
+            $objTag = new Tag;
+            $objTag->setIdTag($data["idTag"]);
+            $objTag->setNomTag($data["nomTag"]);
+            $tabObjTag[] = $objTag;
+        }
+
+        return $tabObjTag;
+    }
+
+    function selectEventByTagName($name)
+    {
+        $bdd = $this->connexion();
+        $stmt = $bdd->prepare(" SELECT e.* FROM tag AS t INNER JOIN assoctagevent AS a ON t.idTag = a.idTag INNER JOIN evenement as e ON e.idEvent = a.idEvent WHERE t.nomTag = ? ORDER BY date");
+        $stmt->bind_param("s", $name);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $dataSet = $result->fetch_all(MYSQLI_ASSOC);
+        $result->free();
+        $bdd->close();
+        $tabObjEvent = [];
+        foreach ($dataSet as $data) {
+            $objEvent = new Evenement;
+            $objEvent->setIdEvent($data["idEvent"]);
+            $objEvent->setDate($data["date"]);
+            $objEvent->setHeure($data["heure"]);
+            $objEvent->setNom($data["nom"]);
+            $objEvent->setLieu($data["Lieu"]);
+            $objEvent->setDescription($data["description"]);
+            $objEvent->setImage($data["image"]);
+            $objEvent->setUrlLien($data["urlLien"]);
+            $objEvent->setIdOrga($data["idOrga"]);
+            $tabObjEvent[] = $objEvent;
+        }
+
+        return $tabObjEvent;
+    }
 }

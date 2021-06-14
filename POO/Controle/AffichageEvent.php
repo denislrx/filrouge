@@ -6,10 +6,7 @@ include_once(__DIR__ . "/../Service/OrganisateurService.php");
 include_once(__DIR__ . "/../Service/AssocTagEventService.php");
 
 session_start();
-if (!isset($_SESSION) || empty($_SESSION) || $_SESSION["profil"] == "user" || $_SESSION["profil"] == "admin") {
-    var_dump($_SESSION);
-    $profil = $_SESSION["profil"];
-}
+
 
 $obj = new EvenementService;
 $obj2 = new OrganisateurService;
@@ -21,4 +18,4 @@ if (isset($_GET["id"])) {
     $listTag = $obj3->selectTagListByEvent($_GET["id"]);
 }
 
-afficherEvent($data, $profil, $name, $listTag);
+afficherEvent($data, $name, $listTag);

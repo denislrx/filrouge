@@ -2,7 +2,7 @@
 
 include_once("Fonctions.php");
 
-function afficherOrga($objOrga, $profil, $dataCarroussel)
+function afficherOrga($objOrga, $dataCarroussel)
 {
 ?>
     <!DOCTYPE html>
@@ -13,13 +13,13 @@ function afficherOrga($objOrga, $profil, $dataCarroussel)
 
     <body>
         <?php
-        viewBodyOrga($objOrga, $profil, $dataCarroussel);
+        viewBodyOrga($objOrga, $dataCarroussel);
         ?>
     </body>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
-    <script src="js/script.js"></script>
+    <script src="../Presentation/JS/scriptCarrousel.js"></script>
 
     </html>
 <?php
@@ -33,7 +33,7 @@ function afficherOrga($objOrga, $profil, $dataCarroussel)
 
 
 
-function viewBodyOrga($objOrga, $profil, $dataCarroussel)
+function viewBodyOrga($objOrga, $dataCarroussel)
 {
 ?>
     <div class="page">
@@ -62,21 +62,37 @@ function viewBodyOrga($objOrga, $profil, $dataCarroussel)
                 <div class="col-md-3 edition">
 
                     <?php
-                    if ($profil == "noob") { ?>
-                        <a href="FormOrgaModif.php?id=<?php echo $objOrga->getIdOrga() ?>"><button type="button" class="btn btn-outline-secondary">Modifier la page</button></a>
+                    if (isset($_SESSION["profil"])) {
+                        if ($_SESSION["profil"] == "noob") { ?>
+                            <a href="FormOrgaModif.php?id=<?php echo $objOrga->getIdOrga() ?>"><button type="button" class="btn btn-outline-secondary">Modifier la page</button></a>
 
+                        <?php }
+                        if ($_SESSION["profil"] == "user" || $_SESSION["profil"] == "admin") { ?>
+                            <a href="FormEventInsert.php"><button type="button" class="btn btn-outline-secondary">Ajouter un événement</button></a>
+                            <a href="FormOrgaModif.php?id=<?php echo $objOrga->getIdOrga() ?>"><button type="button" class="btn btn-outline-secondary">Modifier la page</button></a>
+                            <a href="DeleteOrga.php?id=<?php echo $objOrga->getIdOrga() ?>"><button type="button" class="btn btn-outline-secondary">Supprimer la page</button></a>
                     <?php }
-                    if ($profil == "user" || $profil == "admin") { ?>
-                        <a href="FormEventInsert.php"><button type="button" class="btn btn-outline-secondary">Ajouter un événement</button></a>
-                        <a href="FormOrgaModif.php?id=<?php echo $objOrga->getIdOrga() ?>"><button type="button" class="btn btn-outline-secondary">Modifier la page</button></a>
-                        <a href="DeleteOrga.php?id=<?php echo $objOrga->getIdOrga() ?>"><button type="button" class="btn btn-outline-secondary">Supprimer la page</button></a>
-                    <?php } ?>
+                    } ?>
                 </div>
                 <hr />
                 <div class="ligne">
-                    <a href="<?php echo $objOrga->getAdresseFB() ?>"><img class="logoRS" src="..\Presentation\Images\fb.png" /></a>
-                    <a href="<?php echo $objOrga->getAdresseTwitter() ?>"><img class="logoRS" src="..\Presentation\Images\twit.png" /></a>
-                    <a href="<?php echo $objOrga->getAdresseInsta() ?>"><img class="logoRS" src="..\Presentation\Images\insta.png" /></a>
+                    <?php if (!empty($objOrga->getAdresseFB())) {
+
+                    ?>
+
+                        <a href="<?php echo $objOrga->getAdresseFB() ?>"><img class="logoRS" src="..\Presentation\Images\fb.png" /></a>
+                    <?php
+                    }
+                    if (!empty($objOrga->getAdresseTwitter())) {
+                    ?>
+                        <a href="<?php echo $objOrga->getAdresseTwitter() ?>"><img class="logoRS" src="..\Presentation\Images\twit.png" /></a>
+                    <?php
+                    }
+                    if (!empty($objOrga->getAdresseInsta())) {
+                    ?>
+                        <a href="<?php echo $objOrga->getAdresseInsta() ?>"><img class="logoRS" src="..\Presentation\Images\insta.png" /></a>
+                    <?php
+                    } ?>
                 </div>
             </div>
             <hr />
@@ -84,31 +100,47 @@ function viewBodyOrga($objOrga, $profil, $dataCarroussel)
 
 
         <div class="section">
-            <img class="illustration" src="data:image/jpg;base64,<?php echo base64_encode($objOrga->getImage()) ?>" alt=" Photo de l'organisateur" />
+            <?php if (!empty($objOrga->getAdresseSite())) { ?>
+                <a href="<?php echo $objOrga->getAdresseSite() ?>"> <img class="illustration" src="data:image/jpg;base64,<?php echo base64_encode($objOrga->getImage()) ?>" alt=" Photo de l'organisateur" /></a>
+            <?php
+            } else { ?>
+                <img class="illustration" src="data:image/jpg;base64,<?php echo base64_encode($objOrga->getImage()) ?>" alt=" Photo de l'organisateur" />
+            <?php
+            } ?>
+
         </div>
 
         <div class="footer">
-            <div id="wrapper">
-                <div id="carousel">
-                    <div id="content">
-                        <?php foreach ($dataCarroussel as $value) { ?>
-                            <a href="AffichageEvent.php?id=<?php echo $value->getIdEvent() ?>"><img class="item" src="data:image/jpg;base64,<?php echo base64_encode($value->getImage()) ?>" /></a>
-                        <?php } ?>
+            <?php if (!empty($dataCarroussel)) { ?>
+                <div id="wrapper">
+                    <div id="carousel">
+                        <div id="content">
+                            <?php foreach ($dataCarroussel as $value) { ?>
+                                <div class="cont">
+                                    <a href="AffichageEvent.php?id=<?php echo $value->getIdEvent() ?>"><img class="item" src="data:image/jpg;base64,<?php echo base64_encode($value->getImage()) ?>" /></a>
+
+                                    <div class="txt">
+                                        <h4><?php echo $value->getNom() ?> <br> <?php echo dateToFrench($value->getDate(),  "l j F") ?></h4>
+                                    </div>
+                                </div>
+                            <?php } ?>
+                        </div>
                     </div>
+                    <button id="prev">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="none" d="M0 0h24v24H0V0z" />
+                            <path d="M15.61 7.41L14.2 6l-6 6 6 6 1.41-1.41L11.03 12l4.58-4.59z" />
+                        </svg>
+                    </button>
+                    <button id="next">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="none" d="M0 0h24v24H0V0z" />
+                            <path d="M10.02 6L8.61 7.41 13.19 12l-4.58 4.59L10.02 18l6-6-6-6z" />
+                        </svg>
+                    </button>
                 </div>
-                <button id="prev">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path fill="none" d="M0 0h24v24H0V0z" />
-                        <path d="M15.61 7.41L14.2 6l-6 6 6 6 1.41-1.41L11.03 12l4.58-4.59z" />
-                    </svg>
-                </button>
-                <button id="next">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path fill="none" d="M0 0h24v24H0V0z" />
-                        <path d="M10.02 6L8.61 7.41 13.19 12l-4.58 4.59L10.02 18l6-6-6-6z" />
-                    </svg>
-                </button>
-            </div>
+            <?php
+            } ?>
         </div>
 
 

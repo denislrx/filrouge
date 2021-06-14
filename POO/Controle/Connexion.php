@@ -16,33 +16,41 @@ if (!empty($_POST["mailUser"])) {
         $message = "Mail inconnu ou invalide";;
     }
 }
-if (!empty($_POST)) {
 
-    $dataUser = $objUser->selectAllByMail($_POST["mailUser"]);
+$token = bin2hex(random_bytes(20));
+$_SESSION["csrf_token"] = $token;
 
-
-    if (password_verify($_POST["MDP"], $dataUser->getMdpHash())) {
-        session_start();
-        $_SESSION["idUser"] = $dataUser->getIdUser();
-        $_SESSION["nom"] = $dataUser->getMailUser();
-        $_SESSION["profil"] = $dataUser->getProfil();
+if ($_POST) {
+    if ($_SESSION["csrf_token"] == $_POST["csrf_token"]) {
+        $dataUser = $objUser->selectAllByMail($_POST["mailUser"]);
 
 
-        if ($_SESSION["profil"] != "admin") {
-            $objId = $objOrga->selectAllOrgaByIdUser($_SESSION["idUser"]);
+        if (password_verify($_POST["MDP"], $dataUser->getMdpHash())) {
+            session_start();
+            $_SESSION["idUser"] = $dataUser->getIdUser();
+            $_SESSION["nom"] = $dataUser->getMailUser();
+            $_SESSION["profil"] = $dataUser->getProfil();
 
-            if (!is_null($objId)) {
-                $_SESSION["idOrga"] = $objId->getIdOrga();
+
+            if ($_SESSION["profil"] != "admin") {
+                $objId = $objOrga->selectAllOrgaByIdUser($_SESSION["idUser"]);
+
+                if (!is_null($objId)) {
+                    $_SESSION["idOrga"] = $objId->getIdOrga();
+                } else {
+                    header("location: FormOrgaInsert.php");
+                }
+                header("location:AffichageOrga.php?id=" . $_SESSION["idOrga"]);
             } else {
-                header("location: FormOrgaInsert.php");
+                header("location:AccueilAgenda.php");
             }
-            header("location:AffichageOrga.php?id=" . $_SESSION["idOrga"]);
         } else {
-            header("location:AccueilAgenda.php");
+            $erreur = true;
+            $message = "Identification invalide";
         }
     } else {
         $erreur = true;
-        $message = "Identification invalide";
+        $message = "Token invalide";
     }
 }
 

@@ -72,4 +72,13 @@ class OrganisateurService
 
         return $organisateur;
     }
+
+    public function selectIdOrgaByName(string $name): int
+    {
+        $organisateurDAO = new OrganisateurDAO;
+
+        $idOrga = $organisateurDAO->selectIdOrgaByName($name);
+
+        return $idOrga;
+    }
 }
