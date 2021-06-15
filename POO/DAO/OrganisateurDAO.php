@@ -2,21 +2,28 @@
 
 include_once(__DIR__ . "/../Model/Organisateur.php");
 include_once(__DIR__ . "/ConnexionDAO.php");
+include_once(__DIR__ . "/../Exception/OrgaExceptionDAO.php");
 
 class OrganisateurDAO extends ConnexionDAO
 {
 
     function selectAllOrgaById(int $id): Organisateur
     {
+        try {
+            $bdd = $this->connexion();
+            $stmt = $bdd->prepare("SELECT * FROM organisateur WHERE idOrga = ?");
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $data = $result->fetch_array(MYSQLI_ASSOC);
+            $result->free();
+            $bdd->close();
+        } catch (mysqli_sql_exception $exc) {
+            $message = "La fonction selectAllOrgaById() ne marche pas";
+            throw new OrgaExceptionDAO($message, $exc->getCode);
+        }
 
-        $bdd = $this->connexion();
-        $stmt = $bdd->prepare("SELECT * FROM organisateur WHERE idOrga = ?");
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $data = $result->fetch_array(MYSQLI_ASSOC);
-        $result->free();
-        $bdd->close();
+
         $objOrgaById = new Organisateur;
         $objOrgaById->setIdOrga($data["idOrga"]);
         $objOrgaById->setNom($data["nom"]);
@@ -37,14 +44,21 @@ class OrganisateurDAO extends ConnexionDAO
 
     function selectAllOrgaByIdUser(int $id): ?Organisateur
     {
-        $bdd = $this->connexion();
-        $stmt = $bdd->prepare("SELECT * FROM organisateur WHERE idUser = ?");
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $data = $result->fetch_array(MYSQLI_ASSOC);
-        $result->free();
-        $bdd->close();
+        try {
+            $bdd = $this->connexion();
+            $stmt = $bdd->prepare("SELECT * FROM organisateur WHERE idUser = ?");
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $data = $result->fetch_array(MYSQLI_ASSOC);
+            $result->free();
+            $bdd->close();
+        } catch (mysqli_sql_exception $exc) {
+            $message = "La fonction selectAllOrgaByIdUser() ne marche pas";
+            throw new OrgaExceptionDAO($message, $exc->getCode);
+        }
+
+
         $objOrgaById = new Organisateur;
         $objOrgaById->setIdOrga($data["idOrga"]);
         $objOrgaById->setNom($data["nom"]);
@@ -79,44 +93,49 @@ class OrganisateurDAO extends ConnexionDAO
         $adresseFB = $objInsert->getAdresseFB();
         $adresseSite = $objInsert->getAdresseSite();
         $image = $objInsert->getImage();
-        $bdd = $this->connexion();
-        $stmt = $bdd->prepare("UPDATE organisateur SET
-        nom = ?, 
-        adresse= ?, 
-        codePostal= ?, 
-        ville= ?, 
-        description= ?, 
-        email= ?, 
-        telephone= ?, 
-        adresseTwitter= ?, 
-        adresseInsta= ?, 
-        adresseFB= ?, 
-        adresseSite= ?, 
-        image= ? 
-        WHERE idOrga = ?;");
-        $stmt->bind_param(
-            "ssisssssssssi",
-            $nom,
-            $adresse,
-            $codePostal,
-            $ville,
-            $description,
-            $email,
-            $telephone,
-            $adresseTwitter,
-            $adresseInsta,
-            $adresseFB,
-            $adresseSite,
-            $image,
-            $id
-        );
-        $stmt->execute();
-        $bdd->close();
+
+        try {
+            $bdd = $this->connexion();
+            $stmt = $bdd->prepare("UPDATE organisateur SET
+            nom = ?, 
+            adresse= ?, 
+            codePostal= ?, 
+            ville= ?, 
+            description= ?, 
+            email= ?, 
+            telephone= ?, 
+            adresseTwitter= ?, 
+            adresseInsta= ?, 
+            adresseFB= ?, 
+            adresseSite= ?, 
+            image= ? 
+            WHERE idOrga = ?;");
+            $stmt->bind_param(
+                "ssisssssssssi",
+                $nom,
+                $adresse,
+                $codePostal,
+                $ville,
+                $description,
+                $email,
+                $telephone,
+                $adresseTwitter,
+                $adresseInsta,
+                $adresseFB,
+                $adresseSite,
+                $image,
+                $id
+            );
+            $stmt->execute();
+            $bdd->close();
+        } catch (mysqli_sql_exception $exc) {
+            $message = "La fonction updateOrga() ne marche pas";
+            throw new OrgaExceptionDAO($message, $exc->getCode);
+        }
     }
 
     function insertOrga(Organisateur $objInsert)
     {
-        $bdd = $this->connexion();
         $nom = $objInsert->getNom();
         $adresse = $objInsert->getAdresse();
         $codePostal = $objInsert->getCodePostal();
@@ -130,50 +149,71 @@ class OrganisateurDAO extends ConnexionDAO
         $adresseSite = $objInsert->getAdresseSite();
         $idUser = $objInsert->getIdUser();
         $image = $objInsert->getImage();
-        $stmt = $bdd->prepare(" INSERT INTO organisateur(
+
+        try {
+            $bdd = $this->connexion();
+            $stmt = $bdd->prepare(" INSERT INTO organisateur(
             nom, adresse, codePostal, ville, description, email, telephone, adresseTwitter, adresseInsta, adresseFB, adresseSite, idUser, image) 
     VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);");
-        $stmt->bind_param(
-            "sssssssssssis",
-            $nom,
-            $adresse,
-            $codePostal,
-            $ville,
-            $description,
-            $email,
-            $telephone,
-            $adresseTwitter,
-            $adresseInsta,
-            $adresseFB,
-            $adresseSite,
-            $idUser,
-            $image
-        );
+            $stmt->bind_param(
+                "sssssssssssis",
+                $nom,
+                $adresse,
+                $codePostal,
+                $ville,
+                $description,
+                $email,
+                $telephone,
+                $adresseTwitter,
+                $adresseInsta,
+                $adresseFB,
+                $adresseSite,
+                $idUser,
+                $image
+            );
 
-        $stmt->execute();
-        $id = $stmt->insert_id;
-        $bdd->close();
+            $stmt->execute();
+            $id = $stmt->insert_id;
+            $bdd->close();
+        } catch (mysqli_sql_exception $exc) {
+            $message = "La fonction insertOrga() ne marche pas";
+            throw new OrgaExceptionDAO($message, $exc->getCode);
+        }
+
         return $id;
     }
 
     function deleteOrga($id)
     {
-        $bdd = $this->connexion();
-        $stmt = $bdd->prepare("DELETE FROM  organisateur WHERE idOrga = ?;");
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $bdd->close();
+        try {
+            $bdd = $this->connexion();
+            $stmt = $bdd->prepare("DELETE FROM  organisateur WHERE idOrga = ?;");
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $bdd->close();
+        } catch (mysqli_sql_exception $exc) {
+            $message = "La fonction deletOrga() ne marche pas";
+            throw new OrgaExceptionDAO($message, $exc->getCode);
+        }
     }
+
+
     function selectNameByIdOrga(int $id): Organisateur
     {
-        $bdd = $this->connexion();
-        $stmt = $bdd->prepare("SELECT nom FROM organisateur WHERE idOrga = ?");
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $data = $result->fetch_array(MYSQLI_ASSOC);
-        $result->free();
-        $bdd->close();
+        try {
+            $bdd = $this->connexion();
+            $stmt = $bdd->prepare("SELECT nom FROM organisateur WHERE idOrga = ?");
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $data = $result->fetch_array(MYSQLI_ASSOC);
+            $result->free();
+            $bdd->close();
+        } catch (mysqli_sql_exception $exc) {
+            $message = "La fonction selectNameByIdOrga() ne marche pas";
+            throw new OrgaExceptionDAO($message, $exc->getCode);
+        }
+
         $nameIdOrga = new Organisateur;
         $nameIdOrga->setNom($data["nom"]);
 
@@ -182,13 +222,19 @@ class OrganisateurDAO extends ConnexionDAO
 
     function selectAllNoobOrga(): array
     {
-        $bdd = $this->connexion();
-        $stmt = $bdd->prepare("SELECT * FROM organisateur as o INNER JOIN utilisateur AS u WHERE o.idUser = u.idUser AND u.profil = 'noob'");
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $data = $result->fetch_all(MYSQLI_ASSOC);
-        $result->free();
-        $bdd->close();
+        try {
+            $bdd = $this->connexion();
+            $stmt = $bdd->prepare("SELECT * FROM organisateur as o INNER JOIN utilisateur AS u WHERE o.idUser = u.idUser AND u.profil = 'noob'");
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $data = $result->fetch_all(MYSQLI_ASSOC);
+            $result->free();
+            $bdd->close();
+        } catch (mysqli_sql_exception $exc) {
+            $message = "La fonction selectAllNoobOrga() ne marche pas";
+            throw new OrgaExceptionDAO($message, $exc->getCode);
+        }
+
         $tabEvent = [];
         foreach ($data as $d) {
             $objOrga = new Organisateur;
@@ -213,13 +259,19 @@ class OrganisateurDAO extends ConnexionDAO
 
     function selectAllUserOrga(): array
     {
-        $bdd = $this->connexion();
-        $stmt = $bdd->prepare("SELECT * FROM organisateur as o INNER JOIN utilisateur AS u WHERE o.idUser = u.idUser AND u.profil = 'user'");
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $data = $result->fetch_all(MYSQLI_ASSOC);
-        $result->free();
-        $bdd->close();
+        try {
+            $bdd = $this->connexion();
+            $stmt = $bdd->prepare("SELECT * FROM organisateur as o INNER JOIN utilisateur AS u WHERE o.idUser = u.idUser AND u.profil = 'user'");
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $data = $result->fetch_all(MYSQLI_ASSOC);
+            $result->free();
+            $bdd->close();
+        } catch (mysqli_sql_exception $exc) {
+            $message = "La fonction selectAllUserOrga() ne marche pas";
+            throw new OrgaExceptionDAO($message, $exc->getCode);
+        }
+
         $tabEvent = [];
         foreach ($data as $d) {
             $objOrga = new Organisateur;
@@ -244,14 +296,20 @@ class OrganisateurDAO extends ConnexionDAO
 
     function selectIdOrgaByName($name)
     {
-        $bdd = $this->connexion();
-        $stmt = $bdd->prepare("SELECT idOrga FROM organisateur WHERE nom = ?");
-        $stmt->bind_param("s", $name);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $data = $result->fetch_array(MYSQLI_ASSOC);
-        $result->free();
-        $bdd->close();
+        try {
+            $bdd = $this->connexion();
+            $stmt = $bdd->prepare("SELECT idOrga FROM organisateur WHERE nom = ?");
+            $stmt->bind_param("s", $name);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $data = $result->fetch_array(MYSQLI_ASSOC);
+            $result->free();
+            $bdd->close();
+        } catch (mysqli_sql_exception $exc) {
+            $message = "La fonction selectIdOrgaByName() ne marche pas";
+            throw new OrgaExceptionDAO($message, $exc->getCode);
+        }
+
         $idOrga = $data["idOrga"];
         return $idOrga;
     }

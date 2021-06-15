@@ -1,83 +1,107 @@
 <?php
 
 include_once(__DIR__ . "/../DAO/OrganisateurDAO.php");
+include_once(__DIR__ . "/../Exception/OrgaExceptionService.php");
 
 class OrganisateurService
 {
+    private $organisateurDAO;
+
+    public function __construct()
+    {
+        $this->organisateurDAO = new OrganisateurDAO;
+    }
 
     public function selectAllOrgaById(int $id): Organisateur
     {
-        $orginisateurDAO = new OrganisateurDAO;
-
-        $organisateur = $orginisateurDAO->selectAllOrgaById($id);
+        try {
+            $organisateur = $this->organisateurDAO->selectAllOrgaById($id);
+        } catch (OrgaExceptionDAO $exc) {
+            throw new OrgaExceptionService($exc->getMessage());
+        }
 
         return $organisateur;
     }
 
     public function selectAllOrgaByIdUser(int $id): ?Organisateur
     {
-        $orginisateurDAO = new OrganisateurDAO;
-
-        $organisateur = $orginisateurDAO->selectAllOrgaByIdUser($id);
-
+        try {
+            $organisateur = $this->organisateurDAO->selectAllOrgaByIdUser($id);
+        } catch (OrgaExceptionDAO $exc) {
+            throw new OrgaExceptionService($exc->getMessage());
+        }
         return $organisateur;
     }
 
     public function updateOrga(Organisateur $objInsert, int $id)
     {
-        $organisateurDAO = new OrganisateurDAO;
-
-        $organisateurDAO->updateOrga($objInsert, $id);
+        try {
+            $this->organisateurDAO->updateOrga($objInsert, $id);
+        } catch (OrgaExceptionDAO $exc) {
+            throw new OrgaExceptionService($exc->getMessage());
+        }
     }
 
     public function insertOrga(Organisateur $objInsert)
     {
-        $organisateurDAO = new OrganisateurDAO;
-
-        $id = $organisateurDAO->insertOrga($objInsert);
-
+        try {
+            $id = $this->organisateurDAO->insertOrga($objInsert);
+        } catch (OrgaExceptionDAO $exc) {
+            throw new OrgaExceptionService($exc->getMessage());
+        }
         return $id;
     }
 
     public function deleteOrga(int $id)
     {
-        $organisateurDAO = new OrganisateurDAO;
-
-        $organisateurDAO->deleteOrga($id);
+        try {
+            $this->organisateurDAO->deleteOrga($id);
+        } catch (OrgaExceptionDAO $exc) {
+            throw new OrgaExceptionService($exc->getMessage());
+        }
     }
 
     public function selectNameByIdOrga(int $id): Organisateur
     {
-        $orginisateurDAO = new OrganisateurDAO;
-
-        $organisateur = $orginisateurDAO->selectNameByIdOrga($id);
+        try {
+            $organisateur = $this->organisateurDAO->selectNameByIdOrga($id);
+        } catch (OrgaExceptionDAO $exc) {
+            throw new OrgaExceptionService($exc->getMessage());
+        }
 
         return $organisateur;
     }
 
     public function selectAllNoobOrga(): array
     {
-        $orginisateurDAO = new OrganisateurDAO;
-
-        $organisateur = $orginisateurDAO->selectAllNoobOrga();
+        try {
+            $organisateur = $this->organisateurDAO->selectAllNoobOrga();
+        } catch (OrgaExceptionDAO $exc) {
+            throw new OrgaExceptionService($exc->getMessage());
+        }
 
         return $organisateur;
     }
 
     public function selectAllUserOrga(): array
     {
-        $orginisateurDAO = new OrganisateurDAO;
+        try {
+            $organisateur = $this->organisateurDAO->selectAllUserOrga();
+        } catch (OrgaExceptionDAO $exc) {
+            throw new OrgaExceptionService($exc->getMessage());
+        }
 
-        $organisateur = $orginisateurDAO->selectAllUserOrga();
 
         return $organisateur;
     }
 
     public function selectIdOrgaByName(string $name): int
     {
-        $organisateurDAO = new OrganisateurDAO;
-
-        $idOrga = $organisateurDAO->selectIdOrgaByName($name);
+        try {
+            $idOrga = $this->organisateurDAO->selectIdOrgaByName($name);
+        } catch (OrgaExceptionDAO $exc) {
+            throw new OrgaExceptionService($exc->getMessage());
+        }
 
         return $idOrga;
     }

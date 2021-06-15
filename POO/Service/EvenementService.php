@@ -1,90 +1,120 @@
 <?php
 
 include_once(__DIR__ . "/../DAO/EvenementDAO.php");
+include_once(__DIR__ . "/../Exception/EventExceptionService.php");
 
 class EvenementService
 {
+    private $evenementDAO;
+
+    public function __construct()
+    {
+        $this->evenementDAO = new EvenementDAO ;
+    }
+
     public function insertEvent(Evenement $objInsert): int
     {
-        $evenementDAO = new EvenementDAO;
-
-        $id = $evenementDAO->insertEvent($objInsert);
+        try {
+            $id = $this->evenementDAO->insertEvent($objInsert);
+        } catch (EventExceptionDAO $exc) {
+            throw new EventExceptionService($exc->getMessage());
+        }
 
         return $id;
     }
 
     public function deleteEvent(int $id)
     {
-        $evenementDAO = new EvenementDAO;
 
-        $evenementDAO->deleteEvent($id);
+        try {
+            $this->evenementDAO->deleteEvent($id);
+        } catch (EventExceptionDAO $exc) {
+            throw new EventExceptionService($exc->getMessage());
+        }
     }
 
     public function updateEvent(Evenement $objInsert, int $id)
     {
-        $evenementDAO = new EvenementDAO;
 
-        $evenementDAO->updateEvent($objInsert, $id);
+        try {
+            $this->evenementDAO->updateEvent($objInsert, $id);
+        } catch (EventExceptionDAO $exc) {
+            throw new EventExceptionService($exc->getMessage());
+        }
     }
 
     public function selectAllEventById(int $id): Evenement
     {
-        $evenementDAO = new EvenementDAO;
-
-        $evenement = $evenementDAO->selectAllEventById($id);
+        try {
+            $evenement = $this->evenementDAO->selectAllEventById($id);
+        } catch (EventExceptionDAO $exc) {
+            throw new EventExceptionService($exc->getMessage());
+        }
 
         return $evenement;
     }
 
-    public function selectAllOrgaEventsOfWeek(int $id): array
+    public function selectAllIncomingEventsOfAnEvent(int $id): array
     {
-        $evenementDAO = new EvenementDAO;
-
-        $evenement = $evenementDAO->selectAllOrgaEventsOfWeek($id);
+        try {
+            $evenement = $this->evenementDAO->selectAllIncomingEventsOfAnEvent($id);
+        } catch (EventExceptionDAO $exc) {
+            throw new EventExceptionService($exc->getMessage());
+        }
 
         return $evenement;
     }
     public function selectAllEventsOfWeek(): array
     {
-        $evenementDAO = new EvenementDAO;
+        try {
+            $evenement = $this->evenementDAO->selectAllEventsOfWeek();
+        } catch (EventExceptionDAO $exc) {
+            throw new EventExceptionService($exc->getMessage());
+        }
 
-        $evenement = $evenementDAO->selectAllEventsOfWeek();
 
         return $evenement;
     }
     public function listOfMostActivIdOrga(): array
     {
-        $evenementDAO = new EvenementDAO;
-
-        $evenement = $evenementDAO->listOfMostActivIdOrga();
+        try {
+            $evenement = $this->evenementDAO->listOfMostActivIdOrga();
+        } catch (EventExceptionDAO $exc) {
+            throw new EventExceptionService($exc->getMessage());
+        }
 
         return $evenement;
     }
 
     function selectEventByIdOrga(int $id): array
     {
-        $evenementDAO = new EvenementDAO;
-
-        $evenement = $evenementDAO->selectEventByIdOrga($id);
+        try {
+            $evenement = $this->evenementDAO->selectEventByIdOrga($id);
+        } catch (EventExceptionDAO $exc) {
+            throw new EventExceptionService($exc->getMessage());
+        }
 
         return $evenement;
     }
 
     public function selectLastPublishedEvent()
     {
-        $evenementDAO = new EvenementDAO;
 
-        $evenement = $evenementDAO->selectLastPublishedEvent();
-
+        try {
+            $evenement = $this->evenementDAO->selectLastPublishedEvent();
+        } catch (EventExceptionDAO $exc) {
+            throw new EventExceptionService($exc->getMessage());
+        }
         return $evenement;
     }
 
     function selectEventsByDate(string $date): array
     {
-        $evenementDAO = new EvenementDAO;
-
-        $evenement = $evenementDAO->selectEventsByDate($date);
-
+        try {
+            $evenement = $this->evenementDAO->selectEventsByDate($date);
+        } catch (EventExceptionDAO $exc) {
+            throw new EventExceptionService($exc->getMessage());
+        }
         return $evenement;
     }
 }

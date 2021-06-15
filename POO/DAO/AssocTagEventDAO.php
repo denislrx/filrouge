@@ -3,28 +3,39 @@
 include_once(__DIR__ . "/../Model/AssocTagEvent.php");
 include_once(__DIR__ . "/../Model/Evenement.php");
 include_once(__DIR__ . "/../Model/Tag.php");
+include_once(__DIR__ . "/../Exception/TagExceptionDAO.php");
 
 
 class AssocTagEventDAO extends ConnexionDAO
 {
     function insertAssoc(AssocTagEvent $assoc)
     {
-        $tag = $assoc->getTag();
-        $event = $assoc->getEvenement();
-        $db = parent::connexion();
-        $stmt = $db->prepare("INSERT INTO assoctagevent(idTag, idEvent) VALUES(?,?);");
-        $stmt->bind_param("ii", $tag, $event);
-        $stmt->execute();
-        $db->close();
+        try {
+            $tag = $assoc->getTag();
+            $event = $assoc->getEvenement();
+            $db = parent::connexion();
+            $stmt = $db->prepare("INSERT INTO assoctagevent(idTag, idEvent) VALUES(?,?);");
+            $stmt->bind_param("ii", $tag, $event);
+            $stmt->execute();
+            $db->close();
+        } catch (mysqli_sql_exception $exc) {
+            $message = "La fonction  insertAssoc() ne marche pas";
+            throw new AssocExceptionDAO($message, $exc->getCode);
+        }
     }
 
     function selectAssocById($id)
     {
-        $db = parent::connexion();
-        $stmt = $db->prepare("SELECT * FROM assoctagevent WHERE idAssoc = ?");
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $db->close();
+        try {
+            $db = parent::connexion();
+            $stmt = $db->prepare("SELECT * FROM assoctagevent WHERE idAssoc = ?");
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $db->close();
+        } catch (mysqli_sql_exception $exc) {
+            $message = "La fonction  selectAssocById() ne marche pas";
+            throw new AssocExceptionDAO($message, $exc->getCode);
+        }
         $result = $stmt->get_result();
         $dataSet = $result->fetch_array(MYSQLI_ASSOC);
         $objTag = new AssocTagEvent;
@@ -36,14 +47,19 @@ class AssocTagEventDAO extends ConnexionDAO
 
     function selectEventByTagId(int $idTag): array
     {
-        $bdd = $this->connexion();
-        $stmt = $bdd->prepare("SELECT e.* FROM evenement AS e INNER JOIN assoctagevent AS a ON e.idEvent = a.idEvent INNER JOIN tag as t ON t.idTag = a.idTag WHERE t.idTag = ? ORDER BY e.date");
-        $stmt->bind_param("i", $idTag);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $dataSet = $result->fetch_all(MYSQLI_ASSOC);
-        $result->free();
-        $bdd->close();
+        try {
+            $bdd = $this->connexion();
+            $stmt = $bdd->prepare("SELECT e.* FROM evenement AS e INNER JOIN assoctagevent AS a ON e.idEvent = a.idEvent INNER JOIN tag as t ON t.idTag = a.idTag WHERE t.idTag = ? ORDER BY e.date");
+            $stmt->bind_param("i", $idTag);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $dataSet = $result->fetch_all(MYSQLI_ASSOC);
+            $result->free();
+            $bdd->close();
+        } catch (mysqli_sql_exception $exc) {
+            $message = "La fonction  selectEventByIdTag() ne marche pas";
+            throw new AssocExceptionDAO($message, $exc->getCode);
+        }
         $tabObjEvent = [];
         foreach ($dataSet as $data) {
             $objEvent = new Evenement;
@@ -64,14 +80,19 @@ class AssocTagEventDAO extends ConnexionDAO
 
     function selectTagListByEvent(int $idEvent): array
     {
-        $bdd = $this->connexion();
-        $stmt = $bdd->prepare("SELECT t.* FROM tag AS t INNER JOIN assoctagevent AS a ON t.idTag = a.idTag INNER JOIN evenement as e ON e.idEvent = a.idEvent WHERE e.IdEvent = ?");
-        $stmt->bind_param("i", $idEvent);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $dataSet = $result->fetch_all(MYSQLI_ASSOC);
-        $result->free();
-        $bdd->close();
+        try {
+            $bdd = $this->connexion();
+            $stmt = $bdd->prepare("SELECT t.* FROM tag AS t INNER JOIN assoctagevent AS a ON t.idTag = a.idTag INNER JOIN evenement as e ON e.idEvent = a.idEvent WHERE e.IdEvent = ?");
+            $stmt->bind_param("i", $idEvent);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $dataSet = $result->fetch_all(MYSQLI_ASSOC);
+            $result->free();
+            $bdd->close();
+        } catch (mysqli_sql_exception $exc) {
+            $message = "La fonction  selectTagListByEvent() ne marche pas";
+            throw new AssocExceptionDAO($message, $exc->getCode);
+        }
         $tabObjTag = [];
         foreach ($dataSet as $data) {
             $objTag = new Tag;
@@ -87,14 +108,19 @@ class AssocTagEventDAO extends ConnexionDAO
 
     function selectAssocByIdEvent($idEvent): array
     {
-        $bdd = $this->connexion();
-        $stmt = $bdd->prepare("SELECT * FROM assoctagevent WHERE idEvent = ?");
-        $stmt->bind_param("i", $idEvent);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $dataSet = $result->fetch_all(MYSQLI_ASSOC);
-        $result->free();
-        $bdd->close();
+        try {
+            $bdd = $this->connexion();
+            $stmt = $bdd->prepare("SELECT * FROM assoctagevent WHERE idEvent = ?");
+            $stmt->bind_param("i", $idEvent);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $dataSet = $result->fetch_all(MYSQLI_ASSOC);
+            $result->free();
+            $bdd->close();
+        } catch (mysqli_sql_exception $exc) {
+            $message = "La fonction  selectAssocByIdEvent() ne marche pas";
+            throw new AssocExceptionDAO($message, $exc->getCode);
+        }
         $tabObjAssoc = [];
         foreach ($dataSet as $data) {
             $objAssoc = new AssocTagEvent;
@@ -110,42 +136,64 @@ class AssocTagEventDAO extends ConnexionDAO
 
     function deleteAssoc($id)
     {
-        $bdd = $this->connexion();
-        $stmt = $bdd->prepare("DELETE FROM  assoctagevent WHERE idAssoc = ?;");
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $bdd->close();
+        try {
+            $bdd = $this->connexion();
+            $stmt = $bdd->prepare("DELETE FROM  assoctagevent WHERE idAssoc = ?;");
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $bdd->close();
+        } catch (mysqli_sql_exception $exc) {
+            $message = "La fonction  deleteAssoc() ne marche pas";
+            throw new AssocExceptionDAO($message, $exc->getCode);
+        }
     }
 
     function numberOfAssocForATag($idTag)
     {
-        $db = parent::connexion();
-        $stmt = $db->prepare("SELECT COUNT(*) FROM assoctagevent WHERE idTag = ?");
-        $stmt->bind_param("i", $idTag);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $nbrAssoc = $result->fetch_array(MYSQLI_NUM);
+        try {
+            $db = parent::connexion();
+            $stmt = $db->prepare("SELECT COUNT(*) FROM assoctagevent WHERE idTag = ?");
+            $stmt->bind_param("i", $idTag);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $nbrAssoc = $result->fetch_array(MYSQLI_NUM);
+            $result->free();
+            $db->close();
+        } catch (mysqli_sql_exception $exc) {
+            $message = "La fonction  nummberOfAssocForATag() ne marche pas";
+            throw new AssocExceptionDAO($message, $exc->getCode);
+        }
         return $nbrAssoc[0];
     }
 
     function deleteAssocByIdEvent($id)
     {
-        $bdd = $this->connexion();
-        $stmt = $bdd->prepare("DELETE FROM  assoctagevent WHERE idEvent = ?;");
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $bdd->close();
+        try {
+            $bdd = $this->connexion();
+            $stmt = $bdd->prepare("DELETE FROM  assoctagevent WHERE idEvent = ?;");
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $bdd->close();
+        } catch (mysqli_sql_exception $exc) {
+            $message = "La fonction  deleteAssocByIdEvent() ne marche pas";
+            throw new AssocExceptionDAO($message, $exc->getCode);
+        }
     }
 
     function selectTenMoreFrequentTags()
     {
-        $bdd = $this->connexion();
-        $stmt = $bdd->prepare(" SELECT t.* FROM assoctagevent AS a INNER JOIN tag AS t WHERE a.idTag = t.idTag GROUP BY t.idTag ORDER BY COUNT(t.idTag) DESC LIMIT 10");
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $dataSet = $result->fetch_all(MYSQLI_ASSOC);
-        $result->free();
-        $bdd->close();
+        try {
+            $bdd = $this->connexion();
+            $stmt = $bdd->prepare(" SELECT t.* FROM assoctagevent AS a INNER JOIN tag AS t WHERE a.idTag = t.idTag GROUP BY t.idTag ORDER BY COUNT(t.idTag) DESC LIMIT 10");
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $dataSet = $result->fetch_all(MYSQLI_ASSOC);
+            $result->free();
+            $bdd->close();
+        } catch (mysqli_sql_exception $exc) {
+            $message = "La fonction  selectTenMoreFrequentTags() ne marche pas";
+            throw new AssocExceptionDAO($message, $exc->getCode);
+        }
         $tabObjTag = [];
         foreach ($dataSet as $data) {
             $objTag = new Tag;
@@ -159,14 +207,19 @@ class AssocTagEventDAO extends ConnexionDAO
 
     function selectEventByTagName($name)
     {
-        $bdd = $this->connexion();
-        $stmt = $bdd->prepare(" SELECT e.* FROM tag AS t INNER JOIN assoctagevent AS a ON t.idTag = a.idTag INNER JOIN evenement as e ON e.idEvent = a.idEvent WHERE t.nomTag = ? ORDER BY date");
-        $stmt->bind_param("s", $name);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $dataSet = $result->fetch_all(MYSQLI_ASSOC);
-        $result->free();
-        $bdd->close();
+        try {
+            $bdd = $this->connexion();
+            $stmt = $bdd->prepare(" SELECT e.* FROM tag AS t INNER JOIN assoctagevent AS a ON t.idTag = a.idTag INNER JOIN evenement as e ON e.idEvent = a.idEvent WHERE t.nomTag = ? ORDER BY date");
+            $stmt->bind_param("s", $name);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $dataSet = $result->fetch_all(MYSQLI_ASSOC);
+            $result->free();
+            $bdd->close();
+        } catch (mysqli_sql_exception $exc) {
+            $message = "La fonction  selectEventByTagName() ne marche pas";
+            throw new AssocExceptionDAO($message, $exc->getCode);
+        }
         $tabObjEvent = [];
         foreach ($dataSet as $data) {
             $objEvent = new Evenement;

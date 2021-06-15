@@ -1,59 +1,83 @@
 <?php
 
 include_once(__DIR__ . "/../DAO/UtilisateurDAO.php");
+include_once(__DIR__ . "/../Exception/UserExceptionService.php");
 
 class UtilisateurService
 {
+    private $utilisateurDAO;
+
+    public function __construct()
+    {
+        $this->ustilisateurDAO = new UtilisateurDAO;
+    }
+
     function insererUtilisateur(Utilisateur $obj): void
     {
         $MDPHash = password_hash($obj->getMdpHash(), PASSWORD_DEFAULT);
         $obj->setMdpHash($MDPHash);
-        $objDAO = new UtilisateurDAO;
-        $objDAO->insererUtilisateur($obj);
-    }
-    function updateUtilisateur(Utilisateur $obj, int $id): void
-    {
-        $objDAO = new UtilisateurDAO;
-        $objDAO->updateUtilisateur($obj, $id);
+        try {
+            $this->utilisateurDAO->insererUtilisateur($obj);
+        } catch (UserExceptionDAO $exc) {
+            throw new UserExceptionService($exc->getMessage());
+        }
     }
 
     function selectAllById($id): Utilisateur
     {
-        $UtilisateurDAO = new UtilisateurDAO;
-        $Utilisateur = $UtilisateurDAO->selectAllById($id);
-        return $Utilisateur;
+        try {
+            $utilisateur = $this->utilisateurDAO->selectAllById($id);
+        } catch (UserExceptionDAO $exc) {
+            throw new UserExceptionService($exc->getMessage());
+        }
+        return $utilisateur;
     }
 
     function selectAllByMail($mail): Utilisateur
     {
-        $UtilisateurDAO = new UtilisateurDAO;
-        $Utilisateur = $UtilisateurDAO->selectAllByMail($mail);
-        return $Utilisateur;
+        try {
+            $utilisateur = $this->utilisateurDAO->selectAllByMail($mail);
+        } catch (UserExceptionDAO $exc) {
+            throw new UserExceptionService($exc->getMessage());
+        }
+        return $utilisateur;
     }
 
     function supprimeUtilisateur(int $id): void
     {
-        $objDAO = new UtilisateurDAO;
-        $objDAO->supprimeUtilisateur($id);
+        try {
+            $this->utilisateurDAO->supprimeUtilisateur($id);
+        } catch (UserExceptionDAO $exc) {
+            throw new UserExceptionService($exc->getMessage());
+        }
     }
 
     public function listeMail(): ?array
     {
-        $UserDAO = new UtilisateurDAO;
-        $Utilisateur = $UserDAO->listeMail();
-        return $Utilisateur;
+        try {
+            $utilisateur = $this->utilisateurDAO->listeMail();
+        } catch (UserExceptionDAO $exc) {
+            throw new UserExceptionService($exc->getMessage());
+        }
+        return $utilisateur;
     }
 
     function validate(int $id): void
     {
-        $objDAO = new UtilisateurDAO;
-        $objDAO->validate($id);
+        try {
+            $this->objDAO->validate($id);
+        } catch (UserExceptionDAO $exc) {
+            throw new UserExceptionService($exc->getMessage());
+        }
     }
 
     function getIdUserByIdOrga(int $idOrga): int
     {
-        $UserDAO = new UtilisateurDAO;
-        $idEvent = $UserDAO->getIdUserByIdOrga($idOrga);
-        return $idEvent;
+        try {
+            $idUser = $this->utilisateurDAO->getIdUserByIdOrga($idOrga);
+        } catch (UserExceptionDAO $exc) {
+            throw new UserExceptionService($exc->getMessage());
+        }
+        return $idUser;
     }
 }
