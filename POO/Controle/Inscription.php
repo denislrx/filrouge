@@ -59,8 +59,16 @@ if ($_POST) {
             $objProfil = new Utilisateur;
             $objProfil->setMailUser($_POST["mailUser"]);
             $objProfil->setMdpHash($_POST["MDP1"]);
-            $objUser->insererUtilisateur($objProfil);
-            $dataUser = $objUser->selectAllByMail($_POST["mailUser"]);
+            try {
+                $objUser->insererUtilisateur($objProfil);
+            } catch (UserExceptionService $exc) {
+                echo $exc->getMessage();
+            }
+            try {
+                $dataUser = $objUser->selectAllByMail($_POST["mailUser"]);
+            } catch (UserExceptionService $exc) {
+                echo $exc->getMessage();
+            }
             session_start();
             $_SESSION["idUser"] = $dataUser->getIdUSer();
             $_SESSION["nom"] = $dataUser->getMailUser();

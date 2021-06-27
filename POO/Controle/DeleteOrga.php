@@ -13,8 +13,12 @@ if (isset($_GET["id"])) {
     $objEventService = new EvenementService;
     $objTagService = new TagService;
     $objAssocService = new AssocTagEventService;
-
-    $tabEvent = $objEventService->selectEventByIdOrga($_GET["id"]);
+    
+    try{ 
+        $tabEvent = $objEventService->selectEventByIdOrga($_GET["id"]);
+    }catch(EventExceptionService $exc){
+        echo $exc->getMessage();
+    }
 
     if (!empty($tabEvent)) {
         foreach ($tabEvent as $event) {

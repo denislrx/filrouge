@@ -109,7 +109,11 @@ if ($_POST) {
 
             // var_dump($objPost);
 
-            $id = $objService->insertOrga($objPost);
+            try{ 
+                $id = $objService->insertOrga($objPost);
+            }catch(OrgaExceptionService $exc){
+                echo $exc->getMessage();
+            }
 
 
             header("location: AffichageOrga.php?id=" . $id);

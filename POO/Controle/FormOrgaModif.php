@@ -114,7 +114,11 @@ if ($_POST) {
             $objPost->setImage($image);
             $objPost->setIdUser($_SESSION["idUser"]);
 
-            $obj->updateOrga($objPost, $id);
+            try {
+                $obj->updateOrga($objPost, $id);
+            } catch (OrgaExceptionService $exc) {
+                echo $exc->getMessage();
+            }
 
             header("location: AffichageOrga.php?id=$id");
         }
@@ -123,4 +127,5 @@ if ($_POST) {
     $isThereError = true;
     $messages[] = "Token invalide ";
 }
+
 AfficherModifFormOrga($isThereError, $messages, $data, $token);

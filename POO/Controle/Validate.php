@@ -6,7 +6,11 @@ include_once(__DIR__ . "/../Service/UtilisateurService.php");
 
 $objUserService = new UtilisateurService;
 
-$idOrga = $objUserService->getIdUserByIdOrga($_GET["id"]);
-$objUserService->validate($idOrga);
+try {
+    $idOrga = $objUserService->getIdUserByIdOrga($_GET["id"]);
+    $objUserService->validate($idOrga);
+} catch (OrgaExceptionService $exc) {
+    echo $exc->getMessage();
+}
 
 header("location: PageAdmin.php");

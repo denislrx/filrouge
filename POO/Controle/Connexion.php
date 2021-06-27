@@ -22,7 +22,11 @@ $_SESSION["csrf_token"] = $token;
 
 if ($_POST) {
     if ($_SESSION["csrf_token"] == $_POST["csrf_token"]) {
-        $dataUser = $objUser->selectAllByMail($_POST["mailUser"]);
+        try{ 
+            $dataUser = $objUser->selectAllByMail($_POST["mailUser"]);
+        }catch(UserExceptionService $exc){
+            echo $exc->getMessage();
+        }
 
 
         if (password_verify($_POST["MDP"], $dataUser->getMdpHash())) {
@@ -33,7 +37,11 @@ if ($_POST) {
 
 
             if ($_SESSION["profil"] != "admin") {
-                $objId = $objOrga->selectAllOrgaByIdUser($_SESSION["idUser"]);
+                try{ 
+                    $objId = $objOrga->selectAllOrgaByIdUser($_SESSION["idUser"]);
+                }catch(OrgaExceptionService $exc){
+                    echo $exc->getMessage();
+                }
 
                 if (!is_null($objId)) {
                     $_SESSION["idOrga"] = $objId->getIdOrga();

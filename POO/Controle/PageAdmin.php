@@ -11,8 +11,16 @@ $objUserService = new UtilisateurService;
 $objEventService = new EvenementService;
 $objOrgaService = new OrganisateurService;
 
-$tabOrgaNoob = $objOrgaService->selectAllNoobOrga();
-$tabOrgaUser = $objOrgaService->selectAllUserOrga();
-$tabLastPublishedEvent = $objEventService->selectLastPublishedEvent();
+try {
+    $tabOrgaNoob = $objOrgaService->selectAllNoobOrga();
+    $tabOrgaUser = $objOrgaService->selectAllUserOrga();
+} catch (OrgaExceptionService $exc) {
+    echo $exc->getMessage();
+}
+try {
+    $tabLastPublishedEvent = $objEventService->selectLastPublishedEvent();
+} catch (EventExceptionService $exc) {
+    echo $exc->getMessage();
+}
 
 afficherAdmin($tabOrgaNoob, $tabOrgaUser, $tabLastPublishedEvent);

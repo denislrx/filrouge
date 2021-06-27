@@ -10,8 +10,16 @@ $obj = new OrganisateurService;
 $event = new EvenementService;
 
 if (isset($_GET["id"])) {
-    $data = $obj->selectAllOrgaById($_GET["id"]);
-    $dataCarroussel = $event->selectAllIncomingEventsOfAnEvent($_GET["id"]);
+    try {
+        $data = $obj->selectAllOrgaById($_GET["id"]);
+    } catch (OrgaExceptionService $exc) {
+        echo $exc->getMessage();
+    }
+    try {
+        $dataCarroussel = $event->selectAllIncomingEventsOfAnEvent($_GET["id"]);
+    } catch (EventExceptionService $exc) {
+        echo $exc->getMessage();
+    }
 }
 
 afficherOrga($data, $dataCarroussel);

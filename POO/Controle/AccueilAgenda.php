@@ -26,7 +26,14 @@ $message = [];
 if (!empty($_POST)) {
     if (isset($_POST["orgaResearch"])) {
         if (preg_match($nomRegex, $_POST["orgaResearch"])) {
-            $id = $objOrga->selectIdOrgaByName($_POST["orgaResearch"]);
+
+
+            try {
+
+                $id = $objOrga->selectIdOrgaByName($_POST["orgaResearch"]);
+            } catch (OrgaExceptionService $exc) {
+                echo $exc->getMessage();
+            }
             header("location : AffichageOrga.php?id=$id");
         } else {
             $erreur = true;
@@ -35,7 +42,13 @@ if (!empty($_POST)) {
     }
     if (isset($_POST["dateResearch"])) {
         if (preg_match($dateEventRegex, $_POST["dateResearch"])) {
-            $data = $objEvent->selectEventsByDate($_POST["dateResearch"]);
+
+            try {
+
+                $data = $objEvent->selectEventsByDate($_POST["dateResearch"]);
+            } catch (EventExceptionService $exc) {
+                echo $exc->getMessage();
+            }
         } else {
             $erreur = true;
             $message[] = "Erreur de saisie de la date";
@@ -43,7 +56,14 @@ if (!empty($_POST)) {
     }
     if (isset($_POST["tagResearch"])) {
         if (preg_match($tagRegex, $_POST["tagResearch"])) {
-            $data = $objAssoc->selectEventByTagName($_POST["tagResearch"]);
+
+
+            try {
+
+                $data = $objAssoc->selectEventByTagName($_POST["tagResearch"]);
+            } catch (EventExceptionService $exc) {
+                echo $exc->getMessage();
+            }
         } else {
             $erreur = true;
             $message[] = "Erreur de saisie du tag";
@@ -53,20 +73,44 @@ if (!empty($_POST)) {
 
 if (!isset($data)) {
     if (!empty($_GET["tag"])) {
-        $data = $objAssoc->selectEventByTagId(($_GET["tag"]));
+        try{
+
+            $data = $objAssoc->selectEventByTagId(($_GET["tag"]));
+
+        }catch(AssocExceptionService $exc){
+            echo $exc->getMessage();
+        }
     } else {
-        $data = $objEvent->selectAllEventsOfWeek();
+        try{
+
+            $data = $objEvent->selectAllEventsOfWeek();
+
+        }catch(EventExceptionService $exc){
+            echo $exc->getMessage();
+        }
     }
 }
 
+try{        
+    $listeIdOrga = $objEvent->listOfMostActivIdOrga();
+}catch(EventExceptionService $exc){
+    echo $exc->getMessage();
+}
 
-$listeIdOrga = $objEvent->listOfMostActivIdOrga();
+try{ 
+    $topTenTags = $objAssoc->selectTenMoreFrequentTags();
+}catch(AssocExceptionService $exc){
+    echo $exc->getMessage();
+}
 
-$topTenTags = $objAssoc->selectTenMoreFrequentTags();
 
 $orga = [];
 for ($i = 0; $i < 3; $i++) {
-    $org = $objOrga->selectAllOrgaById($listeIdOrga[$i]->getIdOrga());
+    try{ 
+        $org = $objOrga->selectAllOrgaById($listeIdOrga[$i]->getIdOrga());
+    }catch(OrgaExceptionService $exc){
+        echo $exc->getMessage();
+    }
     $orga[] = $org;
 }
 

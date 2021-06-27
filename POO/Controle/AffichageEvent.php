@@ -13,9 +13,21 @@ $obj2 = new OrganisateurService;
 $obj3 = new AssocTagEventService;
 
 if (isset($_GET["id"])) {
-    $data = $obj->selectAllEventById($_GET["id"]);
-    $name = $obj2->selectNameByIdOrga($data->getIdOrga());
-    $listTag = $obj3->selectTagListByEvent($_GET["id"]);
+    try {
+        $data = $obj->selectAllEventById($_GET["id"]);
+    } catch (EventExceptionService $exc) {
+        echo $exc->getMessage();
+    }
+    try {
+        $name = $obj2->selectNameByIdOrga($data->getIdOrga());
+    } catch (OrgaExceptionService $exc) {
+        echo $exc->getMessage();
+    }
+    try {
+        $listTag = $obj3->selectTagListByEvent($_GET["id"]);
+    } catch (TagExceptionService $exc) {
+        echo $exc->getMessage();
+    }
 }
 
 afficherEvent($data, $name, $listTag);

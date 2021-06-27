@@ -25,7 +25,11 @@ if (!isset($_POST)) {
 
 // if (isset($_GET["id"])) {
 $id = $_GET["id"];
-$data = $objEventService->selectAllEventById($id);
+try {
+    $data = $objEventService->selectAllEventById($id);
+} catch (EventExceptionService $exc) {
+    echo $exc->getMessage();
+}
 // }
 
 
@@ -102,8 +106,11 @@ if (!empty($_POST)) {
         $objPost->setUrlLien($_POST["urlLien"]);
         $objPost->setIdOrga($_SESSION["idOrga"]);
 
-
-        $objEventService->updateEvent($objPost, $id);
+        try {
+            $objEventService->updateEvent($objPost, $id);
+        } catch (EventExceptionService $exc) {
+            echo $exc->getMessage();
+        }
 
 
         // retrouver les relations existant dans Assoc           
@@ -116,7 +123,11 @@ if (!empty($_POST)) {
         $tabObjTagToCreate = [];
         if (!empty($tabDefTag)) {
             foreach ($tabDefTag as $newTag) {
-                $objTag = $objTagService->selectTagByName($newTag);
+                try {
+                    $objTag = $objTagService->selectTagByName($newTag);
+                } catch (EventExceptionService $exc) {
+                    echo $exc->getMessage();
+                }
                 if ($objTag->getFalse() == TRUE) {
                     $tabObjTagExist[] = $objTag;
                 } else {
@@ -146,16 +157,28 @@ if (!empty($_POST)) {
         // effacer les Assoc qui ne sont pas dans NewTag         
         if (!empty($tabAssocToErase)) {
             foreach ($tabAssocToErase as $assoc) {
-                $objAssocService->deleteAssoc($assoc->getIdAssocTagEvent());
+                try {
+                    $objAssocService->deleteAssoc($assoc->getIdAssocTagEvent());
+                } catch (AssocExceptionService $exc) {
+                    echo $exc->getMessage();
+                }
             }
         }
         // var_dump($tabTagToErase);
         // effacer les Tags si ils n'ont plus d'assoc            
         if (!empty($tabTagToErase)) {
             foreach ($tabTagToErase as $tag) {
-                $n = $objAssocService->numberOfAssocForATag($tag->getIdTag());
+                try {
+                    $n = $objAssocService->numberOfAssocForATag($tag->getIdTag());
+                } catch (AssocExceptionService $exc) {
+                    echo $exc->getMessage();
+                }
                 if ($n == 0) {
-                    $objTagService->deleteTag($tag->getIdTag());
+                    try {
+                        $objTagService->deleteTag($tag->getIdTag());
+                    } catch (TagExceptionService $exc) {
+                        echo $exc->getMessage();
+                    }
                 }
             }
         }
@@ -163,19 +186,31 @@ if (!empty($_POST)) {
         // inserer les newTag et liens si n'existent pas         
         if (!empty($tabTagToCreate)) {
             foreach ($tabTagToCreate as $tag) {
-                $idTag = $objTagService->insertTag($tag);
+                try {
+                    $idTag = $objTagService->insertTag($tag);
+                } catch (TagExceptionService $exc) {
+                    echo $exc->getMessage();
+                }
             }
             $assoc = new AssocTagEvent;
             $assoc->getEvenement($id);
             $assoc->getTag($idTag);
-            $objAssocService->insertAssoc($assoc);
+            try {
+                $objAssocService->insertAssoc($assoc);
+            } catch (AssocExceptionService $exc) {
+                echo $exc->getMessage();
+            }
         }
 
 
         header("location: AffichageEvent.php?id=" . $id);
     }
 }
-$dataTag = $objAssocService->selectTagListByEvent($id);
+try {
+    $dataTag = $objAssocService->selectTagListByEvent($id);
+} catch (AssocExceptionService $exc) {
+    echo $exc->getMessage();
+}
 
 
 afficherFormModifEvent($isThereError, $messages, $data, $dataTag);

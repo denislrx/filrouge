@@ -88,15 +88,26 @@ if (!empty($_POST)) {
         $objPost->setUrlLien($_POST["urlLien"]);
         $objPost->setIdOrga($_SESSION["idOrga"]);
 
-        $idEvent = $objService->insertEvent($objPost);
-
+        try {
+            $idEvent = $objService->insertEvent($objPost);
+        } catch (EventExceptionService $exc) {
+            echo $exc->getMessage();
+        }
         // var_dump($idEvent);
         if (!empty($tabDefTag)) {
             foreach ($tabDefTag as $tag) {
-                $t = $objTag->selectTagByName($tag);
+                try {
+                    $t = $objTag->selectTagByName($tag);
+                } catch (TagExceptionService $exc) {
+                    echo $exc->getMessage();
+                }
                 // var_dump($t);
                 if ($t->getFalse() == false) {
-                    $idTag = $objTag->insertTag($tag);
+                    try {
+                        $idTag = $objTag->insertTag($tag);
+                    } catch (TagExceptionService $exc) {
+                        echo $exc->getMessage();
+                    }
                 } else {
                     $idTag = $t->getIdTag();
                 }
@@ -105,7 +116,11 @@ if (!empty($_POST)) {
                 $assoc->setEvenement($idEvent);
                 $assoc->setTag($idTag);
                 // var_dump($assoc);
-                $objAssoc->insertAssoc($assoc);
+                try {
+                    $objAssoc->insertAssoc($assoc);
+                } catch (AssocExceptionService $exc) {
+                    echo $exc->getMessage();
+                }
             }
         }
 

@@ -9,26 +9,43 @@ if (isset($_GET["id"])) {
     $objTagService = new TagService;
     $objAssocService = new AssocTagEventService;
 
-
-    $tabTag = $objTagService->selectTagByIdEvent($_GET["id"]);
+    try{ 
+        $tabTag = $objTagService->selectTagByIdEvent($_GET["id"]);
+    }catch(TagExceptionService $exc){
+        echo $exc->getMessage();
+    }
     $tagToErase = [];
     foreach ($tabTag as $tag) {
         $id = $tag->getIdTag();
-        $i = $objAssocService->numberOfAssocForATag($id);
+        try{ 
+            $i = $objAssocService->numberOfAssocForATag($id);
+        }catch(AssocExceptionService $exc){
+            echo $exc->getMessage();
+        }
         if ($i == 1) {
             $tagToErase[] = $tag;
         }
     }
-
-    $objAssocService->deleteAssocByIdEvent($_GET["id"]);
+    try{ 
+        $objAssocService->deleteAssocByIdEvent($_GET["id"]);
+    }catch(AssocExceptionService $exc){
+        echo $exc->getMessage();
+    }
 
     if (!empty($tagToErase)) {
         foreach ($tagToErase as $tag) {
-            $objTagService->deleteTag($tag->getIdTag());
+            try{ 
+                $objTagService->deleteTag($tag->getIdTag());
+            }catch(TagExceptionService $exc){
+                echo $exc->getMessage();
+            }
         }
     }
-
-    $objEventService->deleteEvent($_GET["id"]);
+    try{ 
+        $objEventService->deleteEvent($_GET["id"]);
+    }catch(EventExceptionService $exc){
+        echo $exc->getMessage();
+    }
 }
 
 header("location:AfficherOrga.php");
