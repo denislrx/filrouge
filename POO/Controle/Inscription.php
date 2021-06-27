@@ -43,14 +43,16 @@ if ($_POST) {
         if (!isset($_POST["MDP2"]) || empty($_POST["MDP2"])) {
             $erreur = true;
             $messageErreur[] = "Saisisez le mot de passe une seconde fois";
+        } else {
+            if ($_POST["MDP1"] == $_POST["MDP2"]) {
+                $MDP = password_hash($_POST["MDP1"], PASSWORD_DEFAULT);
+            } else {
+                $erreur = true;
+                $messageErreur[] = "Les deux saisies de mots de passe ne correspondent pas";
+            }
         }
 
-        if ($_POST["MDP1"] == $_POST["MDP2"]) {
-            $MDP = password_hash($_POST["MDP1"], PASSWORD_DEFAULT);
-        } else {
-            $erreur = true;
-            $messageErreur[] = "Les deux saisies de mots de passe ne correspondent pas";
-        }
+
 
 
 

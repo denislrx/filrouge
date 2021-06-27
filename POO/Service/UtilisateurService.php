@@ -9,7 +9,7 @@ class UtilisateurService
 
     public function __construct()
     {
-        $this->ustilisateurDAO = new UtilisateurDAO;
+        $this->utilisateurDAO = new UtilisateurDAO;
     }
 
     function insererUtilisateur(Utilisateur $obj): void

@@ -107,11 +107,7 @@ class UtilisateurDAO extends ConnexionDAO
             throw new UserExceptionDAO($message, $exc->getCode);
         }
 
-        $tabDef = [];
-        foreach ($tabMail as $mail) {
-            $tabDef[] = $mail["mailUser"];
-        }
-        return  $tabDef;
+        return  $tabMail;
     }
 
     function validate($id)
