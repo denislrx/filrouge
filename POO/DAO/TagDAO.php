@@ -51,9 +51,9 @@ class TagDAO extends ConnexionDAO
             $stmt = $db->prepare("SELECT * FROM tag WHERE nomTag = ?");
             $stmt->bind_param("s", $name);
             $stmt->execute();
-            $db->close();
             $result = $stmt->get_result();
             $tag = $result->fetch_array(MYSQLI_ASSOC);
+            $db->close();
         } catch (mysqli_sql_exception $exc) {
             $message = "La fonction  selectTagByName() ne marche pas";
             throw new TagExceptionDAO($message, $exc->getCode);
