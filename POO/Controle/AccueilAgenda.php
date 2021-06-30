@@ -73,42 +73,41 @@ if (!empty($_POST)) {
 
 if (!isset($data)) {
     if (!empty($_GET["tag"])) {
-        try{
+        try {
 
             $data = $objAssoc->selectEventByTagId(($_GET["tag"]));
-
-        }catch(AssocExceptionService $exc){
+        } catch (AssocExceptionService $exc) {
             echo $exc->getMessage();
         }
     } else {
-        try{
+        try {
 
             $data = $objEvent->selectAllEventsOfWeek();
-
-        }catch(EventExceptionService $exc){
+        } catch (EventExceptionService $exc) {
             echo $exc->getMessage();
         }
     }
 }
 
-try{        
+try {
     $listeIdOrga = $objEvent->listOfMostActivIdOrga();
-}catch(EventExceptionService $exc){
+} catch (EventExceptionService $exc) {
     echo $exc->getMessage();
 }
 
-try{ 
+try {
     $topTenTags = $objAssoc->selectTenMoreFrequentTags();
-}catch(AssocExceptionService $exc){
+} catch (AssocExceptionService $exc) {
     echo $exc->getMessage();
 }
 
 
 $orga = [];
 for ($i = 0; $i < 3; $i++) {
-    try{ 
-        $org = $objOrga->selectAllOrgaById($listeIdOrga[$i]->getIdOrga());
-    }catch(OrgaExceptionService $exc){
+    try {
+        // var_dump($listeIdOrga);
+        $org = $objOrga->selectAllOrgaById($listeIdOrga[$i]["idOrga"]);
+    } catch (OrgaExceptionService $exc) {
         echo $exc->getMessage();
     }
     $orga[] = $org;

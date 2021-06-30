@@ -164,7 +164,7 @@ if (!empty($_POST)) {
                 }
             }
         }
-        // var_dump($tabTagToErase);
+        
         // effacer les Tags si ils n'ont plus d'assoc            
         if (!empty($tabTagToErase)) {
             foreach ($tabTagToErase as $tag) {

@@ -14,8 +14,11 @@ if (isset($_GET["status"])) {
     }
 }
 
+session_start();
 $token = bin2hex(random_bytes(20));
-$_SESSION["csrf_token"] = $token;
+if (!$_POST) {
+    $_SESSION["csrf_token"] = $token;
+}
 
 if ($_POST) {
     if ($_SESSION["csrf_token"] == $_POST["csrf_token"]) {

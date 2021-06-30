@@ -17,14 +17,20 @@ if (!empty($_POST["mailUser"])) {
     }
 }
 
+session_start();
 $token = bin2hex(random_bytes(20));
-$_SESSION["csrf_token"] = $token;
+if (!$_POST) {
+    $_SESSION["csrf_token"] = $token;
+};
+
+
+
 
 if ($_POST) {
     if ($_SESSION["csrf_token"] == $_POST["csrf_token"]) {
-        try{ 
+        try {
             $dataUser = $objUser->selectAllByMail($_POST["mailUser"]);
-        }catch(UserExceptionService $exc){
+        } catch (UserExceptionService $exc) {
             echo $exc->getMessage();
         }
 
@@ -37,9 +43,9 @@ if ($_POST) {
 
 
             if ($_SESSION["profil"] != "admin") {
-                try{ 
+                try {
                     $objId = $objOrga->selectAllOrgaByIdUser($_SESSION["idUser"]);
-                }catch(OrgaExceptionService $exc){
+                } catch (OrgaExceptionService $exc) {
                     echo $exc->getMessage();
                 }
 
@@ -59,10 +65,15 @@ if ($_POST) {
     } else {
         $erreur = true;
         $message = "Token invalide";
+        // var_dump($_SESSION["csrf_token"]);
+        // var_dump($_POST["csrf_token"]);
+        // var_dump($token);
     }
 }
 
 
 
-
+// var_dump($_SESSION["csrf_token"]);
+// var_dump($token);
+// var_dump($_SESSION);
 afficherConex($erreur, $message, $token);

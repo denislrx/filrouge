@@ -19,7 +19,7 @@ function afficherAdmin($tabOrgaNoob, $tabOrgaUser, $tabLastPublishedEvent)
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
-    <script src="js/script.js"></script>
+    <script src="../Presentation/JS/scriptCarrousel.js"></script>
 
     </html>
 <?php
@@ -70,15 +70,17 @@ function viewBodyAdmin($tabOrgaNoob, $tabOrgaUser, $tabLastPublishedEvent)
                 <?php
                 foreach ($tabOrgaNoob as $orgaNoob) {
                 ?>
+
                     <tr>
-                        <td> <a href="AffichageOrga.php?id=.<?php echo $orgaNoob->getIdOrga() ?>"><?php echo $orgaNoob->getNom() ?></a></td>
-                        <td> <?php echo $orgaNoob->getMail() ?> </td>
+                        <td> <a href="AffichageOrga.php?id=<?php echo $orgaNoob->getIdOrga() ?>"><?php echo $orgaNoob->getNom() ?></a></td>
+                        <td> <?php echo $orgaNoob->getEmail() ?> </td>
                         <td> <?php echo $orgaNoob->getTelephone() ?> </td>
-                        <td> <a href="validate.php?id=.<?php $orgaNoob->getIdUser() ?>"><button class="btn btn-primary">Valider</button> </a></td>
+                        <td> <a href="validate.php?id=<?php echo $orgaNoob->getIdUser() ?>"><button class="btn btn-primary">Valider</button> </a></td>
                     </tr>
                 <?php
                 }
                 ?>
+            </table>
 
         </div>
 
@@ -96,8 +98,8 @@ function viewBodyAdmin($tabOrgaNoob, $tabOrgaUser, $tabLastPublishedEvent)
 
 
                     <tr>
-                        <td> <a href="AffichageOrga.php?id=.<?php echo $orgaUser->getIdOrga() ?>"><?php echo $orgaUser->getNom() ?></a></td>
-                        <td> <?php echo $orgaUser->getMail() ?> </td>
+                        <td> <a href="AffichageOrga.php?id=<?php echo $orgaUser->getIdOrga() ?>"><?php echo $orgaUser->getNom() ?></a></td>
+                        <td> <?php echo $orgaUser->getEmail() ?> </td>
                         <td> <?php echo $orgaUser->getTelephone() ?> </td>
                     </tr>
 
@@ -105,9 +107,10 @@ function viewBodyAdmin($tabOrgaNoob, $tabOrgaUser, $tabLastPublishedEvent)
                 <?php
                 }
                 ?>
-                <table>
+            </table>
         </div>
 
+        <h2>Derniers évenements publiés</h2>
         <div class="footer">
             <div id="wrapper">
                 <div id="carousel">

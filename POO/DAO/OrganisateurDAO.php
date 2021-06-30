@@ -252,6 +252,7 @@ class OrganisateurDAO extends ConnexionDAO
             $objOrga->setAdresseSite($d["adresseSite"]);
             $objOrga->setImage($d["image"]);
             $objOrga->setDateCreation($d["dateCreation"]);
+            $objOrga->setIdUser($d["idUser"]);
             $tabEvent[] = $objOrga;
         }
         return $tabEvent;

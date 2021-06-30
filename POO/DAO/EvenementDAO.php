@@ -196,14 +196,8 @@ class EvenementDAO extends ConnexionDAO
             $message = "La fonction  listOfMostActivIdOrga() ne marche pas";
             throw new EventExceptionDAO($message, $exc->getCode);
         }
-        $tabObjEvent = [];
-        foreach ($dataSet as $data) {
-            $objEvent = new Evenement;
-            $objEvent->setIdOrga($data["idOrga"]);
-            $tabObjEvent[] = $objEvent;
-        }
-        // var_dump(count($tabObjEvent));
-        return $tabObjEvent;
+        // var_dump($dataSet);
+        return $dataSet;
     }
 
     function selectEventByIdOrga($id)

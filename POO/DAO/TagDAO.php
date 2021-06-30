@@ -47,6 +47,7 @@ class TagDAO extends ConnexionDAO
     {
         try {
             $db = parent::connexion();
+
             $stmt = $db->prepare("SELECT * FROM tag WHERE nomTag = ?");
             $stmt->bind_param("s", $name);
             $stmt->execute();
